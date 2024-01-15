@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkpinntag_fe=self.webpackChunkpinntag_fe||[]).push([[583],{583:(e,a,n)=>{n.r(a),n.d(a,{default:()=>l});n(791);var s=n(184);const l=()=>(0,s.jsx)("div",{children:"Imagegallery"})}}]);
+//# sourceMappingURL=583.ccaafb80.chunk.js.map

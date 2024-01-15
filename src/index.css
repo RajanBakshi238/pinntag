@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+* {
+  @apply p-0 m-0;
+}
+.common-input {
+  @apply !border-2 !border-[#00000095] placeholder:text-[#00000080] placeholder:font-semibold !outline-none !rounded-md !text-[18px] !px-3 !py-1 
+}
+.common-textarea {
+  @apply border-2 !border-[#00000095] placeholder:text-[#00000080]  placeholder:font-semibold outline-none rounded resize-none text-[18px] p-3
+}
+.common-select {
+  @apply border-2 !border-[#00000095] placeholder:text-[#00000080]  placeholder:font-semibold  outline-none rounded resize-none text-[18px] p-3
+}
