@@ -71,7 +71,7 @@ const BuisnessDetails = () => {
               onChange={setPhone}
             />
             <input placeholder='Email address' className='common-input'  {...register("email-address")}/>
-            <input placeholder='Buisness web site' className='common-input'  {...register("website-address")}/>
+            <input placeholder='Business web site' className='common-input'  {...register("website-address")}/>
             </div>
             <div className='w-1/2 flex flex-col  mob:w-full gap-[30px] items-center justify-center'>
                 <div>

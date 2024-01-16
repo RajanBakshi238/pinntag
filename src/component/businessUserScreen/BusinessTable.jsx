@@ -34,7 +34,7 @@ const BusinessTable = () => {
                   <td class="whitespace-nowrap flex justify-center  px-2 py-2">
                     <Image
                       src={
-                        "https://github.com/ImageGlass/sample-images/blob/master/Samples/JPG/auto_rotate.jpg?raw=true"
+                        "https://www.photoshopessentials.com/newsite/wp-content/uploads/2018/08/resize-images-print-photoshop-f.jpg"
                       }
                       className={"w-7 h-7 rounded-3xl"}
                       alt={"test_image"}
@@ -49,7 +49,7 @@ const BusinessTable = () => {
                   <td class="whitespace-nowrap flex justify-center px-2 py-2">
                     <Image
                       src={
-                        "https://github.com/ImageGlass/sample-images/blob/master/Samples/JPG/auto_rotate.jpg?raw=true"
+                        "https://www.photoshopessentials.com/newsite/wp-content/uploads/2018/08/resize-images-print-photoshop-f.jpg"
                       }
                       className={"w-7 h-7 rounded-3xl"}
                       alt={"test_image"}
@@ -64,7 +64,7 @@ const BusinessTable = () => {
                   <td class="whitespace-nowrap flex justify-center px-2 py-2">
                     <Image
                       src={
-                        "https://github.com/ImageGlass/sample-images/blob/master/Samples/JPG/auto_rotate.jpg?raw=true"
+                        "https://www.photoshopessentials.com/newsite/wp-content/uploads/2018/08/resize-images-print-photoshop-f.jpg"
                       }
                       className={"w-7 h-7 rounded-3xl"}
                       alt={"test_image"}
@@ -79,7 +79,7 @@ const BusinessTable = () => {
                   <td class="whitespace-nowrap flex justify-center px-2 py-2">
                     <Image
                       src={
-                        "https://github.com/ImageGlass/sample-images/blob/master/Samples/JPG/auto_rotate.jpg?raw=true"
+                        "https://www.photoshopessentials.com/newsite/wp-content/uploads/2018/08/resize-images-print-photoshop-f.jpg"
                       }
                       className={"w-7 h-7 rounded-3xl"}
                       alt={"test_image"}
@@ -94,7 +94,7 @@ const BusinessTable = () => {
                   <td class="whitespace-nowrap flex justify-center px-2 py-2">
                     <Image
                       src={
-                        "https://github.com/ImageGlass/sample-images/blob/master/Samples/JPG/auto_rotate.jpg?raw=true"
+                        "https://www.photoshopessentials.com/newsite/wp-content/uploads/2018/08/resize-images-print-photoshop-f.jpg"
                       }
                       className={"w-7 h-7 rounded-3xl"}
                       alt={"test_image"}
