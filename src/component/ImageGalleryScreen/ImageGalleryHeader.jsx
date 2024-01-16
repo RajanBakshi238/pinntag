@@ -1,6 +1,6 @@
 import React from "react";
 import Text from "../../common/Text";
-import { Add, FilterAlt } from "@mui/icons-material";
+import { Add } from "@mui/icons-material";
 
 const ImageGalleryHeader = () => {
   return (

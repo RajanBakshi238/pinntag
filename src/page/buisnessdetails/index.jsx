@@ -11,7 +11,7 @@ const BuisnessDetails = () => {
   const [phone, setPhone] = useState()
   const {
     register,
-    getValues,
+    // getValues,
     handleSubmit,
   } = useForm();
 
@@ -19,10 +19,9 @@ const BuisnessDetails = () => {
     register : socialRegister,
     control,
     handleSubmit : socialSubmit,
-    reset,
-    setValue,
-    getValues : sociaFormValues,
-    formState: { errors },
+    
+    getValues ,
+    // formState,
   } = useForm({
     defaultValues: {
      social : [{
@@ -38,12 +37,12 @@ const BuisnessDetails = () => {
   const {
     fields: socialName,
     append: socialAppend,
-    prepend: socialPrepend,
-    remove: socialRemove,
-    swap: socialSwap,
-    move: socialMove,
-    insert: socialInsert,
-    update: socialUpdate,
+    // prepend: socialPrepend,
+    // remove: socialRemove,
+    // swap: socialSwap,
+    // move: socialMove,
+    // insert: socialInsert,
+    // update: socialUpdate,
   } = useFieldArray({
     control,
     name: "social",

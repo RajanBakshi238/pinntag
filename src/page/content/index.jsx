@@ -7,7 +7,7 @@ import {
   MenuOutlined,
 } from "@mui/icons-material";
 import CardView from "../../component/contentScreen/CardView";
-import ListView from "../../component/contentScreen/ListView";
+// import ListView from "../../component/contentScreen/ListView";
 
 const Content = () => {
   return (
