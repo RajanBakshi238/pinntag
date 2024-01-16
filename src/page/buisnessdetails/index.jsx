@@ -54,7 +54,7 @@ const BuisnessDetails = () => {
          <form className='flex w-full gap-4 px-10 py-6 mob:flex-col-reverse' onSubmit={handleSubmit}>
             <div className='flex flex-col w-1/2 gap-4 mob:w-full'>
           <Text className="text-[24px] font-extrabold">Business Details</Text>
-            <input placeholder='Buisness Name' className='common-input'  {...register("buisnessname")}/>
+            <input placeholder='Business Name' className='common-input'  {...register("buisnessname")}/>
             <textarea placeholder='Description' className='common-textarea' rows={3} {...register("description")}/>
             <select className='common-select' {...register("category")} placeholder="Category">
               <option>category1</option>

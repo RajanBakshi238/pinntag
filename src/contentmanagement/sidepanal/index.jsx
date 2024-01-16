@@ -10,7 +10,7 @@ export const sidepanalLinks = [{
     Title  : "Image Gallery",
     Link : PATHS.imageGallery
 }, {
-    Title : "Buisness Users",
+    Title : "Business Users",
     Link : PATHS.buisnessUser
 }]
 
@@ -23,61 +23,61 @@ export const status = {
 export const socialMediaPost = [{
     status : status.active,
     discription : "Free Coffee with Breakfast Entre",
-    image : "https://github.com/ImageGlass/sample-images/blob/master/Samples/JPG/auto_rotate.jpg?raw=true"   
+    image : "https://images.pexels.com/photos/531880/pexels-photo-531880.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"   
 },{
     status : status.active,
     discription : "Free Coffee with Breakfast Entre",
-    image : "https://github.com/ImageGlass/sample-images/blob/master/Samples/JPG/auto_rotate.jpg?raw=true"   
+    image : "https://images.pexels.com/photos/531880/pexels-photo-531880.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"   
 },{
     status : status.scheduled,
     discription : "Free Coffee with Breakfast Entre",
-    image : "https://github.com/ImageGlass/sample-images/blob/master/Samples/JPG/auto_rotate.jpg?raw=true"   
+    image : "https://images.pexels.com/photos/531880/pexels-photo-531880.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"   
 },{
     status : status.inActive,
     discription : "Free Coffee with Breakfast Entre",
-    image : "https://github.com/ImageGlass/sample-images/blob/master/Samples/JPG/auto_rotate.jpg?raw=true"   
+    image : "https://images.pexels.com/photos/531880/pexels-photo-531880.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"   
 },{
     status : status.active,
     discription : "Free Coffee with Breakfast Entre",
-    image : "https://github.com/ImageGlass/sample-images/blob/master/Samples/JPG/auto_rotate.jpg?raw=true"   
+    image : "https://images.pexels.com/photos/531880/pexels-photo-531880.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"   
 },{
     status : status.active,
     discription : "Free Coffee with Breakfast Entre",
-    image : "https://github.com/ImageGlass/sample-images/blob/master/Samples/JPG/auto_rotate.jpg?raw=true"   
+    image : "https://images.pexels.com/photos/531880/pexels-photo-531880.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"   
 },{
     status : status.active,
     discription : "Free Coffee with Breakfast Entre",
-    image : "https://github.com/ImageGlass/sample-images/blob/master/Samples/JPG/auto_rotate.jpg?raw=true"   
+    image : "https://images.pexels.com/photos/531880/pexels-photo-531880.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"   
 },{
     status : status.active,
     discription : "Free Coffee with Breakfast Entre",
-    image : "https://github.com/ImageGlass/sample-images/blob/master/Samples/JPG/auto_rotate.jpg?raw=true"   
+    image : "https://images.pexels.com/photos/531880/pexels-photo-531880.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"   
 },{
     status : status.active,
     discription : "Free Coffee with Breakfast Entre",
-    image : "https://github.com/ImageGlass/sample-images/blob/master/Samples/JPG/auto_rotate.jpg?raw=true"   
+    image : "https://images.pexels.com/photos/531880/pexels-photo-531880.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"   
 },{
     status : status.active,
     discription : "Free Coffee with Breakfast Entre",
-    image : "https://github.com/ImageGlass/sample-images/blob/master/Samples/JPG/auto_rotate.jpg?raw=true"   
+    image : "https://images.pexels.com/photos/531880/pexels-photo-531880.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"   
 },{
     status : status.active,
     discription : "Free Coffee with Breakfast Entre",
-    image : "https://github.com/ImageGlass/sample-images/blob/master/Samples/JPG/auto_rotate.jpg?raw=true"   
+    image : "https://images.pexels.com/photos/531880/pexels-photo-531880.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"   
 },{
     status : status.active,
     discription : "Free Coffee with Breakfast Entre",
-    image : "https://github.com/ImageGlass/sample-images/blob/master/Samples/JPG/auto_rotate.jpg?raw=true"   
+    image : "https://images.pexels.com/photos/531880/pexels-photo-531880.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"   
 },{
     status : status.active,
     discription : "Free Coffee with Breakfast Entre",
-    image : "https://github.com/ImageGlass/sample-images/blob/master/Samples/JPG/auto_rotate.jpg?raw=true"   
+    image : "https://images.pexels.com/photos/531880/pexels-photo-531880.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"   
 },{
     status : status.active,
     discription : "Free Coffee with Breakfast Entre",
-    image : "https://github.com/ImageGlass/sample-images/blob/master/Samples/JPG/auto_rotate.jpg?raw=true"   
+    image : "https://images.pexels.com/photos/531880/pexels-photo-531880.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"   
 },{
     status : status.active,
     discription : "Free Coffee with Breakfast Entre",
-    image : "https://github.com/ImageGlass/sample-images/blob/master/Samples/JPG/auto_rotate.jpg?raw=true"   
+    image : "https://images.pexels.com/photos/531880/pexels-photo-531880.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"   
 }]
