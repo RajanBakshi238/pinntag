@@ -38,7 +38,7 @@ const BuisnessDetails = () => {
     fields: socialName,
     append: socialAppend,
     // prepend: socialPrepend,
-    // remove: socialRemove,
+    remove: socialRemove,
     // swap: socialSwap,
     // move: socialMove,
     // insert: socialInsert,
