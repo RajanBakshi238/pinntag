@@ -5,7 +5,7 @@ import DeleteOutline from "@mui/icons-material/DeleteOutline";
 const ImageGalleryGrid = () => {
   return (
     <div className="mx-12">
-      <div class="grid grid-cols-4 gap-4">
+      <div class="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-4">
         <div className="relative">
           <DeleteOutline className="text-white rounded-2xl bg-black absolute top-2 right-2" />
           <Image
