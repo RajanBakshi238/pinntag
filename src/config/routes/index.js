@@ -18,7 +18,6 @@ export const PATHS = {
 export const routeslist = [
   {
     path: "/",
-    // element: <>{<Outlet />}</>,
     element: <Layout />,
     children: [
       {

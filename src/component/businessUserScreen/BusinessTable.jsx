@@ -1,9 +1,9 @@
 import React from "react";
 import Image from "../image";
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
-const BusinessTable = () => {
+const BusinessTable = ({ handleOpen }) => {
   return (
     <div class="flex flex-col mx-12">
       <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -40,10 +40,21 @@ const BusinessTable = () => {
                       alt={"test_image"}
                     />
                   </td>
-                  <td class="whitespace-nowrap font-semibold px-6 py-2 underline">Robin Seth</td>
-                  <td class="whitespace-nowrap font-semibold px-6 py-2">Admin</td>
-                  <td class="whitespace-nowrap  px-6 py-2"><EditIcon className="text-white rounded-2xl bg-black " /></td>
-                  <td class="whitespace-nowrap  px-6 py-2"><DeleteIcon className="text-white rounded-2xl bg-black "/></td>
+                  <td class="whitespace-nowrap font-semibold px-6 py-2 underline">
+                    Robin Seth
+                  </td>
+                  <td class="whitespace-nowrap font-semibold px-6 py-2">
+                    Admin
+                  </td>
+                  <td class="whitespace-nowrap  px-6 py-2">
+                    <EditIcon
+                      onClick={handleOpen}
+                      className="cursor-pointer text-white rounded-2xl bg-black "
+                    />
+                  </td>
+                  <td class="whitespace-nowrap  px-6 py-2">
+                    <DeleteIcon className="text-white rounded-2xl bg-black " />
+                  </td>
                 </tr>
                 <tr class="border-2 border-[#000000]">
                   <td class="whitespace-nowrap flex justify-center px-2 py-2">
@@ -55,10 +66,21 @@ const BusinessTable = () => {
                       alt={"test_image"}
                     />
                   </td>
-                  <td class="whitespace-nowrap font-semibold px-6 py-2 underline">Donna Tellam</td>
-                  <td class="whitespace-nowrap font-semibold px-6 py-2">Editor</td>
-                  <td class="whitespace-nowrap  px-6 py-2"><EditIcon className="text-white rounded-2xl bg-black "/></td>
-                  <td class="whitespace-nowrap  px-6 py-2"><DeleteIcon className="text-white rounded-2xl bg-black "/></td>
+                  <td class="whitespace-nowrap font-semibold px-6 py-2 underline">
+                    Donna Tellam
+                  </td>
+                  <td class="whitespace-nowrap font-semibold px-6 py-2">
+                    Editor
+                  </td>
+                  <td class="whitespace-nowrap  px-6 py-2">
+                    <EditIcon
+                      onClick={handleOpen}
+                      className="cursor-pointer text-white rounded-2xl bg-black "
+                    />
+                  </td>
+                  <td class="whitespace-nowrap  px-6 py-2">
+                    <DeleteIcon className="text-white rounded-2xl bg-black " />
+                  </td>
                 </tr>
                 <tr class="border-2 border-[#000000]">
                   <td class="whitespace-nowrap flex justify-center px-2 py-2">
@@ -70,10 +92,21 @@ const BusinessTable = () => {
                       alt={"test_image"}
                     />
                   </td>
-                  <td class="whitespace-nowrap font-semibold px-6 py-2 underline">Donna Tellam</td>
-                  <td class="whitespace-nowrap font-semibold px-6 py-2">Editor</td>
-                  <td class="whitespace-nowrap  px-6 py-2"><EditIcon className="text-white rounded-2xl bg-black " /></td>
-                  <td class="whitespace-nowrap  px-6 py-2"><DeleteIcon className="text-white rounded-2xl bg-black "/></td>
+                  <td class="whitespace-nowrap font-semibold px-6 py-2 underline">
+                    Donna Tellam
+                  </td>
+                  <td class="whitespace-nowrap font-semibold px-6 py-2">
+                    Editor
+                  </td>
+                  <td class="whitespace-nowrap  px-6 py-2">
+                    <EditIcon
+                      onClick={handleOpen}
+                      className="cursor-pointer text-white rounded-2xl bg-black "
+                    />
+                  </td>
+                  <td class="whitespace-nowrap  px-6 py-2">
+                    <DeleteIcon className="text-white rounded-2xl bg-black " />
+                  </td>
                 </tr>
                 <tr class="border-2 border-[#000000]">
                   <td class="whitespace-nowrap flex justify-center px-2 py-2">
@@ -85,10 +118,21 @@ const BusinessTable = () => {
                       alt={"test_image"}
                     />
                   </td>
-                  <td class="whitespace-nowrap font-semibold px-6 py-2 underline">Donna Tellam</td>
-                  <td class="whitespace-nowrap font-semibold px-6 py-2">Editor</td>
-                  <td class="whitespace-nowrap  px-6 py-2"><EditIcon className="text-white rounded-2xl bg-black " /></td>
-                  <td class="whitespace-nowrap  px-6 py-2"><DeleteIcon className="text-white rounded-2xl bg-black " /></td>
+                  <td class="whitespace-nowrap font-semibold px-6 py-2 underline">
+                    Donna Tellam
+                  </td>
+                  <td class="whitespace-nowrap font-semibold px-6 py-2">
+                    Editor
+                  </td>
+                  <td class="whitespace-nowrap  px-6 py-2">
+                    <EditIcon
+                      onClick={handleOpen}
+                      className="cursor-pointer text-white rounded-2xl bg-black "
+                    />
+                  </td>
+                  <td class="whitespace-nowrap  px-6 py-2">
+                    <DeleteIcon className="text-white rounded-2xl bg-black " />
+                  </td>
                 </tr>
                 <tr class="">
                   <td class="whitespace-nowrap flex justify-center px-2 py-2">
@@ -100,10 +144,21 @@ const BusinessTable = () => {
                       alt={"test_image"}
                     />
                   </td>
-                  <td class="whitespace-nowrap font-semibold px-6 py-2 underline">John Smith</td>
-                  <td class="whitespace-nowrap font-semibold px-6 py-2">Editor</td>
-                  <td class="whitespace-nowrap  px-6 py-2"><EditIcon className="text-white rounded-2xl bg-black " /></td>
-                  <td class="whitespace-nowrap  px-6 py-2"><DeleteIcon className="text-white rounded-2xl bg-black " /></td>
+                  <td class="whitespace-nowrap font-semibold px-6 py-2 underline">
+                    John Smith
+                  </td>
+                  <td class="whitespace-nowrap font-semibold px-6 py-2">
+                    Editor
+                  </td>
+                  <td class="whitespace-nowrap  px-6 py-2">
+                    <EditIcon
+                      onClick={handleOpen}
+                      className="text-white cursor-pointer rounded-2xl bg-black "
+                    />
+                  </td>
+                  <td class="whitespace-nowrap  px-6 py-2">
+                    <DeleteIcon className="text-white rounded-2xl bg-black " />
+                  </td>
                 </tr>
               </tbody>
             </table>
