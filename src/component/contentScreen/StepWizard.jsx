@@ -87,7 +87,7 @@ const StepWizard = ({ step }) => {
       <Box sx={{ width: "50%", margin: "auto" }}>
         <Stepper
           alternativeLabel
-          activeStep={step}
+          activeStep={step+""}
           connector={<QontoConnector />}
         >
           {Array(MAX_STEP)
