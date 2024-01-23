@@ -12,7 +12,7 @@ const PrimaryModal = ({ open, handleClose, children, modalClass }) => {
     >
       <div className={classNames(["w-1/2 py-2 px-5 outline-none bg-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 border-none rounded-lg", modalClass])}>
         {children}
-      </div>
+    </div>
     </Modal>
   );
 };
