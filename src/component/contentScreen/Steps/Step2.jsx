@@ -1,17 +1,22 @@
-import React from 'react'
-import DatePicker from 'react-multi-date-picker'
-import { Calendar } from "react-multi-date-picker"
+import React from "react";
+import { Calendar } from "react-multi-date-picker";
+
+import "react-multi-date-picker/styles/colors/yellow.css"
+
 const Step2 = () => {
   return (
-    <div className='mx-auto'>
-      <Calendar
-        value={new Date()}
-        // onChange={handleChange}
-      />
-
-
+    <div>
+      <div className="custom-calendar">
+        <Calendar
+          value={new Date()}
+          className="yellow"
+          headerOrder={["MONTH_YEAR", "LEFT_BUTTON", "RIGHT_BUTTON"]} 
+          monthYearSeparator=" "
+          // onChange={handleChange}
+        />
+      </div>  
     </div>
-  )
-}
+  );
+};
 
-export default Step2
+export default Step2;

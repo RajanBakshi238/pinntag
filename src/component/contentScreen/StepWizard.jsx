@@ -24,7 +24,8 @@ const QontoConnector = styled(StepConnector)(({ theme }) => ({
   },
   [`&.${stepConnectorClasses.completed}`]: {
     [`& .${stepConnectorClasses.line}`]: {
-      borderColor: "#784af4",
+      // borderColor: "#784af4",
+      borderColor: "#000",
     },
   },
   [`& .${stepConnectorClasses.line}`]: {
@@ -43,7 +44,8 @@ const QontoStepIconRoot = styled("div")(({ theme, ownerState }) => ({
   height: 22,
   alignItems: "center",
   ...(ownerState.active && {
-    color: "#784af4",
+    // color: "#784af4",
+    color: "#000",
   }),
   "& .QontoStepIcon-completedIcon": {
     color: "#000",

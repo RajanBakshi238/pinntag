@@ -11,13 +11,15 @@ import PrimaryButton from "../../common/FormElements/Button/PrimaryButton";
 import Step3 from "./Steps/Step3";
 import Step4 from "./Steps/Step4";
 
+import "./content.css"
+
 const INC = "inc"
 const DEC = "dec"
 
 const CreateContent = ({ open, handleClose }) => {
   const [currentStep, setCurrentStep] = useState(1);
 
-  const handeStep = (type) => {
+  const handleStep = (type) => {
     if(currentStep === 4 && type === INC){
       return
     }
@@ -29,7 +31,7 @@ const CreateContent = ({ open, handleClose }) => {
   }
 
   return (
-    <PrimaryModal open={open} handleClose={handleClose}>
+    <PrimaryModal open={open} handleClose={handleClose} modalClass="w-[380px] sm:w-[500px] md:w-1/2 lg:w-2/5 xl:w-1/3">
       <div className="pb-4">
         <h1 className="text-center font-medium text-xl">Create Content</h1>
       </div>
@@ -53,14 +55,14 @@ const CreateContent = ({ open, handleClose }) => {
           {currentStep === 1 ?
             <SecondaryButton>
               <>Cancel</>
-            </SecondaryButton> : <SecondaryButton onClick={() => handeStep(DEC)}>
+            </SecondaryButton> : <SecondaryButton onClick={() => handleStep(DEC)}>
               <>Back</>
             </SecondaryButton>
           }
 
         </div>
         <div>
-          <PrimaryButton onClick={() => handeStep(INC)}>
+          <PrimaryButton onClick={() => handleStep(INC)}>
             <span>Next</span>
             <ChevronRightIcon className="!text-white" />
           </PrimaryButton>
