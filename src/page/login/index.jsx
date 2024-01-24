@@ -2,6 +2,23 @@ import React, { useState } from "react";
 import PrimaryButton from "../../common/FormElements/Button/PrimaryButton";
 
 const Login = () => {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData((prev) => ({
+        ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleSubmit = () => {
+    console.log(formData, ">>>>> formdata")
+
+    
+  }
 
   return (
     <div className="flex justify-center items-center w-full">
@@ -11,13 +28,13 @@ const Login = () => {
         </h1>
         <div className="">
           <div className="mb-4">
-            <input type="text" className="model-input" placeholder="Login" />
+            <input type="text" className="model-input" name="email" placeholder="Login" onChange={handleChange} />
           </div>
           <div className="mb-4">
-            <input type="text" className="model-input" placeholder="Password" />
+            <input type="password" className="model-input" name="password" placeholder="Password" onChange={handleChange} />
           </div>
           <div className="flex justify-center">
-            <PrimaryButton inputClass="py-2 w-1/3">Sign in</PrimaryButton>
+            <PrimaryButton onClick={handleSubmit} inputClass="py-2 w-1/3">Sign in</PrimaryButton>
           </div>
         </div>
       </div>

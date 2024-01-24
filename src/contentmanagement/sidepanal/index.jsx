@@ -10,7 +10,7 @@ export const sidepanalLinks = [{
     Title  : "Image Gallery",
     Link : "/dashboard/image-gallery"
 }, {
-    Title : "/business-user",
+    Title : "Business User",
     Link : "/dashboard/business-user"
 }]
 

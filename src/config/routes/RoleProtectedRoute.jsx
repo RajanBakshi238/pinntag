@@ -1,3 +1,8 @@
+import { useState } from "react";
+import { Navigate } from "react-router-dom";
+
+export const PINNTAG_USER = "pinntag-user"
+
 const RoleProtectedRoute = ({element}) => {
     // let a =1
     // if(a===1){
@@ -6,8 +11,15 @@ const RoleProtectedRoute = ({element}) => {
     // }else{
     //     return <></>
     // }
+    const [user] = useState(localStorage.getItem(PINNTAG_USER))
 
-    return element;
+    if(user){
+
+        return element;
+    } else{
+        return <Navigate to={"/login"} />
+    }
+
 
 }
 
