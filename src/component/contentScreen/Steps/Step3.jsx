@@ -12,7 +12,7 @@ const Step3 = () => {
             width: "100%",
             margin: "auto"
           }}
-          center={[30.704649, 76.717873]}
+          center={[28.704060, 77.102493]}
           zoom={15}
         >
           {/* add google map tile url  */}

@@ -15,7 +15,7 @@ const ImageGalleryGrid = () => {
           <DeleteOutline className="text-white rounded-2xl bg-black absolute top-2 right-2" />
           <Image
             src={pizza}
-            className={"border-2 rounded-lg h-28 border-black  w-full"}
+            className={"border-2 rounded-lg h-36 lg:h-40 border-black  w-full"}
             alt={"test_image"}
           />
         </div>
@@ -23,7 +23,7 @@ const ImageGalleryGrid = () => {
           <DeleteOutline className="text-white rounded-2xl bg-black absolute top-2 right-2" />
           <Image
             src={picture}
-            className={"border-2 rounded-lg h-28 border-black  w-full"}
+            className={"border-2 rounded-lg h-36 lg:h-40 border-black  w-full"}
             alt={"test_image"}
           />
         </div>
@@ -31,7 +31,7 @@ const ImageGalleryGrid = () => {
           <DeleteOutline className="text-white rounded-2xl bg-black absolute top-2 right-2" />
           <Image
             src={picture1}
-            className={"border-2 rounded-lg h-28 border-black  w-full"}
+            className={"border-2 rounded-lg h-36 lg:h-40 border-black  w-full"}
             alt={"test_image"}
           />
         </div>
@@ -39,7 +39,7 @@ const ImageGalleryGrid = () => {
           <DeleteOutline className="text-white rounded-2xl bg-black absolute top-2 right-2" />
           <Image
             src={picture2}
-            className={"border-2 rounded-lg h-28 border-black  w-full"}
+            className={"border-2 rounded-lg h-36 lg:h-40 border-black  w-full"}
             alt={"test_image"}
           />
         </div>
@@ -47,7 +47,7 @@ const ImageGalleryGrid = () => {
           <DeleteOutline className="text-white rounded-2xl bg-black absolute top-2 right-2" />
           <Image
             src={picture1}
-            className={"border-2 rounded-lg h-28 border-black  w-full"}
+            className={"border-2 rounded-lg h-36 lg:h-40 border-black  w-full"}
             alt={"test_image"}
           />
         </div>
@@ -55,7 +55,7 @@ const ImageGalleryGrid = () => {
           <DeleteOutline className="text-white rounded-2xl bg-black absolute top-2 right-2" />
           <Image
             src={pizza}
-            className={"border-2 rounded-lg h-28 border-black  w-full"}
+            className={"border-2 rounded-lg h-36 lg:h-40 border-black  w-full"}
             alt={"test_image"}
           />
         </div>
@@ -63,7 +63,7 @@ const ImageGalleryGrid = () => {
           <DeleteOutline className="text-white rounded-2xl bg-black absolute top-2 right-2" />
           <Image
             src={picture2}
-            className={"border-2 rounded-lg h-28 border-black  w-full"}
+            className={"border-2 rounded-lg h-36 lg:h-40 border-black  w-full"}
             alt={"test_image"}
           />
         </div>
@@ -71,7 +71,7 @@ const ImageGalleryGrid = () => {
           <DeleteOutline className="text-white rounded-2xl bg-black absolute top-2 right-2" />
           <Image
             src={picture1}
-            className={"border-2 rounded-lg h-28 border-black  w-full"}
+            className={"border-2 rounded-lg h-36 lg:h-40 border-black  w-full"}
             alt={"test_image"}
           />
         </div>
@@ -79,7 +79,7 @@ const ImageGalleryGrid = () => {
           <DeleteOutline className="text-white rounded-2xl bg-black absolute top-2 right-2" />
           <Image
             src={picture}
-            className={"border-2 rounded-lg h-28 border-black  w-full"}
+            className={"border-2 rounded-lg h-36 lg:h-40 border-black  w-full"}
             alt={"test_image"}
           />
         </div>
@@ -87,7 +87,7 @@ const ImageGalleryGrid = () => {
           <DeleteOutline className="text-white rounded-2xl bg-black absolute top-2 right-2" />
           <Image
             src={picture2}
-            className={"border-2 rounded-lg h-28 border-black  w-full"}
+            className={"border-2 rounded-lg h-36 lg:h-40 border-black  w-full"}
             alt={"test_image"}
           />
         </div>
@@ -95,7 +95,7 @@ const ImageGalleryGrid = () => {
           <DeleteOutline className="text-white rounded-2xl bg-black absolute top-2 right-2" />
           <Image
             src={pizza}
-            className={"border-2 rounded-lg h-28 border-black  w-full"}
+            className={"border-2 rounded-lg h-36 lg:h-40 border-black  w-full"}
             alt={"test_image"}
           />
         </div>
@@ -103,7 +103,7 @@ const ImageGalleryGrid = () => {
           <DeleteOutline className="text-white rounded-2xl bg-black absolute top-2 right-2" />
           <Image
             src={picture2}
-            className={"border-2 rounded-lg h-28 border-black  w-full"}
+            className={"border-2 rounded-lg h-36 lg:h-40 border-black  w-full"}
             alt={"test_image"}
           />
         </div>
@@ -111,7 +111,7 @@ const ImageGalleryGrid = () => {
           <DeleteOutline className="text-white rounded-2xl bg-black absolute top-2 right-2" />
           <Image
             src={picture1}
-            className={"border-2 rounded-lg h-28 border-black  w-full"}
+            className={"border-2 rounded-lg h-36 lg:h-40 border-black  w-full"}
             alt={"test_image"}
           />
         </div>
@@ -119,7 +119,7 @@ const ImageGalleryGrid = () => {
           <DeleteOutline className="text-white rounded-2xl bg-black absolute top-2 right-2" />
           <Image
             src={pizza}
-            className={"border-2 rounded-lg h-28 border-black  w-full"}
+            className={"border-2 rounded-lg h-36 lg:h-40 border-black  w-full"}
             alt={"test_image"}
           />
         </div>
@@ -127,7 +127,7 @@ const ImageGalleryGrid = () => {
           <DeleteOutline className="text-white rounded-2xl bg-black absolute top-2 right-2" />
           <Image
             src={picture2}
-            className={"border-2 rounded-lg h-28 border-black  w-full"}
+            className={"border-2 rounded-lg h-36 lg:h-40 border-black  w-full"}
             alt={"test_image"}
           />
         </div>
@@ -135,7 +135,7 @@ const ImageGalleryGrid = () => {
           <DeleteOutline className="text-white rounded-2xl bg-black absolute top-2 right-2" />
           <Image
             src={picture1}
-            className={"border-2 rounded-lg h-28 border-black  w-full"}
+            className={"border-2 rounded-lg h-36 lg:h-40 border-black  w-full"}
             alt={"test_image"}
           />
         </div>

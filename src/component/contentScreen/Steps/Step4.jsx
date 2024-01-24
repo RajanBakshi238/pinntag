@@ -41,7 +41,7 @@ const Step4 = () => {
       <hr className="mb-3 text-[#7C7C72]" />
 
       <div className="mb-6">
-        <h1 className="text-black mb-3 font-bold">Promotional Code</h1>
+        <h1 className="text-black mb-3 font-bold">Target genders</h1>
         <div className="grid grid-cols-3 gap-4">
           <div className="bg-[#DDDDD7] rounded-2xl px-3 py-3 text-center text-[#7C7C72] text-sm font-semibold">
             Male
@@ -59,7 +59,7 @@ const Step4 = () => {
 
       <div className="mb-6">
         <div>
-          <h1 className="text-black mb-3 font-bold">Target age groups</h1>
+          <h1 className="text-black mb-3 font-bold">Promotional Code</h1>
         </div>
         <div>
           <input

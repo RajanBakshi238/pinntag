@@ -53,7 +53,7 @@ const CreateContent = ({ open, handleClose }) => {
       <div className="mt-6 flex justify-between items-center">
         <div>
           {currentStep === 1 ?
-            <SecondaryButton>
+            <SecondaryButton onClick={() => handleClose()}>
               <>Cancel</>
             </SecondaryButton> : <SecondaryButton onClick={() => handleStep(DEC)}>
               <>Back</>
