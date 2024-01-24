@@ -26,7 +26,7 @@ const Sidepanal = () => {
             className="stroke-[3px] md:!hidden"
           />
         </div>
-        {user && (
+        {!user && (
           <>
             {sidepanalLinks.map((items) => {
               return (
@@ -46,7 +46,7 @@ const Sidepanal = () => {
               );
             })}
 
-            <div
+            {/* <div
               className={classNames(
                 isPanalOpen ? "mob:block" : "mob:hidden",
                 "mt-auto w-full transition-[display] duration-500 ease-in-out  cursor-pointer  py-2 font-semibold text-center  text-[20px]"
@@ -57,7 +57,7 @@ const Sidepanal = () => {
               }}
             >
               Logout
-            </div>
+            </div> */}
           </>
         )}
       </div>

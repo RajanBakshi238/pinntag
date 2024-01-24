@@ -26,8 +26,8 @@ const Header = () => {
       <div className="ml-auto flex items-end gap-9">
         <div className="flex flex-row gap-[10px] mob:gap-0 mob:items-center items-end  mob:flex-col-reverse ">
           <div className=" mob:text-[14px]">
-            {user ? <Text className="text-white">{user?.firstName}</Text> : <Link to="/login">
-              {/* <Text className="underline text-white">Sign In</Text> */}
+            {!user ? <Text className="text-white">{user}</Text> : <Link to="/login">
+              <Text className="underline text-white">Sign In</Text>
             </Link>}
           </div>
           <Image

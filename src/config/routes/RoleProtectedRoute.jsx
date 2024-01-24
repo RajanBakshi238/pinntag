@@ -17,7 +17,8 @@ const RoleProtectedRoute = ({element}) => {
 
         return element;
     } else{
-        return <Navigate to={"/login"} />
+        return element;
+        // return <Navigate to={"/login"} />
     }
 
 
