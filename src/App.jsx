@@ -7,7 +7,7 @@ const router = createBrowserRouter(routeslist);
 const App = () => {
   useEffect(() => {
     if (window.location.pathname === "/") {
-      window.location.href = PATHS.buisnessDetails;
+      window.location.href = "/login";
     }
   }, []);
 

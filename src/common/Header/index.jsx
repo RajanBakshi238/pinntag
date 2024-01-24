@@ -21,7 +21,7 @@ const Header = () => {
         <div className='flex flex-row gap-[10px] mob:gap-0 mob:items-center items-end  mob:flex-col-reverse '>
 
         <div className=' mob:text-[14px]'>
-            <Link to={"#"}>
+            <Link to="/login">
                 <Text className="underline text-white">
                     Sign In
                 </Text>
