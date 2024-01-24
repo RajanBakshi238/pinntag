@@ -50,6 +50,7 @@ export const routeslist = [
       },
     ],
   },
+  // @fixme new 404 page must be there
   {
     path: "*",
     element: (
