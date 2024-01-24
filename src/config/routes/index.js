@@ -7,7 +7,7 @@ const BuisnessDetails = React.lazy(() => import("../../page/buisnessdetails"));
 const Content = React.lazy(() => import("../../page/content"));
 const Imagegallery = React.lazy(() => import("../../page/imagegallery"));
 const Buisnessuser = React.lazy(() => import("../../page/buisnessuser"));
-
+const RoleProtectedRoute = React.lazy(() => import("./RoleProtectedRoute") );
 export const PATHS = {
   buisnessDetails: "/buisness-details",
   content: "/content",
@@ -18,7 +18,7 @@ export const PATHS = {
 export const routeslist = [
   {
     path: "/",
-    element: <Layout />,
+    element: <RoleProtectedRoute element={<Layout />}/>,
     children: [
       {
         path: PATHS.buisnessDetails,
