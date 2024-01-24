@@ -1,6 +1,7 @@
 import React, { Suspense, useEffect } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { PATHS, routeslist } from "./config/routes";
+import { routeslist } from "./config/routes";
+import { SnackbarProvider } from "notistack";
 
 const router = createBrowserRouter(routeslist);
 
@@ -13,9 +14,20 @@ const App = () => {
 
   return (
     <div>
-      <Suspense fallback={<div>Loading...</div>}>
-        <RouterProvider router={router} />
-      </Suspense>
+      <SnackbarProvider
+        maxSnack={3}
+        preventDuplicate={true}
+        variant={"info"}
+        autoHideDuration={3000}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+      >
+        <Suspense fallback={<div>Loading...</div>}>
+          <RouterProvider router={router} />
+        </Suspense>
+      </SnackbarProvider>
       {/* <Routes>
         {routeslist.map(({ path, Element }) => {
           return (
