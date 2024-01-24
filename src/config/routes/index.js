@@ -1,39 +1,45 @@
 import React from "react";
-// import Layout from "./common/layout";
-// import Layout from "./../../common/layout";
-
 const Layout = React.lazy(() => import("./../../common/layout"));
 const BuisnessDetails = React.lazy(() => import("../../page/buisnessdetails"));
 const Content = React.lazy(() => import("../../page/content"));
 const Imagegallery = React.lazy(() => import("../../page/imagegallery"));
 const Buisnessuser = React.lazy(() => import("../../page/buisnessuser"));
 const RoleProtectedRoute = React.lazy(() => import("./RoleProtectedRoute") );
+
 export const PATHS = {
-  buisnessDetails: "/buisness-details",
-  content: "/content",
-  imageGallery: "/image-gallery",
-  buisnessUser: "/buisness-users",
+  buisnessDetails: "/dashboard/buisness-details",
+  content: "/dashboard/content",
+  imageGallery: "/dashboard/image-gallery",
+  businessUser: "/dashboard/buisness-users",
+  login: "/login",
+  dashboard: "/dashboard"
 };
 
 export const routeslist = [
   {
     path: "/",
+    element: <Layout />,
+    children: []
+    
+  },
+  {
+    path: "/dashboard",
     element: <RoleProtectedRoute element={<Layout />}/>,
     children: [
       {
-        path: PATHS.buisnessDetails,
+        path: "business-details",
         element: <BuisnessDetails />,
       },
       {
-        path: PATHS.content,
+        path: "content",
         element: <Content />,
       },
       {
-        path: PATHS.imageGallery,
+        path: "image-gallery",
         element: <Imagegallery />,
       },
       {
-        path: PATHS.buisnessUser,
+        path: "business-user",
         element: <Buisnessuser />,
       }
     ],
