@@ -1,6 +1,11 @@
 import React from "react";
 import Image from "../image";
 import DeleteOutline from "@mui/icons-material/DeleteOutline";
+import pizza from "./../../assets/img/picture.png"
+import picture from "./../../assets/img/picture (1).png"
+import picture1 from "./../../assets/img/picture (2).png"
+import picture2 from "./../../assets/img/picture (3).png"
+
 
 const ImageGalleryGrid = () => {
   return (
@@ -9,9 +14,7 @@ const ImageGalleryGrid = () => {
         <div className="relative">
           <DeleteOutline className="text-white rounded-2xl bg-black absolute top-2 right-2" />
           <Image
-            src={
-              "https://www.photoshopessentials.com/newsite/wp-content/uploads/2018/08/resize-images-print-photoshop-f.jpg"
-            }
+            src={pizza}
             className={"border-2 rounded-lg h-28 border-black  w-full"}
             alt={"test_image"}
           />
@@ -19,9 +22,7 @@ const ImageGalleryGrid = () => {
         <div className="relative">
           <DeleteOutline className="text-white rounded-2xl bg-black absolute top-2 right-2" />
           <Image
-            src={
-              "https://www.photoshopessentials.com/newsite/wp-content/uploads/2018/08/resize-images-print-photoshop-f.jpg"
-            }
+            src={picture}
             className={"border-2 rounded-lg h-28 border-black  w-full"}
             alt={"test_image"}
           />
@@ -29,9 +30,7 @@ const ImageGalleryGrid = () => {
         <div className="relative">
           <DeleteOutline className="text-white rounded-2xl bg-black absolute top-2 right-2" />
           <Image
-            src={
-              "https://www.photoshopessentials.com/newsite/wp-content/uploads/2018/08/resize-images-print-photoshop-f.jpg"
-            }
+            src={picture1}
             className={"border-2 rounded-lg h-28 border-black  w-full"}
             alt={"test_image"}
           />
@@ -39,9 +38,7 @@ const ImageGalleryGrid = () => {
         <div className="relative">
           <DeleteOutline className="text-white rounded-2xl bg-black absolute top-2 right-2" />
           <Image
-            src={
-              "https://www.photoshopessentials.com/newsite/wp-content/uploads/2018/08/resize-images-print-photoshop-f.jpg"
-            }
+            src={picture2}
             className={"border-2 rounded-lg h-28 border-black  w-full"}
             alt={"test_image"}
           />
@@ -49,9 +46,7 @@ const ImageGalleryGrid = () => {
         <div className="relative">
           <DeleteOutline className="text-white rounded-2xl bg-black absolute top-2 right-2" />
           <Image
-            src={
-              "https://www.photoshopessentials.com/newsite/wp-content/uploads/2018/08/resize-images-print-photoshop-f.jpg"
-            }
+            src={picture1}
             className={"border-2 rounded-lg h-28 border-black  w-full"}
             alt={"test_image"}
           />
@@ -59,9 +54,7 @@ const ImageGalleryGrid = () => {
         <div className="relative">
           <DeleteOutline className="text-white rounded-2xl bg-black absolute top-2 right-2" />
           <Image
-            src={
-              "https://www.photoshopessentials.com/newsite/wp-content/uploads/2018/08/resize-images-print-photoshop-f.jpg"
-            }
+            src={pizza}
             className={"border-2 rounded-lg h-28 border-black  w-full"}
             alt={"test_image"}
           />
@@ -69,9 +62,7 @@ const ImageGalleryGrid = () => {
         <div className="relative">
           <DeleteOutline className="text-white rounded-2xl bg-black absolute top-2 right-2" />
           <Image
-            src={
-              "https://www.photoshopessentials.com/newsite/wp-content/uploads/2018/08/resize-images-print-photoshop-f.jpg"
-            }
+            src={picture2}
             className={"border-2 rounded-lg h-28 border-black  w-full"}
             alt={"test_image"}
           />
@@ -79,9 +70,7 @@ const ImageGalleryGrid = () => {
         <div className="relative">
           <DeleteOutline className="text-white rounded-2xl bg-black absolute top-2 right-2" />
           <Image
-            src={
-              "https://www.photoshopessentials.com/newsite/wp-content/uploads/2018/08/resize-images-print-photoshop-f.jpg"
-            }
+            src={picture1}
             className={"border-2 rounded-lg h-28 border-black  w-full"}
             alt={"test_image"}
           />
@@ -89,9 +78,7 @@ const ImageGalleryGrid = () => {
         <div className="relative">
           <DeleteOutline className="text-white rounded-2xl bg-black absolute top-2 right-2" />
           <Image
-            src={
-              "https://www.photoshopessentials.com/newsite/wp-content/uploads/2018/08/resize-images-print-photoshop-f.jpg"
-            }
+            src={picture}
             className={"border-2 rounded-lg h-28 border-black  w-full"}
             alt={"test_image"}
           />
@@ -99,9 +86,7 @@ const ImageGalleryGrid = () => {
         <div className="relative">
           <DeleteOutline className="text-white rounded-2xl bg-black absolute top-2 right-2" />
           <Image
-            src={
-              "https://www.photoshopessentials.com/newsite/wp-content/uploads/2018/08/resize-images-print-photoshop-f.jpg"
-            }
+            src={picture2}
             className={"border-2 rounded-lg h-28 border-black  w-full"}
             alt={"test_image"}
           />
@@ -109,9 +94,7 @@ const ImageGalleryGrid = () => {
         <div className="relative">
           <DeleteOutline className="text-white rounded-2xl bg-black absolute top-2 right-2" />
           <Image
-            src={
-              "https://www.photoshopessentials.com/newsite/wp-content/uploads/2018/08/resize-images-print-photoshop-f.jpg"
-            }
+            src={pizza}
             className={"border-2 rounded-lg h-28 border-black  w-full"}
             alt={"test_image"}
           />
@@ -119,9 +102,7 @@ const ImageGalleryGrid = () => {
         <div className="relative">
           <DeleteOutline className="text-white rounded-2xl bg-black absolute top-2 right-2" />
           <Image
-            src={
-              "https://www.photoshopessentials.com/newsite/wp-content/uploads/2018/08/resize-images-print-photoshop-f.jpg"
-            }
+            src={picture2}
             className={"border-2 rounded-lg h-28 border-black  w-full"}
             alt={"test_image"}
           />
@@ -129,9 +110,7 @@ const ImageGalleryGrid = () => {
         <div className="relative">
           <DeleteOutline className="text-white rounded-2xl bg-black absolute top-2 right-2" />
           <Image
-            src={
-              "https://www.photoshopessentials.com/newsite/wp-content/uploads/2018/08/resize-images-print-photoshop-f.jpg"
-            }
+            src={picture1}
             className={"border-2 rounded-lg h-28 border-black  w-full"}
             alt={"test_image"}
           />
@@ -139,9 +118,7 @@ const ImageGalleryGrid = () => {
         <div className="relative">
           <DeleteOutline className="text-white rounded-2xl bg-black absolute top-2 right-2" />
           <Image
-            src={
-              "https://www.photoshopessentials.com/newsite/wp-content/uploads/2018/08/resize-images-print-photoshop-f.jpg"
-            }
+            src={pizza}
             className={"border-2 rounded-lg h-28 border-black  w-full"}
             alt={"test_image"}
           />
@@ -149,9 +126,15 @@ const ImageGalleryGrid = () => {
         <div className="relative">
           <DeleteOutline className="text-white rounded-2xl bg-black absolute top-2 right-2" />
           <Image
-            src={
-              "https://www.photoshopessentials.com/newsite/wp-content/uploads/2018/08/resize-images-print-photoshop-f.jpg"
-            }
+            src={picture2}
+            className={"border-2 rounded-lg h-28 border-black  w-full"}
+            alt={"test_image"}
+          />
+        </div>
+        <div className="relative">
+          <DeleteOutline className="text-white rounded-2xl bg-black absolute top-2 right-2" />
+          <Image
+            src={picture1}
             className={"border-2 rounded-lg h-28 border-black  w-full"}
             alt={"test_image"}
           />
