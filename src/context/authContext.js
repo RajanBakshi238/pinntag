@@ -24,13 +24,17 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState();
 
   const fetchUserDetails = async () => {
-    // const res = await getData("");
-    // if (res.data) {
-    //   setUser(res.data);
-    // } else {
-    //   console.log(res.error);
-    // }
+    try{
+      const res = await getData("aaaaasddd");
+    if (res.data) {
+      setUser(res.data);
+    } else {
+      console.log(res.error, ".......... eroooo orororororororororo");
+    }
     setLoading(false);
+    } catch(err){
+      console.log(err, ".12222")
+    }
   };
 
   useEffect(() => {
@@ -38,7 +42,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{user: user ,  isLoadingUser:loading}}>
+    <AuthContext.Provider value={{user: user, isLoadingUser:loading}}>
       {children}
     </AuthContext.Provider>
   );
