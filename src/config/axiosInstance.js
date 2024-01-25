@@ -1,11 +1,7 @@
 import axios from "axios";
-import { getItem } from "../utils/localStorage";
+import { clearStorage, getItem } from "../utils/localStorage";
 import { PINNTAG_USER } from "./routes/RoleProtectedRoute";
 
-let navigate;
-const setNavigate = (navFunc) => {
-  navigate = navFunc;
-};
 
 const axiosInstance = axios.create({
   baseURL: "http://74.208.62.59:5000/v1",
@@ -32,9 +28,11 @@ axiosInstance.interceptors.response.use(
   },
   (error) => {
     if (error.response && error.response.status === 401) {
+      clearStorage();
+      window.location.reload()
     }
     return Promise.reject(error);
   }
 );
 
-export { axiosInstance, setNavigate };
+export { axiosInstance };

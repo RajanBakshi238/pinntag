@@ -1,16 +1,9 @@
 import React, { Suspense, useEffect } from "react";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { routeslist } from "./config/routes";
 import { SnackbarProvider } from "notistack";
-import { useNavigate } from "react-router-dom";
-import { setNavigate } from "./config/axiosInstance";
-
-const router = createBrowserRouter(routeslist);
+import PinnTagApp from "./PinnTagApp";
+import { AuthProvider } from "./context/authContext";
 
 const App = () => {
-  const navigate = useNavigate();
-  setNavigate(navigate);
-
   useEffect(() => {
     if (window.location.pathname === "/") {
       window.location.href = "/login";
@@ -29,9 +22,11 @@ const App = () => {
           horizontal: "right",
         }}
       >
-        <Suspense fallback={<div>Loading...</div>}>
-          <RouterProvider router={router} />
-        </Suspense>
+        <AuthProvider>
+          <Suspense fallback={<div>Loading...</div>}>
+            <PinnTagApp />
+          </Suspense>
+        </AuthProvider>
       </SnackbarProvider>
     </div>
   );
