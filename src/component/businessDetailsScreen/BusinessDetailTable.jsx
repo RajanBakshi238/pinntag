@@ -1,10 +1,10 @@
 import React from "react";
 import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
 import Image from "../image";
+import { useNavigate } from "react-router-dom";
 
 const BusinessDetailTable = () => {
-  const handleOpen = () => {};
+  const navigate = useNavigate();
 
   return (
     <div class="flex flex-col mx-12">
@@ -66,17 +66,14 @@ const BusinessDetailTable = () => {
                   <td class="whitespace-nowrap font-semibold px-6 py-2">
                     Active
                   </td>
-                  <td class="whitespace-nowrap font-semibold px-6 py-2">
-                    3
-                  </td>
+                  <td class="whitespace-nowrap font-semibold px-6 py-2">3</td>
                   <td class="whitespace-nowrap  px-6 py-2">
                     <EditIcon
-                      onClick={handleOpen}
+                      onClick={() => navigate("/dashboard/edit-business-details/00")}
                       className="cursor-pointer text-white rounded-2xl bg-black "
                     />
                   </td>
                 </tr>
-               
               </tbody>
             </table>
           </div>
