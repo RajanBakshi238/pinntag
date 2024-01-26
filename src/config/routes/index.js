@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import GuestRoute from "./GuestRoute";
 const Layout = React.lazy(() => import("./../../common/layout"));
 const BuisnessDetails = React.lazy(() => import("../../page/buisnessdetails"));
 const Content = React.lazy(() => import("../../page/content"));
@@ -20,7 +21,7 @@ export const PATHS = {
 export const routeslist = [
   {
     path: "/",
-    element: <Layout />,
+    element: <GuestRoute element={<Layout />} />,
     children: [
       {
         path: "login",

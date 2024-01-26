@@ -23,13 +23,15 @@ const Login = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await axiosInstance("/auth/signup", {
+      const response = await axiosInstance.post("/auth/login", {
         ...formData,
       });
       enqueueSnackbar("Login successfully", { variant: "success" });
-      localStorage.setItem(PINNTAG_USER, JSON.stringify(response.data.user));
-
-      navigate.push("/dashboard/business-details");
+      localStorage.setItem(PINNTAG_USER, JSON.stringify(response.data));
+      axiosInstance.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${response?.data?.token}`;
+      navigate("/dashboard/business-details");
     } catch (err) {
       enqueueSnackbar(err?.response?.data?.message ?? "Wrong credentials", {
         variant: "error",

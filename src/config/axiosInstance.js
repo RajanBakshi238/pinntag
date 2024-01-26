@@ -4,13 +4,13 @@ import { PINNTAG_USER } from "./routes/RoleProtectedRoute";
 
 
 const axiosInstance = axios.create({
-  baseURL: "http://74.208.62.59:5000/v1",
+  baseURL: "http://74.208.62.59:8080/v1",
 });
 
 // Add a request interceptor to add the JWT token to the headers
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = getItem(PINNTAG_USER);
+    const token = getItem(PINNTAG_USER)?.token;
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }

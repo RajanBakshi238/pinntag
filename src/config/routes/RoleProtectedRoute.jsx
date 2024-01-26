@@ -1,3 +1,4 @@
+import { Navigate } from "react-router-dom";
 import { useAuthentication } from "../../context/authContext";
 export const PINNTAG_USER = "pinntag-user";
 
@@ -11,8 +12,8 @@ const RoleProtectedRoute = ({ element }) => {
   if (user) {
     return element;
   } else {
-    return element;
-    // return <Navigate to={"/login"} />
+    // return element;
+    return <Navigate to={"/login"} />
   }
 };
 

@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { getData } from "../utils/api";
+import { enqueueSnackbar } from "notistack";
 
 export const AuthContext = createContext();
 // export const AuthContext = createContext({
@@ -10,11 +11,11 @@ export const AuthContext = createContext();
 export const useAuthentication = () => {
   const context = useContext(AuthContext);
 
-//   if (!context) {
-//     throw new Error(
-//       "useAuthContext .. must be used with in a AuthContextProvider."
-//     );
-//   }
+  //   if (!context) {
+  //     throw new Error(
+  //       "useAuthContext .. must be used with in a AuthContextProvider."
+  //     );
+  //   }
 
   return context;
 };
@@ -24,17 +25,16 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState();
 
   const fetchUserDetails = async () => {
-    try{
-      const res = await getData("aaaaasddd");
+    const res = await getData("user/profile");
     if (res.data) {
       setUser(res.data);
     } else {
-      console.log(res.error, ".......... eroooo orororororororororo");
+      console.log(res.error, "error while getting profile");
+      enqueueSnackbar(res.error?.message ?? "Wrong credentials", {
+        variant: "error",
+      });
     }
     setLoading(false);
-    } catch(err){
-      console.log(err, ".12222")
-    }
   };
 
   useEffect(() => {
@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{user: user, isLoadingUser:loading}}>
+    <AuthContext.Provider value={{ user: user, isLoadingUser: loading }}>
       {children}
     </AuthContext.Provider>
   );
