@@ -4,13 +4,20 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import classNames from "classnames";
 import { CloseRounded, MenuRounded } from "@mui/icons-material";
 import { PINNTAG_USER } from "../../config/routes/RoleProtectedRoute";
+import { useAuthentication } from "../../context/authContext";
+import { clearStorage } from "../../utils/localStorage";
 
 const Sidepanal = () => {
   const location = useLocation();
   const [isPanalOpen, setIsPanalOpen] = useState(false);
-  const [user] = useState(localStorage.getItem(PINNTAG_USER));
-
   const navigate = useNavigate();
+
+  const { user } = useAuthentication();
+
+  const handleLogout = () => {
+    clearStorage();
+    navigate("/login");
+  };
 
   return (
     <>
@@ -26,7 +33,7 @@ const Sidepanal = () => {
             className="stroke-[3px] md:!hidden"
           />
         </div>
-        {!user && (
+        {user && (
           <>
             {sidepanalLinks.map((items) => {
               return (
@@ -46,18 +53,15 @@ const Sidepanal = () => {
               );
             })}
 
-            {/* <div
+            <div
               className={classNames(
                 isPanalOpen ? "mob:block" : "mob:hidden",
                 "mt-auto w-full transition-[display] duration-500 ease-in-out  cursor-pointer  py-2 font-semibold text-center  text-[20px]"
               )}
-              onClick={() => {
-                localStorage.clear();
-                navigate("/login");
-              }}
+              onClick={handleLogout}
             >
               Logout
-            </div> */}
+            </div>
           </>
         )}
       </div>

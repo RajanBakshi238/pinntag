@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import Image from "../../component/image";
 import Text from "../Text";
 import { Link } from "react-router-dom";
-import { PINNTAG_USER } from "../../config/routes/RoleProtectedRoute";
+import { useAuthentication } from "../../context/authContext";
 
 const Header = () => {
-  const [user] = useState(JSON.parse(localStorage.getItem(PINNTAG_USER)));
+  const {user} = useAuthentication();
+
   return (
     <div className="bg-secondary z-50 fixed top-0  gap-3 flex w-full py-6 px-6 ">
       <Image
@@ -26,8 +27,8 @@ const Header = () => {
       <div className="ml-auto flex items-end gap-9">
         <div className="flex flex-row gap-[10px] mob:gap-0 mob:items-center items-end  mob:flex-col-reverse ">
           <div className=" mob:text-[14px]">
-            {!user ? <Text className="text-white">{user}</Text> : <Link to="/login">
-              <Text className="underline text-white">Sign In</Text>
+            {user ? <Text className="text-white mr-3">{user?.user?.firstName}</Text> : <Link to="/login">
+              {/* <Text className="underline text-white">Sign In</Text> */}
             </Link>}
           </div>
           <Image
