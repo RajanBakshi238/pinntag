@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import GuestRoute from "./GuestRoute";
+import BusinessDetailEdit from "../../page/businessDetailEdit";
 const Layout = React.lazy(() => import("./../../common/layout"));
 const BuisnessDetails = React.lazy(() => import("../../page/buisnessdetails"));
 const Content = React.lazy(() => import("../../page/content"));
@@ -36,6 +37,10 @@ export const routeslist = [
       {
         path: "business-details",
         element: <BuisnessDetails />,
+      },
+      {
+        path: "edit-business-details/:id",
+        element: <BusinessDetailEdit />,
       },
       {
         path: "content",

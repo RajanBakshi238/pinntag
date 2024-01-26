@@ -3,7 +3,6 @@ import { sidepanalLinks } from "../../contentmanagement/sidepanal";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import classNames from "classnames";
 import { CloseRounded, MenuRounded } from "@mui/icons-material";
-import { PINNTAG_USER } from "../../config/routes/RoleProtectedRoute";
 import { useAuthentication } from "../../context/authContext";
 import { clearStorage } from "../../utils/localStorage";
 
