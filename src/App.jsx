@@ -2,6 +2,7 @@ import React, { Suspense, useEffect } from "react";
 import { SnackbarProvider } from "notistack";
 import PinnTagApp from "./PinnTagApp";
 import { AuthProvider } from "./context/authContext";
+import PrimaryLoader from "./common/Loader/PrimaryLoader";
 
 const App = () => {
   useEffect(() => {
@@ -23,7 +24,7 @@ const App = () => {
         }}
       >
         <AuthProvider>
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<PrimaryLoader />}>
             <PinnTagApp />
           </Suspense>
         </AuthProvider>

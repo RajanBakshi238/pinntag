@@ -4,6 +4,7 @@ import { useSnackbar } from "notistack";
 import { axiosInstance } from "../../config/axiosInstance";
 import { useNavigate } from "react-router-dom";
 import { PINNTAG_USER } from "../../config/routes/RoleProtectedRoute";
+import { useAuthentication } from "../../context/authContext";
 
 const Login = () => {
   const { enqueueSnackbar } = useSnackbar();
@@ -11,7 +12,7 @@ const Login = () => {
     email: "",
     password: "",
   });
-
+  const { setUser } = useAuthentication();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -26,8 +27,9 @@ const Login = () => {
       const response = await axiosInstance.post("/auth/login", {
         ...formData,
       });
-      enqueueSnackbar("Login successfully", { variant: "success" });
+      setUser(response.data)
       localStorage.setItem(PINNTAG_USER, JSON.stringify(response.data));
+      enqueueSnackbar("Login successfully", { variant: "success" });
       axiosInstance.defaults.headers.common[
         "Authorization"
       ] = `Bearer ${response?.data?.token}`;

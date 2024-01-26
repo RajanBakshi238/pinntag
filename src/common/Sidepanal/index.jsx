@@ -12,9 +12,10 @@ const Sidepanal = () => {
   const [isPanalOpen, setIsPanalOpen] = useState(false);
   const navigate = useNavigate();
 
-  const { user } = useAuthentication();
+  const { user, setUser } = useAuthentication();
 
   const handleLogout = () => {
+    setUser(null)
     clearStorage();
     navigate("/login");
   };

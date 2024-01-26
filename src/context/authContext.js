@@ -28,9 +28,8 @@ export const AuthProvider = ({ children }) => {
     const res = await getData("user/profile");
     if (res.data) {
       setUser(res.data);
-    } else {
-      console.log(res.error, "error while getting profile");
-      enqueueSnackbar(res.error?.message ?? "Wrong credentials", {
+    } else if (res.error) {
+      enqueueSnackbar(res.error?.message ?? "Something went wrong", {
         variant: "error",
       });
     }
@@ -42,7 +41,9 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user: user, isLoadingUser: loading }}>
+    <AuthContext.Provider
+      value={{ user: user, setUser: setUser, isLoadingUser: loading }}
+    >
       {children}
     </AuthContext.Provider>
   );

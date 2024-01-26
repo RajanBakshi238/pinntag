@@ -3,8 +3,10 @@ import { clearStorage, getItem } from "../utils/localStorage";
 import { PINNTAG_USER } from "./routes/RoleProtectedRoute";
 
 
+const API_URL = process.env.REACT_API_URL ?? "http://74.208.62.59:8080/v1"
+
 const axiosInstance = axios.create({
-  baseURL: "http://74.208.62.59:8080/v1",
+  baseURL: API_URL,
 });
 
 // Add a request interceptor to add the JWT token to the headers
@@ -27,9 +29,10 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   (error) => {
-    if (error.response && error.response.status === 401) {
+    let retry = true
+    if (error.response && error.response.status === 401 && retry) {
+      retry = false
       clearStorage();
-      window.location.reload()
     }
     return Promise.reject(error);
   }
