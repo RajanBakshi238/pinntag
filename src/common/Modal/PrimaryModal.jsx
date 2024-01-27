@@ -10,9 +10,14 @@ const PrimaryModal = ({ open, handleClose, children, modalClass }) => {
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <div className={classNames(["w-1/2 h-[90vh] overflow-auto py-2 px-5 outline-none bg-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 border-none rounded-lg", modalClass])}>
-        {children}
-    </div>
+      <div
+        className={classNames([
+          "w-1/2 h-[90vh] pl-5 outline-none bg-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 border-none rounded-lg",
+          modalClass,
+        ])}
+      >
+        <div className="py-2 pr-5 overflow-auto h-full">{children}</div>
+      </div>
     </Modal>
   );
 };
