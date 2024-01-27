@@ -2,16 +2,16 @@ import { PATHS } from "../../config/routes";
 
 export const sidepanalLinks = [{
     Title : "Business Details",
-    Link : PATHS.buisnessDetails
+    Link : "/dashboard/business-details"
 }, {
     Title : "Content",
-    Link : PATHS.content
+    Link : "/dashboard/content"
 }, {
     Title  : "Image Gallery",
-    Link : PATHS.imageGallery
+    Link : "/dashboard/image-gallery"
 }, {
-    Title : "Business Users",
-    Link : PATHS.buisnessUser
+    Title : "Business User",
+    Link : "/dashboard/business-user"
 }]
 
 export const status = {

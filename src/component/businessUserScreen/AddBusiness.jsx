@@ -56,7 +56,7 @@ const AddBusiness = ({ open, handleClose }) => {
       </div>
       <div className="mt-6 flex justify-between items-center">
         <div className="flex gap-2">
-          <SecondaryButton>
+          <SecondaryButton onClick={() => handleClose()}>
             <>Cancel</>
           </SecondaryButton>
           <SecondaryButton>
