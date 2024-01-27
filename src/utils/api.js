@@ -10,7 +10,7 @@ export const getData = async (END_POINT) => {
 
   return {
     data: response?.data,
-    error: response?.data?.error,
+    error: response?.response?.data,
   };
 };
 
@@ -22,9 +22,11 @@ export const postData = async (END_POINT, body) => {
     response = err;
   }
 
+  console.log(response, ">>>")
+
   return {
     data: response?.data,
-    error: response?.data?.error,
+    error: response?.response?.data,
   };
 };
 
