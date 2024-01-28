@@ -10,6 +10,7 @@ import { formatErrorMessage } from "../../utils/formatErrorMessage";
 
 const Login = () => {
   const [openForgetModel, setOpenForgetModel] = useState(false);
+  const [loading, setLoading]= useState(false)
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -26,6 +27,7 @@ const Login = () => {
   };
 
   const handleSubmit = async () => {
+    setLoading(true)
     try {
       const response = await axiosInstance.post("/auth/login", {
         ...formData,
@@ -42,6 +44,8 @@ const Login = () => {
         variant: "error",
       });
     }
+    setLoading(false)
+
   };
 
   return (
@@ -76,7 +80,7 @@ const Login = () => {
               </h1>
             </div>
             <div className="flex justify-center">
-              <PrimaryButton onClick={handleSubmit} inputClass="py-2 w-1/3">
+              <PrimaryButton onClick={handleSubmit} inputClass="py-2 w-1/3" loading={loading}>
                 Sign in
               </PrimaryButton>
             </div>

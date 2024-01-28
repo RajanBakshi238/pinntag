@@ -7,7 +7,6 @@ import FullButton from "../../common/FormElements/Button/FullButton";
 import { postData } from "../../utils/api";
 import { Form } from "react-router-dom";
 import { formatErrorMessage } from "../../utils/formatErrorMessage";
-import PrimaryLoader from "../../common/Loader/PrimaryLoader";
 
 const ForgotPasswordModel = ({ setOpenForgetModel, openForgetModel }) => {
   const [email, setEmail] = useState("");
@@ -197,7 +196,7 @@ const ForgotPasswordModel = ({ setOpenForgetModel, openForgetModel }) => {
             <h1 className="text-lg font-semibold text-center mb-2">
               Forgot Password ?
             </h1>
-            <p className="text-sm font-semibold mb-4 pl-1 text-[#999]">
+            <p className="text-sm font-semibold mb-4 pl-1 text-[#45818E]">
               Enter your Pinntag account email address.
             </p>
             <div>
