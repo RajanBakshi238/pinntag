@@ -34,3 +34,15 @@ input[type=number]::-webkit-outer-spin-button {
 .model-input {
   @apply  placeholder:text-[black] border-black border-2 w-full py-2 px-4 text-lg outline-none rounded-2xl
 }
+
+@layer utilities {
+  .min-h-vh-143 {
+    min-height: calc(100vh - 143px);
+  }
+
+  @media (max-width: 500px) {
+    .min-h-vh-143 {
+      min-height: calc(100vh - 108px);
+    }
+  }
+}

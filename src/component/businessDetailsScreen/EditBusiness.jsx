@@ -1,10 +1,12 @@
 import { FieldArray, Form, FormikProvider, useFormik } from "formik";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PrimaryButton from "../../common/FormElements/Button/PrimaryButton";
 import { Add } from "@mui/icons-material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import SecondaryButton from "../../common/FormElements/Button/SecondaryButton";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { getData } from "../../utils/api";
+
 const EditBusiness = () => {
   const initState = {
     businessName: "",
@@ -35,6 +37,23 @@ const EditBusiness = () => {
     ],
   };
   const navigate = useNavigate();
+  const { id } = useParams();
+
+  const [data, setData] = useState();
+
+  const fetchBusinessDetail = async () => {
+    const resposne = await getData(`business-profile/${id}`);
+    if (resposne.data) {
+      setData(resposne.data?.businessProfiles);
+      console.log(resposne.data, ">>>>>>>>");
+    } else {
+      console.log(resposne.error, "Error while fetching business details");
+    }
+  };
+
+  useEffect(() => {
+    fetchBusinessDetail();
+  }, []);
 
   const formik = useFormik({
     initialValues: initState,
@@ -55,7 +74,7 @@ const EditBusiness = () => {
     }
   };
 
-  console.log(formik.values, ">>>>> value");
+  console.log(formik.values, ">>>>> value", id);
 
   return (
     <div className="mx-12">
