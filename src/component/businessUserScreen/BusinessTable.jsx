@@ -2,8 +2,30 @@ import React from "react";
 import Image from "../image";
 // import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { deleteData } from "../../utils/api";
+import { enqueueSnackbar } from "notistack";
+import { formatErrorMessage } from "../../utils/formatErrorMessage";
 
-const BusinessTable = ({ data }) => {
+const BusinessTable = ({ data, fetchAllBusinessDetails }) => {
+  const handleDeleteUser = async (id) => {
+    const res = await deleteData(`business-profile/staff/delete/${id}`);
+    if (res.data) {
+      enqueueSnackbar(res.data.message ?? "", {
+        variant: "success",
+      });
+      fetchAllBusinessDetails();
+    } else {
+      enqueueSnackbar(
+        res.error?.message
+          ? formatErrorMessage(res.error?.message)
+          : "Something went wrong",
+        {
+          variant: "error",
+        }
+      );
+    }
+  };
+
   return (
     <>
       <div class="flex flex-col mx-12">
@@ -34,7 +56,7 @@ const BusinessTable = ({ data }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {data?.map((user,index) => {
+                  {data?.map((user, index) => {
                     return (
                       <tr class="border-2 border-[#000000]" key={index}>
                         <td class="whitespace-nowrap flex justify-center  px-2 py-2">
@@ -47,7 +69,7 @@ const BusinessTable = ({ data }) => {
                           />
                         </td>
                         <td class="whitespace-nowrap font-semibold px-6 py-2 underline">
-                          {user?.firstName + " " +user?.lastName}
+                          {user?.firstName + " " + user?.lastName}
                         </td>
                         <td class="whitespace-nowrap font-semibold px-6 py-2">
                           {user?.profileType}
@@ -61,8 +83,8 @@ const BusinessTable = ({ data }) => {
                             className="cursor-pointer text-white rounded-2xl bg-black "
                           />
                         </td> */}
-                        <td class="whitespace-nowrap  px-6 py-2">
-                          <DeleteIcon className="text-white rounded-2xl bg-black " />
+                        <td class="whitespace-nowrap  px-6 py-2" onClick={() => handleDeleteUser(user?._id)}>
+                          <DeleteIcon className="text-white rounded-2xl bg-black cursor-pointer" />
                         </td>
                       </tr>
                     );

@@ -16,7 +16,6 @@ const Buisnessuser = () => {
     const res = await getData("business-profile/staff/members");
     if (res.data) {
       setData(res.data?.staffMembers);
-      console.log(res.data, ">>>>>>>>");
     } else {
       console.log(res.error, "Error while fetching business details");
     }
@@ -32,7 +31,7 @@ const Buisnessuser = () => {
   return (
     <div>
       <BusinessHeader handleOpen={handleOpen} />
-      <BusinessTable handleOpen={handleOpen} data={data} />
+      <BusinessTable handleOpen={handleOpen} data={data} fetchAllBusinessDetails={fetchAllBusinessDetails} />
       <AddBusiness open={open} handleClose={handleClose} fetchAllBusinessDetails={fetchAllBusinessDetails}/>
     </div>
   );

@@ -65,10 +65,9 @@ export const deleteData = async (END_POINT) => {
   } catch (err) {
     response = err;
   }
-
   return {
     data: response?.data,
-    error: response?.data?.error,
+    error: response?.response?.error,
   };
 };
 
