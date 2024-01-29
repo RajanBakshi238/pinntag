@@ -31,6 +31,7 @@ const Login = () => {
     try {
       const response = await axiosInstance.post("/auth/login", {
         ...formData,
+        deviceType: "web"
       });
       setUser(response.data);
       localStorage.setItem(PINNTAG_USER, JSON.stringify(response.data));

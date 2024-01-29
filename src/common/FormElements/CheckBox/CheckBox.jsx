@@ -1,14 +1,15 @@
 import React from "react";
 import "./checkbox.css";
 
-const CheckBox = ({ label, checked }) => {
+const CheckBox = ({ label, checked, name, onChange }) => {
   return (
     <label class="cursor-pointer flex content-center items-center">
       <input
+        name={name}
         type="checkbox"
         class="checkbox-button__input"
         id="choice1-1"
-        name="choice1"
+        onChange={onChange}
         checked={checked}
       />
       <span class="checkbox-button__control"></span>
