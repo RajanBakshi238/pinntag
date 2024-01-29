@@ -1,9 +1,23 @@
-import { axiosInstance } from "../config/axiosInstance";
+import { axiosInstance, axiosTempInstance } from "../config/axiosInstance";
 
 export const getData = async (END_POINT) => {
   let response;
   try {
     response = await axiosInstance.get(END_POINT);
+  } catch (err) {
+    response = err;
+  }
+
+  return {
+    data: response?.data,
+    error: response?.response?.data,
+  };
+};
+
+export const getDataTemp = async (END_POINT) => {
+  let response;
+  try {
+    response = await axiosTempInstance.get(END_POINT);
   } catch (err) {
     response = err;
   }

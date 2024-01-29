@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { getData } from "../utils/api";
+import { getData, getDataTemp } from "../utils/api";
 import { enqueueSnackbar } from "notistack";
 
 export const AuthContext = createContext();
@@ -25,7 +25,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState();
 
   const fetchUserDetails = async () => {
-    const res = await getData("user/profile");
+    const res = await getDataTemp("user/profile");
     if (res.data) {
       setUser(res.data);
     } else if (res.error) {

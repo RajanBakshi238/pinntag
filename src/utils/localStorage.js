@@ -1,3 +1,5 @@
+import { PINNTAG_USER } from "../config/routes/RoleProtectedRoute";
+
 export const getItem = (key) => {
   const item = localStorage.getItem(key);
   if (item) {
@@ -11,9 +13,24 @@ export const storeItem = (key, data) => {
 };
 
 export const removeItem = (key) => {
-    localStorage.removeItem(key)
-}
+  localStorage.removeItem(key);
+};
 
 export const clearStorage = () => {
-    localStorage.clear()
-}
+  localStorage.clear();
+};
+
+// TEMP FUNCTIONS
+
+export const getToken = (key = PINNTAG_USER) => {
+  const item = localStorage.getItem(key);
+  if (item) {
+    let user = JSON.parse(item);
+
+    return {
+      userToken: user?.userToken,
+      businessToken: user?.businessToken
+    }
+  }
+  return item;
+};

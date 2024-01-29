@@ -1,8 +1,7 @@
 import React from "react";
 import Image from "../image";
-import EditIcon from "@mui/icons-material/Edit";
+// import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import BusinessDetailTable from "../businessDetailsScreen/BusinessDetailTable";
 
 const BusinessTable = ({ handleOpen }) => {
   return (
