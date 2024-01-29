@@ -15,7 +15,7 @@ const BusinessHeader = ({handleOpen}) => {
           </div>
 
           <div className="flex justify-between items-center gap-3">
-            <div className="">
+            {/* <div className="">
               <div class="relative text-gray-600 focus-within:text-gray-400 border-2 rounded-md border-[#595959]">
                 <input
                   type="search"
@@ -45,7 +45,7 @@ const BusinessHeader = ({handleOpen}) => {
             </div>
             <div>
               <FilterAlt fontSize="large" className="text-[#595959]" />
-            </div>
+            </div> */}
             <div>
               {/* @tobe make it common button */}
               <div

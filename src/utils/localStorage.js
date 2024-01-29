@@ -25,8 +25,7 @@ export const clearStorage = () => {
 export const getToken = (key = PINNTAG_USER) => {
   const item = localStorage.getItem(key);
   if (item) {
-    let user = JSON.parse(item);
-
+    let user = JSON.parse(item)?.tokens[0];
     return {
       userToken: user?.userToken,
       businessToken: user?.businessToken

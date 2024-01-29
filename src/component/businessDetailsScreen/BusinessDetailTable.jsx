@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import Image from "../image";
 import { useNavigate } from "react-router-dom";
-import { getData } from "../../utils/api";
+import { getData, getDataTemp } from "../../utils/api";
 import SecondarLoader from "../../common/Loader/SecondarLoader";
 
 const BusinessDetailTable = () => {
@@ -12,7 +12,7 @@ const BusinessDetailTable = () => {
 
   const fetchAllBusinessDetails = async () => {
     setLoading(true);
-    const res = await getData("business-profile/all");
+    const res = await getDataTemp("business-profile/all");
     if (res.data) {
       setData(res.data?.businessProfiles);
       console.log(res.data, ">>>>>>>>");

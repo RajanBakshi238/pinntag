@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PrimaryButton from "../../common/FormElements/Button/PrimaryButton";
 import { useSnackbar } from "notistack";
-import { axiosInstance } from "../../config/axiosInstance";
+import { axiosInstance, axiosTempInstance } from "../../config/axiosInstance";
 import { useNavigate } from "react-router-dom";
 import { PINNTAG_USER } from "../../config/routes/RoleProtectedRoute";
 import { useAuthentication } from "../../context/authContext";
@@ -29,18 +29,22 @@ const Login = () => {
   const handleSubmit = async () => {
     setLoading(true)
     try {
-      const response = await axiosInstance.post("/auth/login", {
+      const response = await axiosTempInstance.post("/auth/login", {
         ...formData,
         deviceType: "web"
       });
       setUser(response.data);
       localStorage.setItem(PINNTAG_USER, JSON.stringify(response.data));
       enqueueSnackbar("Login successfully", { variant: "success" });
+      axiosTempInstance.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${response?.data?.tokens[0]?.userToken}`;
       axiosInstance.defaults.headers.common[
         "Authorization"
-      ] = `Bearer ${response?.data?.token}`;
+      ] = `Bearer ${response?.data?.tokens[0]?.businessToken}`;
       navigate("/dashboard/business-details");
     } catch (err) {
+      console.log(err, "...... err")
       enqueueSnackbar(err?.response?.data?.message ? formatErrorMessage(err?.response?.data?.message) : "Wrong credentials", {
         variant: "error",
       });

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { ErrorMessage, Form, FormikProvider, useFormik } from "formik";
 import * as Yup from "yup";
 
@@ -8,15 +8,20 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import SecondaryButton from "../../common/FormElements/Button/SecondaryButton";
 import PrimaryModal from "../../common/Modal/PrimaryModal";
 import { Add } from "@mui/icons-material";
+import { postData } from "../../utils/api";
+import { enqueueSnackbar } from "notistack";
+import { formatErrorMessage } from "../../utils/formatErrorMessage";
 
 const PHONE_REGX =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
-const AddBusiness = ({ open, handleClose }) => {
+const AddBusiness = ({ open, handleClose, fetchAllBusinessDetails }) => {
+  const [loading, setLoading] = useState(false);
+
   const initState = {
     firstName: "",
     lastName: "",
-    mobileNumber: "",
+    phone: "",
     email: "",
     createContent: false,
     publishContent: false,
@@ -32,7 +37,9 @@ const AddBusiness = ({ open, handleClose }) => {
       .min(3, "Too short!")
       .required("First name required."),
     lastName: Yup.string().min(3, "Too short!").required("Last name required."),
-    mobileNumber: Yup.string().matches(PHONE_REGX, "Phone number is not valid").required("Mobile Number is required."),
+    phone: Yup.string()
+      .matches(PHONE_REGX, "Phone number is not valid")
+      .required("Mobile Number is required."),
     email: Yup.string()
       .email("Invalid email address")
       .required("Email is required"),
@@ -41,7 +48,32 @@ const AddBusiness = ({ open, handleClose }) => {
   const formik = useFormik({
     initialValues: initState,
     validationSchema,
-    onSubmit: async (values) => {
+    onSubmit: async (values, { resetForm }) => {
+      setLoading(true);
+
+      const res = await postData("business-profile/create/staff/member", {
+        ...values,
+      });
+
+      if (res.data) {
+        enqueueSnackbar(res.data.message ?? "", {
+          variant: "success",
+        });
+        fetchAllBusinessDetails();
+        handleClose();
+        resetForm();
+      } else {
+        enqueueSnackbar(
+          res.error?.message
+            ? formatErrorMessage(res.error?.message)
+            : "Something went wrong",
+          {
+            variant: "error",
+          }
+        );
+      }
+      setLoading(false);
+
       console.log("........", values);
     },
   });
@@ -51,7 +83,10 @@ const AddBusiness = ({ open, handleClose }) => {
   return (
     <PrimaryModal
       open={open}
-      handleClose={handleClose}
+      handleClose={() => {
+        handleClose();
+        formik.resetForm();
+      }}
       modalClass="max-w-[500px]"
     >
       <FormikProvider value={formik}>
@@ -89,12 +124,12 @@ const AddBusiness = ({ open, handleClose }) => {
               type="text"
               className="model-input"
               placeholder="Mobile Phone"
-              name="mobileNumber"
+              name="phone"
               onChange={handleChange}
               onBlur={handleBlur}
             />
             <span className="font-semibold pl-1 text-sm text-red-600">
-              <ErrorMessage name="mobileNumber" />
+              <ErrorMessage name="phone" />
             </span>
           </div>
           <div className="mb-6">
@@ -179,7 +214,11 @@ const AddBusiness = ({ open, handleClose }) => {
               </SecondaryButton> */}
             </div>
             <div>
-              <PrimaryButton onClick={formik.handleSubmit}>
+              <PrimaryButton
+                onClick={formik.handleSubmit}
+                loading={loading}
+                inputClass={"min-w-[100px]"}
+              >
                 <span>Add</span>
                 <Add className="!text-white" />
               </PrimaryButton>

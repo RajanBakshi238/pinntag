@@ -12,7 +12,7 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = getItem(PINNTAG_USER)?.token;
-    const {userToken, businessToken} = getToken();
+    const {userToken, businessToken} = getToken() ?? {};
 
     if (businessToken) {
       config.headers.Authorization = `Bearer ${businessToken}`;
@@ -49,7 +49,7 @@ const axiosTempInstance = axios.create({
 axiosTempInstance.interceptors.request.use(
   (config) => {
     const token = getItem(PINNTAG_USER)?.token;
-    const {userToken, businessToken} = getToken();
+    const {userToken, businessToken} = getToken() ?? {};
 
     if (userToken) {
       config.headers.Authorization = `Bearer ${userToken}`;
