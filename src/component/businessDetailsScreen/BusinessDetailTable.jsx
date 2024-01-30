@@ -2,30 +2,10 @@ import React, { useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import Image from "../image";
 import { useNavigate } from "react-router-dom";
-import { getData, getDataTemp } from "../../utils/api";
-import SecondarLoader from "../../common/Loader/SecondarLoader";
 
 const BusinessDetailTable = () => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
-  const [data, setData] = useState();
-
-  const fetchAllBusinessDetails = async () => {
-    setLoading(true);
-    const res = await getDataTemp("business-profile/all");
-    if (res.data) {
-      setData(res.data?.businessProfiles);
-      console.log(res.data, ">>>>>>>>");
-    } else {
-      console.log(res.error, "Error while fetching business details");
-    }
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    fetchAllBusinessDetails();
-  }, []);
-
+   
   return (
     <>
       {/* {!loading && <SecondarLoader />} */}

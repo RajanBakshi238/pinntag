@@ -74,7 +74,6 @@ const AddBusiness = ({ open, handleClose, fetchAllBusinessDetails }) => {
       }
       setLoading(false);
 
-      console.log("........", values);
     },
   });
 

@@ -1,14 +1,55 @@
-import React from 'react'
-import ImageGalleryHeader from '../../component/ImageGalleryScreen/ImageGalleryHeader'
-import ImageGalleryGrid from '../../component/ImageGalleryScreen/ImageGalleryGrid'
+import React, { useEffect, useState } from "react";
+import ImageGalleryHeader from "../../component/ImageGalleryScreen/ImageGalleryHeader";
+import ImageGalleryGrid from "../../component/ImageGalleryScreen/ImageGalleryGrid";
+import { deleteData, getData } from "../../utils/api";
+import { enqueueSnackbar } from "notistack";
+import { formatErrorMessage } from "../../utils/formatErrorMessage";
 
 const Imagegallery = () => {
+  const [data, setData] = useState();
+  const [loading, setLoading] = useState(false);
+
+  const fetchImage = async () => {
+    setLoading(true);
+    const res = await getData("business-profile/gallery/data");
+
+    if (res.data) {
+      setData(res?.data?.gallery?.images);
+    } else {
+    }
+    setLoading(false);
+  };
+
+  const deleteImage = async (id) => {
+    const res = await deleteData(`business-profile/gallery/delete/${id}`);
+
+    if (res.data) {
+      enqueueSnackbar(res.data.message ?? "", {
+        variant: "success",
+      });
+      fetchImage();
+    } else {
+      enqueueSnackbar(
+        res.error?.message
+          ? formatErrorMessage(res.error?.message)
+          : "Something went wrong",
+        {
+          variant: "error",
+        }
+      );
+    }
+  };
+
+  useEffect(() => {
+    fetchImage();
+  }, []);
+
   return (
     <div>
-      <ImageGalleryHeader />
-      <ImageGalleryGrid/>
+      <ImageGalleryHeader fetchImage={fetchImage} />
+      <ImageGalleryGrid deleteImage={deleteImage} data={data}/>
     </div>
-  )
-}
+  );
+};
 
-export default Imagegallery
+export default Imagegallery;
