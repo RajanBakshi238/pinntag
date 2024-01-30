@@ -6,6 +6,7 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import SecondaryButton from "../../common/FormElements/Button/SecondaryButton";
 import { useNavigate, useParams } from "react-router-dom";
 import { getDataTemp } from "../../utils/api";
+import FacebookLoginButton from "./SocialAuth/FacebookLoginButton";
 
 const EditBusiness = () => {
   const initState = {
@@ -136,7 +137,7 @@ const EditBusiness = () => {
                   onChange={formik.handleChange}
                 />
               </div>
-              <div className="mb-3">
+              {/* <div className="mb-3">
                 <select
                   className="common-select w-full"
                   name="businessCategory"
@@ -148,81 +149,19 @@ const EditBusiness = () => {
                   <option>category3</option>
                   <option>category3</option>
                 </select>
-              </div>
+              </div> */}
 
               <div className="mt-6">
-                <FieldArray
-                  name="businessSocialMedia"
-                  render={(arrayHelpers) => (
-                    <div>
-                      <div className="flex justify-between">
-                        <h1 className="text-base font-bold ">
-                          Social Media Login Details
-                        </h1>
-                        <PrimaryButton
-                          onClick={() =>
-                            arrayHelpers.push({
-                              app: "",
-                              password: "",
-                              userId: "",
-                            })
-                          }
-                        >
-                          <Add className="!text-white" />
-                          <span>Add</span>
-                        </PrimaryButton>
-                      </div>
-                      {formik.values.businessSocialMedia.map(
-                        (socialMedia, index) => {
-                          return (
-                            <div className="mt-3 py-3 px-2 bg-[#0000000d] rounded-md">
-                              <div className="flex gap-2">
-                                <div className="w-[90%]">
-                                  <div className="mb-3">
-                                    <select
-                                      className="common-select w-full"
-                                      name={`businessSocialMedia[${index}].app`}
-                                      placeholder="Category"
-                                      onChange={formik.handleChange}
-                                    >
-                                      <option>Social media app</option>
-                                      <option>category2</option>
-                                      <option>category3</option>
-                                      <option>category3</option>
-                                    </select>
-                                  </div>
-                                  <div className="mb-3">
-                                    <input
-                                      placeholder="User ID"
-                                      name={`businessSocialMedia[${index}].userId`}
-                                      className="common-input"
-                                      onChange={formik.handleChange}
-                                    />
-                                  </div>
-                                  <div className="">
-                                    <input
-                                      type="password"
-                                      placeholder="Password"
-                                      name={`businessSocialMedia[${index}].password`}
-                                      className="common-input"
-                                      onChange={formik.handleChange}
-                                    />
-                                  </div>
-                                </div>
-                                <div>
-                                  <DeleteOutlineIcon
-                                    className="cursor-pointer"
-                                    onClick={() => arrayHelpers.remove(index)}
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                          );
-                        }
-                      )}
-                    </div>
-                  )}
-                />
+                <div className="flex justify-between">
+                  <h1 className="text-base font-bold ">
+                    Social Media Login Details
+                  </h1>
+                </div>
+                <div className="mt-3 py-3 px-2 bg-[#0000000d] rounded-md">
+                  <FacebookLoginButton
+                    
+                  />
+                </div>
               </div>
             </div>
             <div className="md:w-1/2 w-full">
