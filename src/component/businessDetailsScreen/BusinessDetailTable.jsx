@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import Image from "../image";
 import { useNavigate } from "react-router-dom";
+import { businessStatus } from "../../utils/constants/statuses";
 
-const BusinessDetailTable = () => {
+
+const BusinessDetailTable = ({ data }) => {
   const navigate = useNavigate();
-   
+
   return (
     <>
       {/* {!loading && <SecondarLoader />} */}
@@ -43,41 +45,49 @@ const BusinessDetailTable = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr class="border-2 border-[#000000]">
-                    <td class="whitespace-nowrap flex justify-center  px-2 py-2">
-                      <Image
-                        src={
-                          "https://www.photoshopessentials.com/newsite/wp-content/uploads/2018/08/resize-images-print-photoshop-f.jpg"
-                        }
-                        className={"w-7 h-7 rounded-3xl"}
-                        alt={"test_image"}
-                      />
-                    </td>
-                    <td class="whitespace-nowrap font-semibold px-6 py-2 underline">
-                      Robin Seth
-                    </td>
-                    <td class="whitespace-nowrap font-semibold px-6 py-2">
-                      Yearly
-                    </td>
-                    <td class="whitespace-nowrap font-semibold px-6 py-2">
-                      $360.00
-                    </td>
-                    <td class="whitespace-nowrap font-semibold px-6 py-2">
-                      Business
-                    </td>
-                    <td class="whitespace-nowrap font-semibold px-6 py-2">
-                      Active
-                    </td>
-                    <td class="whitespace-nowrap font-semibold px-6 py-2">3</td>
-                    <td class="whitespace-nowrap  px-6 py-2">
-                      <EditIcon
-                        onClick={() =>
-                          navigate("/dashboard/edit-business-details/00")
-                        }
-                        className="cursor-pointer text-white rounded-2xl bg-black "
-                      />
-                    </td>
-                  </tr>
+                  {data?.map((business, index) => {
+                    return (
+                      <>
+                        <tr class="border-2 border-[#000000]">
+                          <td class="whitespace-nowrap flex justify-center  px-2 py-2">
+                            <Image
+                              src={
+                                "https://www.photoshopessentials.com/newsite/wp-content/uploads/2018/08/resize-images-print-photoshop-f.jpg"
+                              }
+                              className={"w-7 h-7 rounded-3xl"}
+                              alt={"test_image"}
+                            />
+                          </td>
+                          <td class="whitespace-nowrap font-semibold px-6 py-2 underline">
+                            {business.name}
+                          </td>
+                          <td class="whitespace-nowrap font-semibold px-6 py-2">
+                            Yearly
+                          </td>
+                          <td class="whitespace-nowrap font-semibold px-6 py-2">
+                            $360.00
+                          </td>
+                          <td class="whitespace-nowrap font-semibold px-6 py-2">
+                            {business.profileType}
+                          </td>
+                          <td class="whitespace-nowrap font-semibold px-6 py-2">
+                            {businessStatus[business.status]}
+                          </td>
+                          <td class="whitespace-nowrap font-semibold px-6 py-2">
+                            {business.locations?.length}
+                          </td>
+                          <td class="whitespace-nowrap  px-6 py-2">
+                            <EditIcon
+                              onClick={() =>
+                                navigate(`/dashboard/edit-business-details/${business._id}`)
+                              }
+                              className="cursor-pointer text-white rounded-2xl bg-black "
+                            />
+                          </td>
+                        </tr>
+                      </>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
@@ -89,3 +99,39 @@ const BusinessDetailTable = () => {
 };
 
 export default BusinessDetailTable;
+
+// <tr class="border-2 border-[#000000]">
+//                     <td class="whitespace-nowrap flex justify-center  px-2 py-2">
+//                       <Image
+//                         src={
+//                           "https://www.photoshopessentials.com/newsite/wp-content/uploads/2018/08/resize-images-print-photoshop-f.jpg"
+//                         }
+//                         className={"w-7 h-7 rounded-3xl"}
+//                         alt={"test_image"}
+//                       />
+//                     </td>
+//                     <td class="whitespace-nowrap font-semibold px-6 py-2 underline">
+//                       Robin Seth
+//                     </td>
+//                     <td class="whitespace-nowrap font-semibold px-6 py-2">
+//                       Yearly
+//                     </td>
+//                     <td class="whitespace-nowrap font-semibold px-6 py-2">
+//                       $360.00
+//                     </td>
+//                     <td class="whitespace-nowrap font-semibold px-6 py-2">
+//                       Business
+//                     </td>
+//                     <td class="whitespace-nowrap font-semibold px-6 py-2">
+//                       Active
+//                     </td>
+//                     <td class="whitespace-nowrap font-semibold px-6 py-2">3</td>
+//                     <td class="whitespace-nowrap  px-6 py-2">
+//                       <EditIcon
+//                         onClick={() =>
+//                           navigate("/dashboard/edit-business-details/00")
+//                         }
+//                         className="cursor-pointer text-white rounded-2xl bg-black "
+//                       />
+//                     </td>
+//                   </tr>

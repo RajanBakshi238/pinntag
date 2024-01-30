@@ -5,7 +5,7 @@ import { Add } from "@mui/icons-material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import SecondaryButton from "../../common/FormElements/Button/SecondaryButton";
 import { useNavigate, useParams } from "react-router-dom";
-import { getData } from "../../utils/api";
+import { getDataTemp } from "../../utils/api";
 
 const EditBusiness = () => {
   const initState = {
@@ -42,9 +42,9 @@ const EditBusiness = () => {
   const [data, setData] = useState();
 
   const fetchBusinessDetail = async () => {
-    const resposne = await getData(`business-profile/${id}`);
+    const resposne = await getDataTemp(`business-profile/${id}`);
     if (resposne.data) {
-      setData(resposne.data?.businessProfiles);
+      setData(resposne.data?.businessProfile);
       console.log(resposne.data, ">>>>>>>>");
     } else {
       console.log(resposne.error, "Error while fetching business details");
@@ -319,7 +319,7 @@ const EditBusiness = () => {
                                   </div>
                                   <div className="mb-3">
                                     <input
-                                      placeholder="Email"
+                                      placeholder="Telephone number"
                                       name={`businessLocations[${index}].telePhonenumber`}
                                       className="common-input"
                                       onChange={formik.handleChange}
