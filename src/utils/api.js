@@ -36,7 +36,7 @@ export const postData = async (END_POINT, body) => {
     response = err;
   }
 
-  console.log(response, ">>>")
+  // console.log(response, ">>>")
 
   return {
     data: response?.data,

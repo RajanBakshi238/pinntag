@@ -5,35 +5,40 @@ import { Add } from "@mui/icons-material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import SecondaryButton from "../../common/FormElements/Button/SecondaryButton";
 import { useNavigate, useParams } from "react-router-dom";
-import { getDataTemp } from "../../utils/api";
+import { getDataTemp, postData } from "../../utils/api";
 import FacebookLoginButton from "./SocialAuth/FacebookLoginButton";
+import { enqueueSnackbar } from "notistack";
+import { formatErrorMessage } from "../../utils/formatErrorMessage";
 
 const EditBusiness = () => {
+  const [loading, setLoading] = useState(false);
+
   const initState = {
-    businessName: "",
-    businessType: "",
-    businessDescription: "",
-    businessCategory: "",
+    name: "",
+    businessType: "Business",
+    bio: "",
+    // businessCategory: "",
     businessImage: "",
-    imageBlob: "",
-    imageUrl: "",
-    businessSocialMedia: [
-      {
-        app: "",
-        password: "",
-        userId: "",
-      },
-    ],
-    businessLocations: [
+    // imageBlob: "",
+    // imageUrl: "",
+    image: "",
+    // businessSocialMedia: [
+    //   {
+    //     app: "",
+    //     password: "",
+    //     userId: "",
+    //   },
+    // ],
+    locations: [
       {
         address1: "",
         address2: "",
         city: "",
-        st: "",
+        state: "",
         zip: "",
         website: "",
         email: "",
-        telePhonenumber: "",
+        phone: "",
       },
     ],
   };
@@ -45,8 +50,15 @@ const EditBusiness = () => {
   const fetchBusinessDetail = async () => {
     const resposne = await getDataTemp(`business-profile/${id}`);
     if (resposne.data) {
-      setData(resposne.data?.businessProfile);
-      console.log(resposne.data, ">>>>>>>>");
+      const businessProfile = resposne.data?.businessProfile;
+      setData(businessProfile);
+      formik.setValues({
+        ...initState,
+        name: businessProfile?.name,
+        bio: businessProfile?.bio,
+        image: businessProfile?.image,
+        locations: businessProfile?.locations,
+      });
     } else {
       console.log(resposne.error, "Error while fetching business details");
     }
@@ -58,29 +70,74 @@ const EditBusiness = () => {
 
   const formik = useFormik({
     initialValues: initState,
-    onSubmit: async () => {
-      console.log("Yes we are");
+    onSubmit: async (values) => {
+      setLoading(true);
+      const res = await postData("business-profile/update", values);
+      if (res.data) {
+        enqueueSnackbar(res.data.message ?? "", {
+          variant: "success",
+        });
+        // fetchAllBusinessDetails();
+        // handleClose();
+        // resetForm();
+      } else {
+        enqueueSnackbar(
+          res.error?.message
+            ? formatErrorMessage(res.error?.message)
+            : "Something went wrong",
+          {
+            variant: "error",
+          }
+        );
+      }
+
+      setLoading(false);
     },
   });
 
-  const handleImageUpload = (event) => {
+  const handleImageUpload = async (event) => {
     const file = event.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        formik.setFieldValue("businessImage", reader.result);
-        formik.setFieldValue("imageBlob", file);
-      };
-      reader.readAsDataURL(file);
+      if (file.type.startsWith("image/")) {
+        setLoading(true);
+
+        const formData = new FormData();
+        formData.append("image", file);
+
+        const res = await postData("business-profile/update/photo", formData);
+
+        if (res.data) {
+          enqueueSnackbar(res.data.message ?? "", {
+            variant: "success",
+          });
+        } else {
+          enqueueSnackbar(
+            res.error?.message
+              ? formatErrorMessage(res.error?.message)
+              : "Something went wrong",
+            {
+              variant: "error",
+            }
+          );
+        }
+        fetchBusinessDetail();
+        setLoading(false);
+      } else {
+        enqueueSnackbar("Only images allowed", {
+          variant: "error",
+        });
+      }
     }
   };
 
-  console.log(formik.values, ">>>>> value", id);
+  const { values } = formik;
+
+  // console.log(formik.values, ">>>>> value", id);
 
   return (
     <div className="mx-12">
       <FormikProvider value={formik}>
-        <Form onSubmit={formik.handleSubmit}>
+        <Form>
           <div className="flex gap-6 md:flex-row flex-col">
             <div className="md:w-1/2 w-full">
               <div className="mb-3">
@@ -88,8 +145,8 @@ const EditBusiness = () => {
                   <img
                     className="w-36 h-36 rounded-full border-4 border-[#e8e51a]"
                     src={
-                      formik.values.businessImage
-                        ? formik.values.businessImage
+                      formik.values.image
+                        ? formik.values.image
                         : "https://via.placeholder.com/150"
                     }
                     alt=""
@@ -98,7 +155,12 @@ const EditBusiness = () => {
 
                 <label htmlFor="businessImage">
                   {" "}
-                  <PrimaryButton inputClass="w-fit">Upload Image</PrimaryButton>
+                  <PrimaryButton
+                    inputClass="w-fit min-w-[150px]"
+                    loading={loading}
+                  >
+                    Upload Image
+                  </PrimaryButton>
                 </label>
                 <input
                   id="businessImage"
@@ -111,7 +173,8 @@ const EditBusiness = () => {
               <div className="mb-3">
                 <input
                   placeholder="Business Name"
-                  name="businessName"
+                  name="name"
+                  value={values?.name}
                   className="common-input"
                   onChange={formik.handleChange}
                 />
@@ -121,17 +184,20 @@ const EditBusiness = () => {
                   className="common-select w-full"
                   name="businessType"
                   placeholder="Category"
+                  value={values.businessType}
                   onChange={formik.handleChange}
                 >
-                  <option>Type [Business/Non-profit]</option>
+                  {/* <option>Type [Business/Non-profit]</option> */}
+                  <option>Type </option>
                   <option>Business</option>
-                  <option>Non-profit</option>
+                  {/* <option>Non-profit</option> */}
                 </select>
               </div>
               <div className="mb-3">
                 <textarea
                   placeholder="Description"
-                  name="businessDescription"
+                  name="bio"
+                  value={values?.bio}
                   className="common-textarea"
                   rows={3}
                   onChange={formik.handleChange}
@@ -158,16 +224,14 @@ const EditBusiness = () => {
                   </h1>
                 </div>
                 <div className="mt-3 py-3 px-2 bg-[#0000000d] rounded-md">
-                  <FacebookLoginButton
-                    
-                  />
+                  <FacebookLoginButton />
                 </div>
               </div>
             </div>
             <div className="md:w-1/2 w-full">
               <div className="">
                 <FieldArray
-                  name="businessLocations"
+                  name="locations"
                   render={(arrayHelpers) => (
                     <div>
                       <div className="flex justify-between">
@@ -192,90 +256,96 @@ const EditBusiness = () => {
                           <span>Add</span>
                         </PrimaryButton>
                       </div>
-                      {formik.values.businessLocations.map(
-                        (location, index) => {
-                          return (
-                            <div className="mt-3 py-3 px-2 bg-[#0000000d] rounded-md">
-                              <div className="flex gap-2">
-                                <div className="w-[90%]">
-                                  <div className="mb-3">
+                      {formik.values.locations?.map((location, index) => {
+                        return (
+                          <div className="mt-3 py-3 px-2 bg-[#0000000d] rounded-md">
+                            <div className="flex gap-2">
+                              <div className="w-[90%]">
+                                <div className="mb-3">
+                                  <input
+                                    placeholder="Address 1"
+                                    name={`locations[${index}].address1`}
+                                    value={location.address1}
+                                    className="common-input"
+                                    onChange={formik.handleChange}
+                                  />
+                                </div>
+                                <div className="mb-3">
+                                  <input
+                                    placeholder="Address 2"
+                                    name={`locations[${index}].address2`}
+                                    value={location.address2}
+                                    className="common-input"
+                                    onChange={formik.handleChange}
+                                  />
+                                </div>
+                                <div className="mb-3 flex gap-2">
+                                  <div className="w-2/4">
                                     <input
-                                      placeholder="Address 1"
-                                      name={`businessLocations[${index}].address1`}
+                                      placeholder="City"
+                                      name={`locations[${index}].city`}
+                                      className="common-input"
+                                      value={location.city}
+                                      onChange={formik.handleChange}
+                                    />
+                                  </div>
+                                  <div className="w-1/4">
+                                    <input
+                                      placeholder="ST"
+                                      value={location.state}
+                                      name={`locations[${index}].state`}
                                       className="common-input"
                                       onChange={formik.handleChange}
                                     />
                                   </div>
-                                  <div className="mb-3">
+                                  <div className="w-1/4">
                                     <input
-                                      placeholder="Address 2"
-                                      name={`businessLocations[${index}].address2`}
-                                      className="common-input"
-                                      onChange={formik.handleChange}
-                                    />
-                                  </div>
-                                  <div className="mb-3 flex gap-2">
-                                    <div className="w-2/4">
-                                      <input
-                                        placeholder="City"
-                                        name={`businessLocations[${index}].city`}
-                                        className="common-input"
-                                        onChange={formik.handleChange}
-                                      />
-                                    </div>
-                                    <div className="w-1/4">
-                                      <input
-                                        placeholder="ST"
-                                        name={`businessLocations[${index}].st`}
-                                        className="common-input"
-                                        onChange={formik.handleChange}
-                                      />
-                                    </div>
-                                    <div className="w-1/4">
-                                      <input
-                                        placeholder="Zip"
-                                        name={`businessLocations[${index}].zip`}
-                                        className="common-input"
-                                        onChange={formik.handleChange}
-                                      />
-                                    </div>
-                                  </div>
-                                  <div className="mb-3">
-                                    <input
-                                      placeholder="Website"
-                                      name={`businessLocations[${index}].website`}
-                                      className="common-input"
-                                      onChange={formik.handleChange}
-                                    />
-                                  </div>
-                                  <div className="mb-3">
-                                    <input
-                                      placeholder="Email"
-                                      name={`businessLocations[${index}].email`}
-                                      className="common-input"
-                                      onChange={formik.handleChange}
-                                    />
-                                  </div>
-                                  <div className="mb-3">
-                                    <input
-                                      placeholder="Telephone number"
-                                      name={`businessLocations[${index}].telePhonenumber`}
+                                      value={location.zip}
+                                      placeholder="Zip"
+                                      name={`locations[${index}].zip`}
                                       className="common-input"
                                       onChange={formik.handleChange}
                                     />
                                   </div>
                                 </div>
-                                <div>
-                                  <DeleteOutlineIcon
-                                    className="cursor-pointer"
-                                    onClick={() => arrayHelpers.remove(index)}
+                                <div className="mb-3">
+                                  <input
+                                    value={location?.website}
+                                    placeholder="Website"
+                                    name={`locations[${index}].website`}
+                                    className="common-input"
+                                    onChange={formik.handleChange}
+                                  />
+                                </div>
+                                <div className="mb-3">
+                                  <input
+                                    value={location.email}
+                                    placeholder="Email"
+                                    name={`locations[${index}].email`}
+                                    className="common-input"
+                                    onChange={formik.handleChange}
+                                  />
+                                </div>
+                                <div className="mb-3">
+                                  <input
+                                    value={location.phone}
+                                    placeholder="Telephone number"
+                                    name={`locations[${index}].phone`}
+                                    className="common-input"
+                                    onChange={formik.handleChange}
                                   />
                                 </div>
                               </div>
+                              <div>
+                                <DeleteOutlineIcon
+                                  className="cursor-pointer"
+                                  onClick={() => arrayHelpers.remove(index)}
+                                />
+                              </div>
                             </div>
-                          );
-                        }
-                      )}
+                          </div>
+                        );
+                      })}
                     </div>
                   )}
                 />
@@ -288,7 +358,13 @@ const EditBusiness = () => {
                 >
                   Cancel
                 </SecondaryButton>
-                <PrimaryButton inputClass="px-9">Save</PrimaryButton>
+                <PrimaryButton
+                  inputClass="px-9 min-w-[100px]"
+                  loading={loading}
+                  onClick={formik.handleSubmit}
+                >
+                  Save
+                </PrimaryButton>
               </div>
             </div>
           </div>
@@ -299,3 +375,15 @@ const EditBusiness = () => {
 };
 
 export default EditBusiness;
+
+// const handleImageUpload = (event) => {
+//   const file = event.target.files[0];
+//   if (file) {
+//     const reader = new FileReader();
+//     reader.onloadend = () => {
+//       formik.setFieldValue("businessImage", reader.result);
+//       formik.setFieldValue("imageBlob", file);
+//     };
+//     reader.readAsDataURL(file);
+//   }
+// };
