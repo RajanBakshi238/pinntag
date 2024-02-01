@@ -3,7 +3,7 @@ import Image from "../image";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-const ListView = ({ handleOpen }) => {
+const ListView = ({ handleOpen, data }) => {
   return (
     <>
       <div class="flex flex-col mx-12">
@@ -34,35 +34,42 @@ const ListView = ({ handleOpen }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr class="border-2 border-[#000000]">
-                    <td class="whitespace-nowrap flex justify-center  px-2 py-2">
-                      <Image
-                        src={
-                          "https://www.photoshopessentials.com/newsite/wp-content/uploads/2018/08/resize-images-print-photoshop-f.jpg"
-                        }
-                        className={"w-7 h-7 rounded-3xl"}
-                        alt={"test_image"}
-                      />
-                    </td>
-                    <td class="whitespace-nowrap font-semibold px-6 py-2 underline">
-                      Robin Seth
-                    </td>
-                    <td class="whitespace-nowrap font-semibold px-6 py-2">
-                      Offer
-                    </td>
-                    <td class="whitespace-nowrap font-semibold px-6 py-2">
-                      Active
-                    </td>
-                    <td class="whitespace-nowrap  px-6 py-2">
-                      <EditIcon
-                        onClick={handleOpen}
-                        className="cursor-pointer text-white rounded-2xl bg-black "
-                      />
-                    </td>
-                    <td class="whitespace-nowrap  px-6 py-2">
-                      <DeleteIcon className="text-white rounded-2xl bg-black " />
-                    </td>
-                  </tr>
+                  {data?.map((item) => {
+                    return (
+                      <tr class="border-2 border-[#000000]">
+                        <td class="whitespace-nowrap flex justify-center  px-2 py-2">
+                          <Image
+                            src={
+                              item.images[0]?.url ??
+                              "https://www.photoshopessentials.com/newsite/wp-content/uploads/2018/08/resize-images-print-photoshop-f.jpg"
+                            }
+                            className={"w-7 h-7 rounded-3xl"}
+                            alt={"test_image"}
+                          />
+                        </td>
+                        <td class="whitespace-nowrap font-semibold px-6 py-2 underline">
+                        {item.title}
+
+                        </td>
+                        <td class="whitespace-nowrap font-semibold px-6 capitalize py-2">
+                        {item.type}
+
+                        </td>
+                        <td class="whitespace-nowrap font-semibold px-6 py-2">
+                          {item.status}
+                        </td>
+                        <td class="whitespace-nowrap  px-6 py-2">
+                          <EditIcon
+                            onClick={handleOpen}
+                            className="cursor-pointer text-white rounded-2xl bg-black "
+                          />
+                        </td>
+                        <td class="whitespace-nowrap  px-6 py-2">
+                          <DeleteIcon className="text-white rounded-2xl bg-black " />
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>

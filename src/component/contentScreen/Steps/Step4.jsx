@@ -18,7 +18,7 @@ const Step4 = ({ handleStep, handleClose, id, currentStep, fetchAllEvents }) => 
       ageGroupsAllowed: [],
       targetGenders: [],
       promotionCode: "",
-      isFree: "",
+      isFree: false,
       participationCost: 0,
       bookingUrl: "",
       notifyFollowers: true,

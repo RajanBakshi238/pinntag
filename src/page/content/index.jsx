@@ -48,7 +48,7 @@ const Content = () => {
         toggleCardView={toggleCardView}
         cardView={cardView}
       />
-      {cardView ? <CardView data={data }/> : <ListView />}
+      {cardView ? <CardView data={data }/> : <ListView data={data } />}
 
       <CreateContent open={open} handleClose={handleClose} fetchAllEvents= {fetchAllEvents} />
     </>
