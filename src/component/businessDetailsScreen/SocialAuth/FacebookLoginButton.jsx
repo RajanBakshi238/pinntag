@@ -13,7 +13,7 @@ const FacebookLoginButton = ({ onLogin }) => {
 
   return (
     <FacebookLogin
-      appId="3756229817943164"
+      appId="1411791479125595"
       autoLoad={false}
       fields="name,email,picture,accounts" // Include 'accounts' to get information about user's Pages
       callback={responseFacebook}

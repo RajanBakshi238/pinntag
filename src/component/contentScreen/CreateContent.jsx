@@ -13,12 +13,13 @@ import Step4 from "./Steps/Step4";
 
 import "./content.css";
 
-const INC = "inc";
-const DEC = "dec";
+export const INC = "inc";
+export const DEC = "dec";
 
 const CreateContent = ({ open, handleClose }) => {
-  const [currentStep, setCurrentStep] = useState(1);
-
+  const [currentStep, setCurrentStep] = useState(3);
+  const [id, setId] = useState("65bbd57c9cef5b960094aa95");
+  // 65bbd57c9cef5b960094aa95
   const handleStep = (type) => {
     if (currentStep === 4 && type === INC) {
       return;
@@ -45,18 +46,38 @@ const CreateContent = ({ open, handleClose }) => {
         </div>
 
         {currentStep === 1 ? (
-          <Step1 />
+          <Step1
+            handleStep={handleStep}
+            handleClose={handleClose}
+            currentStep={currentStep}
+            setId={setId}
+          />
         ) : currentStep === 2 ? (
-          <Step2 />
+          <Step2
+            handleStep={handleStep}
+            handleClose={handleClose}
+            currentStep={currentStep}
+            id={id}
+          />
         ) : currentStep === 3 ? (
-          <Step3 />
+          <Step3
+            handleStep={handleStep}
+            handleClose={handleClose}
+            currentStep={currentStep}
+            id={id}
+          />
         ) : currentStep === 4 ? (
-          <Step4 />
+          <Step4
+            handleStep={handleStep}
+            handleClose={handleClose}
+            currentStep={currentStep}
+            id={id}
+          />
         ) : (
           <></>
         )}
 
-        <div className="flex justify-between items-center mt-auto">
+        {/* <div className="flex justify-between items-center mt-auto">
           <div>
             {currentStep === 1 ? (
               <SecondaryButton onClick={() => handleClose()}>
@@ -74,7 +95,7 @@ const CreateContent = ({ open, handleClose }) => {
               <ChevronRightIcon className="!text-white" />
             </PrimaryButton>
           </div>
-        </div>
+        </div> */}
       </div>
     </PrimaryModal>
   );
