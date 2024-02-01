@@ -13,7 +13,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import SecondaryButton from "../../../common/FormElements/Button/SecondaryButton";
 import PrimaryButton from "../../../common/FormElements/Button/PrimaryButton";
 
-const Step2 = ({ handleStep, handleClose, id, currentStep }) => {
+const Step2 = ({ handleStep, handleClose, id, currentStep, fetchAllEvents }) => {
   const [values, setValues] = useState([new DateObject()]);
   const [range, setRange] = useState(false);
   const [multipleTime, setMultipleTime] = useState(false);
@@ -91,6 +91,7 @@ const Step2 = ({ handleStep, handleClose, id, currentStep }) => {
       enqueueSnackbar(res.data.message ?? "", {
         variant: "success",
       });
+      fetchAllEvents();
       handleStep(INC);
     } else {
       console.log(res, ">>>>>>");
@@ -103,7 +104,7 @@ const Step2 = ({ handleStep, handleClose, id, currentStep }) => {
         }
       );
     }
-
+    
     setLoading(false);
   };
 
@@ -113,13 +114,13 @@ const Step2 = ({ handleStep, handleClose, id, currentStep }) => {
         <div className="custom-calendar">
           <div className="mt-3 flex justify-between">
             <h1 className="text-lg font-semibold">Times</h1>
-            <PrimarySwitch
+            {/* <PrimarySwitch
               onChange={(value) => {
                 setRange(value);
                 setValues();
               }}
               labelText="Select date range"
-            />
+            /> */}
           </div>
           <div className="">
             <Calendar

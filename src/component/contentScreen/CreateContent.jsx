@@ -16,9 +16,9 @@ import "./content.css";
 export const INC = "inc";
 export const DEC = "dec";
 
-const CreateContent = ({ open, handleClose }) => {
-  const [currentStep, setCurrentStep] = useState(3);
-  const [id, setId] = useState("65bbd57c9cef5b960094aa95");
+const CreateContent = ({ open, handleClose, fetchAllEvents }) => {
+  const [currentStep, setCurrentStep] = useState(1);
+  const [id, setId] = useState("");
   // 65bbd57c9cef5b960094aa95
   const handleStep = (type) => {
     if (currentStep === 4 && type === INC) {
@@ -42,7 +42,7 @@ const CreateContent = ({ open, handleClose }) => {
           <h1 className="text-center font-medium text-xl">Create Content</h1>
         </div>
         <div className="mb-3">
-          <StepWizard step={currentStep} />
+          <StepWizard step={currentStep-1} />
         </div>
 
         {currentStep === 1 ? (
@@ -51,6 +51,7 @@ const CreateContent = ({ open, handleClose }) => {
             handleClose={handleClose}
             currentStep={currentStep}
             setId={setId}
+            fetchAllEvents={fetchAllEvents}
           />
         ) : currentStep === 2 ? (
           <Step2
@@ -58,6 +59,7 @@ const CreateContent = ({ open, handleClose }) => {
             handleClose={handleClose}
             currentStep={currentStep}
             id={id}
+            fetchAllEvents={fetchAllEvents}
           />
         ) : currentStep === 3 ? (
           <Step3
@@ -65,6 +67,7 @@ const CreateContent = ({ open, handleClose }) => {
             handleClose={handleClose}
             currentStep={currentStep}
             id={id}
+            fetchAllEvents={fetchAllEvents}
           />
         ) : currentStep === 4 ? (
           <Step4
@@ -72,6 +75,7 @@ const CreateContent = ({ open, handleClose }) => {
             handleClose={handleClose}
             currentStep={currentStep}
             id={id}
+            fetchAllEvents={fetchAllEvents}
           />
         ) : (
           <></>

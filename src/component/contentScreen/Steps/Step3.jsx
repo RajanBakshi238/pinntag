@@ -24,7 +24,7 @@ L.Icon.Default.mergeOptions({
   shadowUrl: markerShadow,
 });
 
-const Step3 = ({ handleStep, handleClose, id, currentStep }) => {
+const Step3 = ({ handleStep, handleClose, id, currentStep, fetchAllEvents }) => {
   const [locations, setLocations] = useState();
   const [address, setAddress] = useState([]);
   const [locationIds, setLocationsId] = useState([]);
@@ -44,6 +44,7 @@ const Step3 = ({ handleStep, handleClose, id, currentStep }) => {
 
       const address = await Promise.all(promise);
       setAddress(address);
+      
     } else {
       console.error("Something went error", res);
     }
@@ -113,6 +114,7 @@ const Step3 = ({ handleStep, handleClose, id, currentStep }) => {
       enqueueSnackbar(res.data.message ?? "", {
         variant: "success",
       });
+      fetchAllEvents()
       handleStep(INC);
     } else {
       console.log(res, ">>>>>>");

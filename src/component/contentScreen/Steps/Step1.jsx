@@ -9,7 +9,13 @@ import SecondaryButton from "../../../common/FormElements/Button/SecondaryButton
 import PrimaryButton from "../../../common/FormElements/Button/PrimaryButton";
 import { DEC, INC } from "../CreateContent";
 
-const Step1 = ({ handleStep, handleClose, currentStep, setId }) => {
+const Step1 = ({
+  handleStep,
+  handleClose,
+  currentStep,
+  setId,
+  fetchAllEvents,
+}) => {
   const [categories, setCategories] = useState();
   const [loading, setLoading] = useState(false);
 
@@ -54,10 +60,12 @@ const Step1 = ({ handleStep, handleClose, currentStep, setId }) => {
       const res = await postData("event", formData);
 
       if (res.data) {
-        setId(res.data.event?._id)
+        setId(res.data.event?._id);
         enqueueSnackbar(res.data.message ?? "", {
           variant: "success",
         });
+        fetchAllEvents();
+        handleStep(INC);
       } else {
         console.log(res, ">>>>>>");
         enqueueSnackbar(
@@ -69,7 +77,6 @@ const Step1 = ({ handleStep, handleClose, currentStep, setId }) => {
           }
         );
       }
-      handleStep(INC)
 
       setLoading(false);
     },

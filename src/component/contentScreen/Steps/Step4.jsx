@@ -10,7 +10,7 @@ import { postData } from "../../../utils/api";
 import { enqueueSnackbar } from "notistack";
 import { formatErrorMessage } from "../../../utils/formatErrorMessage";
 
-const Step4 = ({ handleStep, handleClose, id, currentStep }) => {
+const Step4 = ({ handleStep, handleClose, id, currentStep, fetchAllEvents }) => {
   const [loading, setLoading] = useState(false);
 
   const formik = useFormik({
@@ -28,14 +28,18 @@ const Step4 = ({ handleStep, handleClose, id, currentStep }) => {
     onSubmit: async (values) => {
       setLoading(true);
 
-      const res = await postData(`event/update/${id}`, {...values, participationCost: values.participationCost*1});
+      const res = await postData(`event/update/${id}`, {
+        ...values,
+        participationCost: values.participationCost * 1,
+      });
 
       if (res.data) {
         enqueueSnackbar(res.data.message ?? "", {
           variant: "success",
         });
+        fetchAllEvents();
         // handleStep(INC);
-        handleClose()
+        handleClose();
       } else {
         console.log(res, ">>>>>>");
         enqueueSnackbar(
