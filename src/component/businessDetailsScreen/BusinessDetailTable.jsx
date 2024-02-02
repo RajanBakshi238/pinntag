@@ -4,7 +4,6 @@ import Image from "../image";
 import { useNavigate } from "react-router-dom";
 import { businessStatus } from "../../utils/constants/statuses";
 
-
 const BusinessDetailTable = ({ data }) => {
   const navigate = useNavigate();
 
@@ -52,6 +51,7 @@ const BusinessDetailTable = ({ data }) => {
                           <td class="whitespace-nowrap flex justify-center  px-2 py-2">
                             <Image
                               src={
+                                business?.image ??
                                 "https://www.photoshopessentials.com/newsite/wp-content/uploads/2018/08/resize-images-print-photoshop-f.jpg"
                               }
                               className={"w-7 h-7 rounded-3xl"}
@@ -79,7 +79,9 @@ const BusinessDetailTable = ({ data }) => {
                           <td class="whitespace-nowrap  px-6 py-2">
                             <EditIcon
                               onClick={() =>
-                                navigate(`/dashboard/edit-business-details/${business._id}`)
+                                navigate(
+                                  `/dashboard/edit-business-details/${business._id}`
+                                )
                               }
                               className="cursor-pointer text-white rounded-2xl bg-black "
                             />
