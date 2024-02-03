@@ -28,9 +28,10 @@ const CardView = ({data}) => {
                 /> */}
                 <Image
                   src={items.images[0]?.url ?? "https://via.placeholder.com/150"}
-                  className={"max-w-full w-[50%] object-contain"}
+                  className={"h-40  md:h-32 lg:h-36 xl:h-40  w-full"} 
                   alt={"evnt_img"}
                 />
+                {/* max-w-full w-[50%] object-contain */}
               </div>
               <div className="w-full p-2 bg-black">
                 <Text className="font-bold text-white">
