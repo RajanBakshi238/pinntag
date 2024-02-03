@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 import PrimaryModal from "../../common/Modal/PrimaryModal";
@@ -16,7 +16,13 @@ import "./content.css";
 export const INC = "inc";
 export const DEC = "dec";
 
-const CreateContent = ({ open, handleClose, fetchAllEvents }) => {
+const CreateContent = ({
+  open,
+  handleClose,
+  fetchAllEvents,
+  eventId,
+  setEventId,
+}) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [id, setId] = useState("");
   // 65bbd57c9cef5b960094aa95
@@ -31,10 +37,21 @@ const CreateContent = ({ open, handleClose, fetchAllEvents }) => {
     }
   };
 
+  useEffect(() => {
+    setId(eventId);
+  }, [eventId]);
+
+  const handleCloseModel = () => {
+    handleClose();
+    setId();
+    setEventId();
+  };
+
+  console.log(eventId, ">>>>>> eventId");
   return (
     <PrimaryModal
-      open={open}
-      handleClose={handleClose}
+      open={open || !!id}
+      handleClose={handleCloseModel}
       modalClass="w-[380px] sm:w-[500px] md:w-1/2 lg:w-2/5 xl:w-1/3"
     >
       <div className="flex flex-col h-full">
@@ -42,7 +59,7 @@ const CreateContent = ({ open, handleClose, fetchAllEvents }) => {
           <h1 className="text-center font-medium text-xl">Create Content</h1>
         </div>
         <div className="mb-3">
-          <StepWizard step={currentStep-1} />
+          <StepWizard step={currentStep - 1} />
         </div>
 
         {currentStep === 1 ? (

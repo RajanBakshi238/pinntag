@@ -23,10 +23,11 @@ const Imagegallery = () => {
 
   const deleteImage = async (id) => {
     swal({
-      title: "Are you sure?",
-      text: "Are you sure that you want to delete this Image?",
+      title: "Are you sure that you want to delete this Image?",
+      // text: "Are you sure that you want to delete this Image?",
       icon: "warning",
-      buttonText: "Delete",
+      buttons: [true, "Delete"],
+
       dangerMode: true,
     }).then(async (willDelete) => {
       if (willDelete) {

@@ -71,6 +71,7 @@ const Step1 = ({
     },
     validationSchema,
     onSubmit: async (values) => {
+      console.log(values, ">>>>>>>> values 123")
       setLoading(true);
       let formData = new FormData();
       for (let key in values) {
@@ -81,9 +82,13 @@ const Step1 = ({
               formData.append(`images`, image);
             });
           } else if ((key === "keywords")) {
-            values.keywords.forEach((key, index) => {
-              formData.append(`keywords`, key._id);
-            });
+            // values.keywords.forEach((key, index) => {
+            //   formData.append(`keywords`, key._id);
+            // });
+            formData.append('keywords', JSON.stringify(values.keywords.map(({_id}) => {
+              return _id
+            })))
+
           } else {
             formData.append([key], values[key]);
           }

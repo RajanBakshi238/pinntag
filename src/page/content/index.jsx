@@ -10,13 +10,17 @@ import CardView from "../../component/contentScreen/CardView";
 import CreateContent from "../../component/contentScreen/CreateContent";
 import ContentHeader from "../../component/contentScreen/ContentHeader";
 import ListView from "../../component/contentScreen/ListView";
-import { getData, getDataTemp } from "../../utils/api";
+import { deleteData, getData, getDataTemp } from "../../utils/api";
+import swal from "@sweetalert/with-react";
+import { enqueueSnackbar } from "notistack";
+import { formatErrorMessage } from "../../utils/formatErrorMessage";
 
 const Content = () => {
   const [open, setOpen] = useState(false);
   const [cardView, SetCardView] = useState(true);
 
   const [data, setData] = useState();
+  const [eventId, setEventId] = useState("");
 
   const fetchAllEvents = async () => {
     const res = await getData("event/created");
@@ -25,6 +29,36 @@ const Content = () => {
     } else {
       console.log(res, "Error while fetching business profiles");
     }
+  };
+
+  const deleteEvent = async (id) => {
+    swal({
+      title: "Are you sure that you want to delete this Event?",
+      // text: "Are you sure that you want to delete this Image?",
+      icon: "warning",
+      buttons: [true, "Delete"],
+
+      dangerMode: true,
+    }).then(async (willDelete) => {
+      if (willDelete) {
+        const res = await deleteData(`event/${id}`);
+        if (res.data) {
+          enqueueSnackbar(res.data.message ?? "", {
+            variant: "success",
+          });
+          fetchAllEvents();
+        } else {
+          enqueueSnackbar(
+            res.error?.message
+              ? formatErrorMessage(res.error?.message)
+              : "Something went wrong",
+            {
+              variant: "error",
+            }
+          );
+        }
+      }
+    });
   };
 
   useEffect(() => {
@@ -48,9 +82,18 @@ const Content = () => {
         toggleCardView={toggleCardView}
         cardView={cardView}
       />
-      {cardView ? <CardView data={data }/> : <ListView data={data } />}
-
-      <CreateContent open={open} handleClose={handleClose} fetchAllEvents= {fetchAllEvents} />
+      {cardView ? (
+        <CardView data={data} setEventId={setEventId} deleteEvent={deleteEvent} />
+      ) : (
+        <ListView data={data} setEventId={setEventId} deleteEvent={deleteEvent}/>
+      )}
+      <CreateContent
+        open={open}
+        handleClose={handleClose}
+        fetchAllEvents={fetchAllEvents}
+        eventId={eventId}
+        setEventId={setEventId}
+      />
     </>
   );
 };

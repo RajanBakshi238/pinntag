@@ -4,7 +4,7 @@ import { DeleteOutline, EditOutlined } from "@mui/icons-material";
 import Image from "../image";
 import Text from "../../common/Text";
 
-const CardView = ({data}) => {
+const CardView = ({ data, setEventId, deleteEvent }) => {
   return (
     <div className="mx-12">
       <div class="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-4">
@@ -16,8 +16,8 @@ const CardView = ({data}) => {
                   {items.status}
                 </div>
                 <div className="flex gap-2">
-                  <EditOutlined className="p-1 rounded-full !text-white bg-black" />
-                  <DeleteOutline className="p-1 rounded-full !text-white bg-black" />
+                  <EditOutlined onClick={() => setEventId(items._id) } className="p-1 rounded-full cursor-pointer !text-white bg-black" />
+                  <DeleteOutline onClick={() => deleteEvent(items._id) } className="cursor-pointer p-1 rounded-full !text-white bg-black" />
                 </div>
               </div>
               <div className="flex h-full items-center justify-center w-full bg-cover">
@@ -27,8 +27,10 @@ const CardView = ({data}) => {
                   alt={"evnt_img"}
                 /> */}
                 <Image
-                  src={items.images[0]?.url ?? "https://via.placeholder.com/150"}
-                  className={"h-40  md:h-32 lg:h-36 xl:h-40  w-full"} 
+                  src={
+                    items.images[0]?.url ?? "https://via.placeholder.com/150"
+                  }
+                  className={"h-40  md:h-32 lg:h-36 xl:h-40  w-full"}
                   alt={"evnt_img"}
                 />
                 {/* max-w-full w-[50%] object-contain */}

@@ -10,9 +10,11 @@ import { formatErrorMessage } from "../../utils/formatErrorMessage";
 const BusinessTable = ({ data, fetchAllBusinessDetails }) => {
   const handleDeleteUser = async (id) => {
     swal({
-      title: "Are you sure?",
-      text: "Are you sure that you want to delete this user?",
+      // title: "Are you sure?",
+      title: "Are you sure that you want to delete this user?",
       icon: "warning",
+      buttons: [true, "Delete"],
+
       dangerMode: true,
     }).then(async (willDelete) => {
       if (willDelete) {
