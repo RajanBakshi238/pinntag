@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import swal from "@sweetalert/with-react";
 import ImageGalleryHeader from "../../component/ImageGalleryScreen/ImageGalleryHeader";
 import ImageGalleryGrid from "../../component/ImageGalleryScreen/ImageGalleryGrid";
 import { deleteData, getData } from "../../utils/api";
@@ -21,23 +22,32 @@ const Imagegallery = () => {
   };
 
   const deleteImage = async (id) => {
-    const res = await deleteData(`business-profile/gallery/delete/${id}`);
-
-    if (res.data) {
-      enqueueSnackbar(res.data.message ?? "", {
-        variant: "success",
-      });
-      fetchImage();
-    } else {
-      enqueueSnackbar(
-        res.error?.message
-          ? formatErrorMessage(res.error?.message)
-          : "Something went wrong",
-        {
-          variant: "error",
+    swal({
+      title: "Are you sure?",
+      text: "Are you sure that you want to delete this Image?",
+      icon: "warning",
+      buttonText: "Delete",
+      dangerMode: true,
+    }).then(async (willDelete) => {
+      if (willDelete) {
+        const res = await deleteData(`business-profile/gallery/delete/${id}`);
+        if (res.data) {
+          enqueueSnackbar(res.data.message ?? "", {
+            variant: "success",
+          });
+          fetchImage();
+        } else {
+          enqueueSnackbar(
+            res.error?.message
+              ? formatErrorMessage(res.error?.message)
+              : "Something went wrong",
+            {
+              variant: "error",
+            }
+          );
         }
-      );
-    }
+      }
+    });
   };
 
   useEffect(() => {
@@ -47,7 +57,7 @@ const Imagegallery = () => {
   return (
     <div>
       <ImageGalleryHeader fetchImage={fetchImage} />
-      <ImageGalleryGrid deleteImage={deleteImage} data={data}/>
+      <ImageGalleryGrid deleteImage={deleteImage} data={data} />
     </div>
   );
 };

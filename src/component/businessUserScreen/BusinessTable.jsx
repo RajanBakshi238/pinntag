@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "../image";
+import swal from "@sweetalert/with-react";
 // import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { deleteData } from "../../utils/api";
@@ -8,22 +9,31 @@ import { formatErrorMessage } from "../../utils/formatErrorMessage";
 
 const BusinessTable = ({ data, fetchAllBusinessDetails }) => {
   const handleDeleteUser = async (id) => {
-    const res = await deleteData(`business-profile/staff/delete/${id}`);
-    if (res.data) {
-      enqueueSnackbar(res.data.message ?? "", {
-        variant: "success",
-      });
-      fetchAllBusinessDetails();
-    } else {
-      enqueueSnackbar(
-        res.error?.message
-          ? formatErrorMessage(res.error?.message)
-          : "Something went wrong",
-        {
-          variant: "error",
+    swal({
+      title: "Are you sure?",
+      text: "Are you sure that you want to delete this user?",
+      icon: "warning",
+      dangerMode: true,
+    }).then(async (willDelete) => {
+      if (willDelete) {
+        const res = await deleteData(`business-profile/staff/delete/${id}`);
+        if (res.data) {
+          enqueueSnackbar(res.data.message ?? "", {
+            variant: "success",
+          });
+          fetchAllBusinessDetails();
+        } else {
+          enqueueSnackbar(
+            res.error?.message
+              ? formatErrorMessage(res.error?.message)
+              : "Something went wrong",
+            {
+              variant: "error",
+            }
+          );
         }
-      );
-    }
+      }
+    });
   };
 
   return (
@@ -83,7 +93,10 @@ const BusinessTable = ({ data, fetchAllBusinessDetails }) => {
                             className="cursor-pointer text-white rounded-2xl bg-black "
                           />
                         </td> */}
-                        <td class="whitespace-nowrap  px-6 py-2" onClick={() => handleDeleteUser(user?._id)}>
+                        <td
+                          class="whitespace-nowrap  px-6 py-2"
+                          onClick={() => handleDeleteUser(user?._id)}
+                        >
                           <DeleteIcon className="text-white rounded-2xl bg-black cursor-pointer" />
                         </td>
                       </tr>
