@@ -4,14 +4,34 @@ import SecondaryButton from "../../../common/FormElements/Button/SecondaryButton
 import PrimaryButton from "../../../common/FormElements/Button/PrimaryButton";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { DEC, INC } from "../CreateContent";
-import { FormikProvider, useFormik } from "formik";
+import { ErrorMessage, FormikProvider, useFormik } from "formik";
 import classNames from "classnames";
 import { postData } from "../../../utils/api";
 import { enqueueSnackbar } from "notistack";
 import { formatErrorMessage } from "../../../utils/formatErrorMessage";
+import * as Yup from "yup";
 
-const Step4 = ({ handleStep, handleClose, id, currentStep, fetchAllEvents }) => {
+const Step4 = ({
+  handleStep,
+  handleClose,
+  id,
+  currentStep,
+  fetchAllEvents,
+}) => {
   const [loading, setLoading] = useState(false);
+
+  const validationSchema = Yup.object().shape({
+    ageGroupsAllowed: Yup.array().min(1, "Minimum 1 age group is required."),
+    targetGenders: Yup.array().min(1, "Minimum 1 gender is required."),
+    promotionCode: Yup.string().required("Promotion code is required"),
+    participationCost: Yup.number("Participation cost must be number").required(
+      "Participation cost is required"
+    ),
+    bookingUrl: Yup.string().required("Booking URL is required"),
+    termsAndConditions: Yup.string().required(
+      "Terms and condtions is required"
+    ),
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -19,12 +39,13 @@ const Step4 = ({ handleStep, handleClose, id, currentStep, fetchAllEvents }) => 
       targetGenders: [],
       promotionCode: "",
       isFree: false,
-      participationCost: 0,
+      participationCost: "",
       bookingUrl: "",
       notifyFollowers: true,
       RSVP: true,
       termsAndConditions: "",
     },
+    validationSchema,
     onSubmit: async (values) => {
       setLoading(true);
 
@@ -194,6 +215,9 @@ const Step4 = ({ handleStep, handleClose, id, currentStep, fetchAllEvents }) => 
                 75+{" "}
               </div>
             </div>
+            <span className="font-semibold pl-1 text-sm text-red-600">
+              <ErrorMessage name="ageGroupsAllowed" />
+            </span>
           </div>
 
           <hr className="mb-3 text-[#7C7C72]" />
@@ -235,6 +259,9 @@ const Step4 = ({ handleStep, handleClose, id, currentStep, fetchAllEvents }) => 
                 Other
               </div>
             </div>
+            <span className="font-semibold pl-1 text-sm text-red-600">
+              <ErrorMessage name="targetGenders" />
+            </span>
           </div>
 
           <hr className="mb-3 text-[#7C7C72]" />
@@ -253,6 +280,9 @@ const Step4 = ({ handleStep, handleClose, id, currentStep, fetchAllEvents }) => 
                 placeholder="Enter your promo code here"
               />
             </div>
+            <span className="font-semibold pl-1 text-sm text-red-600">
+              <ErrorMessage name="promotionCode" />
+            </span>
           </div>
 
           <hr className="mb-3 text-[#7C7C72]" />
@@ -289,6 +319,9 @@ const Step4 = ({ handleStep, handleClose, id, currentStep, fetchAllEvents }) => 
                 name="bookingUrl"
               />
             </div>
+            <span className="font-semibold pl-1 text-sm text-red-600">
+              <ErrorMessage name="bookingUrl" />
+            </span>
           </div>
 
           <hr className="mb-3 text-[#7C7C72]" />
@@ -307,6 +340,9 @@ const Step4 = ({ handleStep, handleClose, id, currentStep, fetchAllEvents }) => 
                 name="participationCost"
               />
             </div>
+            <span className="font-semibold pl-1 text-sm text-red-600">
+              <ErrorMessage name="participationCost" />
+            </span>
           </div>
 
           <hr className="mb-3 text-[#7C7C72]" />
@@ -356,9 +392,12 @@ const Step4 = ({ handleStep, handleClose, id, currentStep, fetchAllEvents }) => 
                 name="termsAndConditions"
               />
             </div>
+            <span className="font-semibold pl-1 text-sm text-red-600">
+              <ErrorMessage name="termsAndConditions" />
+            </span>
           </div>
         </div>
-        <div className="flex justify-between items-center mt-auto">
+        <div className="flex justify-between items-center mt-auto pb-3">
           <div>
             {currentStep === 1 ? (
               <SecondaryButton onClick={() => handleClose()}>
