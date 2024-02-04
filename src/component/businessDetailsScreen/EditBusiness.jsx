@@ -1,4 +1,10 @@
-import { FieldArray, Form, FormikProvider, useFormik } from "formik";
+import {
+  ErrorMessage,
+  FieldArray,
+  Form,
+  FormikProvider,
+  useFormik,
+} from "formik";
 import React, { useEffect, useState } from "react";
 import PrimaryButton from "../../common/FormElements/Button/PrimaryButton";
 import { Add } from "@mui/icons-material";
@@ -88,6 +94,7 @@ const EditBusiness = () => {
 
   const formik = useFormik({
     initialValues: initState,
+    validationSchema: validationSchema,
     onSubmit: async (values) => {
       setLoading(true);
       const res = await postData("business-profile/update", values);
@@ -148,7 +155,7 @@ const EditBusiness = () => {
     }
   };
 
-  const { values } = formik;
+  const { values, handleBlur } = formik;
 
   // console.log(formik.values, ">>>>> value", id);
 
@@ -186,6 +193,7 @@ const EditBusiness = () => {
                   name="businessImage"
                   className="hidden"
                   onChange={handleImageUpload}
+                  onBlur={handleBlur}
                 />
               </div>
               <div className="mb-3">
@@ -195,7 +203,11 @@ const EditBusiness = () => {
                   value={values?.name}
                   className="common-input"
                   onChange={formik.handleChange}
+                  onBlur={handleBlur}
                 />
+                <span className="font-semibold pl-1 text-sm text-red-600">
+                  <ErrorMessage name="name" />
+                </span>
               </div>
               <div className="mb-3">
                 <select
@@ -204,22 +216,30 @@ const EditBusiness = () => {
                   placeholder="Category"
                   value={values.businessType}
                   onChange={formik.handleChange}
+                  onBlur={handleBlur}
                 >
                   {/* <option>Type [Business/Non-profit]</option> */}
                   <option>Type </option>
                   <option>Business</option>
                   {/* <option>Non-profit</option> */}
                 </select>
+                <span className="font-semibold pl-1 text-sm text-red-600">
+                  <ErrorMessage name="businessType" />
+                </span>
               </div>
               <div className="mb-3">
                 <textarea
                   placeholder="Description"
                   name="bio"
                   value={values?.bio}
+                  onBlur={handleBlur}
                   className="common-textarea"
                   rows={3}
                   onChange={formik.handleChange}
                 />
+                <span className="font-semibold pl-1 text-sm text-red-600">
+                  <ErrorMessage name="bio" />
+                </span>
               </div>
               {/* <div className="mb-3">
                 <select
@@ -286,7 +306,13 @@ const EditBusiness = () => {
                                     value={location.address1}
                                     className="common-input"
                                     onChange={formik.handleChange}
+                                    onBlur={handleBlur}
                                   />
+                                  <span className="font-semibold pl-1 text-sm text-red-600">
+                                    <ErrorMessage
+                                      name={`locations[${index}].address1`}
+                                    />
+                                  </span>
                                 </div>
                                 <div className="mb-3">
                                   <input
@@ -295,7 +321,13 @@ const EditBusiness = () => {
                                     value={location.address2}
                                     className="common-input"
                                     onChange={formik.handleChange}
+                                    onBlur={handleBlur}
                                   />
+                                  <span className="font-semibold pl-1 text-sm text-red-600">
+                                    <ErrorMessage
+                                      name={`locations[${index}].address2`}
+                                    />
+                                  </span>
                                 </div>
                                 <div className="mb-3 flex gap-2">
                                   <div className="w-2/4">
@@ -305,7 +337,13 @@ const EditBusiness = () => {
                                       className="common-input"
                                       value={location.city}
                                       onChange={formik.handleChange}
+                                      onBlur={handleBlur}
                                     />
+                                    <span className="font-semibold pl-1 text-sm text-red-600">
+                                      <ErrorMessage
+                                        name={`locations[${index}].city`}
+                                      />
+                                    </span>
                                   </div>
                                   <div className="w-1/4">
                                     <input
@@ -314,7 +352,13 @@ const EditBusiness = () => {
                                       name={`locations[${index}].state`}
                                       className="common-input"
                                       onChange={formik.handleChange}
+                                      onBlur={handleBlur}
                                     />
+                                    <span className="font-semibold pl-1 text-sm text-red-600">
+                                      <ErrorMessage
+                                        name={`locations[${index}].state`}
+                                      />
+                                    </span>
                                   </div>
                                   <div className="w-1/4">
                                     <input
@@ -323,7 +367,13 @@ const EditBusiness = () => {
                                       name={`locations[${index}].zip`}
                                       className="common-input"
                                       onChange={formik.handleChange}
+                                      onBlur={handleBlur}
                                     />
+                                    <span className="font-semibold pl-1 text-sm text-red-600">
+                                      <ErrorMessage
+                                        name={`locations[${index}].zip`}
+                                      />
+                                    </span>
                                   </div>
                                 </div>
                                 <div className="mb-3">
@@ -333,7 +383,13 @@ const EditBusiness = () => {
                                     name={`locations[${index}].website`}
                                     className="common-input"
                                     onChange={formik.handleChange}
+                                    onBlur={handleBlur}
                                   />
+                                  <span className="font-semibold pl-1 text-sm text-red-600">
+                                    <ErrorMessage
+                                      name={`locations[${index}].website`}
+                                    />
+                                  </span>
                                 </div>
                                 <div className="mb-3">
                                   <input
@@ -342,7 +398,13 @@ const EditBusiness = () => {
                                     name={`locations[${index}].email`}
                                     className="common-input"
                                     onChange={formik.handleChange}
+                                    onBlur={handleBlur}
                                   />
+                                  <span className="font-semibold pl-1 text-sm text-red-600">
+                                    <ErrorMessage
+                                      name={`locations[${index}].email`}
+                                    />
+                                  </span>
                                 </div>
                                 <div className="mb-3">
                                   <input
@@ -351,7 +413,13 @@ const EditBusiness = () => {
                                     name={`locations[${index}].phone`}
                                     className="common-input"
                                     onChange={formik.handleChange}
+                                    onBlur={handleBlur}
                                   />
+                                  <span className="font-semibold pl-1 text-sm text-red-600">
+                                    <ErrorMessage
+                                      name={`locations[${index}].phone`}
+                                    />
+                                  </span>
                                 </div>
                               </div>
                               <div>
