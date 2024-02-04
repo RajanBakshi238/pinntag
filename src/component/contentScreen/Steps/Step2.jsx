@@ -29,11 +29,13 @@ const Step2 = ({
 
   const [loading, setLoading] = useState(false);
 
-  console.log(dates, ">>>>>>>>>>>>>> dates123456");
+  console.log(dates, ">>>>>>>>>>>>>> dates123456", values);
 
   useEffect(() => {
     let obj = {};
+    console.log(values, "Values  runned 12345");
     values?.forEach((rawDate) => {
+      console.log(rawDate.format(), ">>>>> formatted valuess");
       if (obj[rawDate.format()]) {
       } else {
         obj[rawDate.format()] = [
@@ -52,14 +54,21 @@ const Step2 = ({
     if (eventData?.schedule?.length) {
       // setValues();
       let eventDateObj = {};
+      let dateValues = [];
       eventData?.schedule?.forEach((eventDate) => {
-         eventDateObj = {
+        eventDateObj = {
           ...eventDateObj,
           [eventDate?.date]: eventDate?.durations,
         };
+        const date = new DateObject({
+          date: eventDate?.date,
+          format: "DD-MM-YYYY",
+        });
+        dateValues.push(date);
       });
-
       setDates(eventDateObj);
+      setValues(dateValues);
+      setMultipleTime(eventData?.specifyForEachDay)
     }
   }, [eventData]);
 
@@ -108,7 +117,10 @@ const Step2 = ({
       };
     });
 
-    const res = await postData(`event/update/${id}`, { schedule: data });
+    const res = await postData(`event/update/${id}`, {
+      schedule: data,
+      specifyForEachDay: multipleTime,
+    });
 
     if (res.data) {
       enqueueSnackbar(res.data.message ?? "", {
@@ -155,7 +167,8 @@ const Step2 = ({
               headerOrder={["MONTH_YEAR", "LEFT_BUTTON", "RIGHT_BUTTON"]}
               monthYearSeparator=" "
               onChange={handleChange}
-              format="ddd, D MMMM, YYYY"
+              // format="ddd, D MMMM, YYYY"
+              format="DD-MM-YYYY"
             />
           </div>
 

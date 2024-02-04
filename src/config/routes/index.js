@@ -47,6 +47,10 @@ export const routeslist = [
         element: <Content />,
       },
       {
+        path: "content/:id",
+        element: <Content />,
+      },
+      {
         path: "image-gallery",
         element: <Imagegallery />,
       },

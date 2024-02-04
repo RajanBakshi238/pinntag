@@ -65,7 +65,8 @@ const CreateContent = ({
     handleClose();
     setId();
     setEventId();
-    setEventData()
+    setEventData();
+    setCurrentStep(1)
   };
 
   console.log(eventId, ">>>>>> eventId");
