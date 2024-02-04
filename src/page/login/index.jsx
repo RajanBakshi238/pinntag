@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import PrimaryButton from "../../common/FormElements/Button/PrimaryButton";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { useSnackbar } from "notistack";
-import { axiosInstance, axiosTempInstance } from "../../config/axiosInstance";
 import { useNavigate } from "react-router-dom";
+
+import PrimaryButton from "../../common/FormElements/Button/PrimaryButton";
+import { axiosInstance, axiosTempInstance } from "../../config/axiosInstance";
 import { PINNTAG_USER } from "../../config/routes/RoleProtectedRoute";
 import { useAuthentication } from "../../context/authContext";
 import ForgotPasswordModel from "../../component/authScreen/ForgotPasswordModel";
@@ -10,7 +13,8 @@ import { formatErrorMessage } from "../../utils/formatErrorMessage";
 
 const Login = () => {
   const [openForgetModel, setOpenForgetModel] = useState(false);
-  const [loading, setLoading]= useState(false)
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -27,11 +31,11 @@ const Login = () => {
   };
 
   const handleSubmit = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
       const response = await axiosTempInstance.post("/auth/login", {
         ...formData,
-        deviceType: "web"
+        deviceType: "web",
       });
       setUser(response.data);
       localStorage.setItem(PINNTAG_USER, JSON.stringify(response.data));
@@ -44,13 +48,17 @@ const Login = () => {
       ] = `Bearer ${response?.data?.tokens[0]?.businessToken}`;
       navigate("/dashboard/business-details");
     } catch (err) {
-      console.log(err, "...... err")
-      enqueueSnackbar(err?.response?.data?.message ? formatErrorMessage(err?.response?.data?.message) : "Wrong credentials", {
-        variant: "error",
-      });
+      console.log(err, "...... err");
+      enqueueSnackbar(
+        err?.response?.data?.message
+          ? formatErrorMessage(err?.response?.data?.message)
+          : "Wrong credentials",
+        {
+          variant: "error",
+        }
+      );
     }
-    setLoading(false)
-
+    setLoading(false);
   };
 
   return (
@@ -70,22 +78,34 @@ const Login = () => {
                 onChange={handleChange}
               />
             </div>
-            <div className="mb-1">
+            <div className="mb-1 relative">
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 className="model-input"
                 name="password"
                 placeholder="Password"
                 onChange={handleChange}
               />
+              <span onClick={() => {
+                setShowPassword((prev) => !prev )
+              }} className="absolute top-[50%] right-[10px] translate-y-[-50%] cursor-pointer">
+                {showPassword ? <VisibilityOffIcon /> : <RemoveRedEyeIcon />}
+              </span>
             </div>
             <div className="mb-3">
-              <h1 onClick={() => setOpenForgetModel(true)} className="text-sm cursor-pointer text-[#45818E] font-semibold text-right">
+              <h1
+                onClick={() => setOpenForgetModel(true)}
+                className="text-sm cursor-pointer text-[#45818E] font-semibold text-right"
+              >
                 Forgot password ?
               </h1>
             </div>
             <div className="flex justify-center">
-              <PrimaryButton onClick={handleSubmit} inputClass="py-2 w-1/3" loading={loading}>
+              <PrimaryButton
+                onClick={handleSubmit}
+                inputClass="py-2 w-1/3"
+                loading={loading}
+              >
                 Sign in
               </PrimaryButton>
             </div>
