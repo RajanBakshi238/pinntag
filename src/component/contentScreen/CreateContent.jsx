@@ -12,6 +12,7 @@ import Step3 from "./Steps/Step3";
 import Step4 from "./Steps/Step4";
 
 import "./content.css";
+import { getData } from "../../utils/api";
 
 export const INC = "inc";
 export const DEC = "dec";
@@ -24,7 +25,9 @@ const CreateContent = ({
   setEventId,
 }) => {
   const [currentStep, setCurrentStep] = useState(1);
+  // id is used to track making of current new event and eventId is used to tract the edit event
   const [id, setId] = useState("");
+  const [eventData, setEventData] = useState()
   // 65bbd57c9cef5b960094aa95
   const handleStep = (type) => {
     if (currentStep === 4 && type === INC) {
@@ -37,14 +40,31 @@ const CreateContent = ({
     }
   };
 
+  const fetchEventData = async (id) => {
+    const resposne = await getData(`event/created/${eventId}`);
+    if (resposne.data) {
+      const eventData = resposne.data?.event;
+      setEventData(eventData);
+    } else {
+      console.log(resposne.error, "Error while fetching business details");
+    }
+  }
+
+
+
   useEffect(() => {
     setId(eventId);
+    if(eventId){
+      fetchEventData(eventId)
+    }
+
   }, [eventId]);
 
   const handleCloseModel = () => {
     handleClose();
     setId();
     setEventId();
+    setEventData()
   };
 
   console.log(eventId, ">>>>>> eventId");
@@ -65,34 +85,42 @@ const CreateContent = ({
         {currentStep === 1 ? (
           <Step1
             handleStep={handleStep}
-            handleClose={handleClose}
+            handleClose={handleCloseModel}
             currentStep={currentStep}
             setId={setId}
             fetchAllEvents={fetchAllEvents}
+            eventData={eventData}
+            fetchEventData={fetchEventData}
           />
         ) : currentStep === 2 ? (
           <Step2
             handleStep={handleStep}
-            handleClose={handleClose}
+            handleClose={handleCloseModel}
             currentStep={currentStep}
             id={id}
             fetchAllEvents={fetchAllEvents}
+            eventData={eventData}
+            fetchEventData={fetchEventData}
           />
         ) : currentStep === 3 ? (
           <Step3
             handleStep={handleStep}
-            handleClose={handleClose}
+            handleClose={handleCloseModel}
             currentStep={currentStep}
             id={id}
             fetchAllEvents={fetchAllEvents}
+            eventData={eventData}
+            fetchEventData={fetchEventData}
           />
         ) : currentStep === 4 ? (
           <Step4
             handleStep={handleStep}
-            handleClose={handleClose}
+            handleClose={handleCloseModel}
             currentStep={currentStep}
             id={id}
             fetchAllEvents={fetchAllEvents}
+            eventData={eventData}
+            fetchEventData={fetchEventData}
           />
         ) : (
           <></>

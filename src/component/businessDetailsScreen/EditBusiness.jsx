@@ -9,6 +9,7 @@ import { getDataTemp, postData } from "../../utils/api";
 import FacebookLoginButton from "./SocialAuth/FacebookLoginButton";
 import { enqueueSnackbar } from "notistack";
 import { formatErrorMessage } from "../../utils/formatErrorMessage";
+import * as Yup from "yup";
 
 const EditBusiness = () => {
   const [loading, setLoading] = useState(false);
@@ -67,6 +68,23 @@ const EditBusiness = () => {
   useEffect(() => {
     fetchBusinessDetail();
   }, []);
+
+  const validationSchema = Yup.object().shape({
+    name: Yup.string().required("Name is required."),
+    bio: Yup.string().required("Bio is required."),
+    locations: Yup.array().of(
+      Yup.object().shape({
+        address1: Yup.string().required("Address is required."),
+        // address2: Yup.string().required("Bio is required."),
+        city: Yup.string().required("City is required."),
+        state: Yup.string().required("State is required."),
+        zip: Yup.string().required("Zip is required."),
+        website: Yup.string().required("Website is required."),
+        email: Yup.string().required("email is required."),
+        phone: Yup.string().required("phone is required."),
+      })
+    ),
+  });
 
   const formik = useFormik({
     initialValues: initState,

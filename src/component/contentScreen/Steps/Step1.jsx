@@ -19,10 +19,38 @@ const Step1 = ({
   currentStep,
   setId,
   fetchAllEvents,
+  eventData,
 }) => {
   const [categories, setCategories] = useState();
   const [keywords, setkeywords] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  const initState = {
+    type: "",
+    title: "",
+    images: [],
+    imageUrls: [],
+    description: "",
+    category: "",
+    keywords: [],
+  };
+
+  useEffect(() => {
+    if (eventData) {
+      setValues({
+        ...initState,
+        type: eventData.type,
+        title: eventData.title,
+        description: eventData.description,
+        category: eventData.category,
+        keywords: eventData.keywords.map(({ _id: storedId }) => {
+          return keywords.find(({ _id }) => storedId === _id);
+        }),
+        images: eventData?.images,
+        imageUrls: eventData?.images?.map(({ url }) => url),
+      });
+    }
+  }, [eventData, keywords]);
 
   const getCategories = async () => {
     const res = await getData("categories");
@@ -60,18 +88,10 @@ const Step1 = ({
   });
 
   const formik = useFormik({
-    initialValues: {
-      type: "",
-      title: "",
-      images: [],
-      imageUrls: [],
-      description: "",
-      category: "",
-      keywords: [],
-    },
+    initialValues: initState,
     validationSchema,
     onSubmit: async (values) => {
-      console.log(values, ">>>>>>>> values 123")
+      console.log(values, ">>>>>>>> values 123");
       setLoading(true);
       let formData = new FormData();
       for (let key in values) {
@@ -81,14 +101,18 @@ const Step1 = ({
             values.images.forEach((image, index) => {
               formData.append(`images`, image);
             });
-          } else if ((key === "keywords")) {
+          } else if (key === "keywords") {
             // values.keywords.forEach((key, index) => {
             //   formData.append(`keywords`, key._id);
             // });
-            formData.append('keywords', JSON.stringify(values.keywords.map(({_id}) => {
-              return _id
-            })))
-
+            formData.append(
+              "keywords",
+              JSON.stringify(
+                values.keywords.map(({ _id }) => {
+                  return _id;
+                })
+              )
+            );
           } else {
             formData.append([key], values[key]);
           }
@@ -119,7 +143,8 @@ const Step1 = ({
     },
   });
 
-  const { setFieldValue, handleChange, handleBlur, values, errors } = formik;
+  const { setFieldValue, handleChange, handleBlur, values, errors, setValues } =
+    formik;
 
   const handleUploadImages = (event) => {
     const files = event.target.files;
@@ -141,6 +166,8 @@ const Step1 = ({
     ]);
   };
 
+  console.log(values, "11223334435454545455445454545");
+
   return (
     <>
       <FormikProvider value={formik}>
@@ -159,6 +186,8 @@ const Step1 = ({
               className="secondary-select w-full"
               name="type"
               onChange={handleChange}
+              value={values?.type}
+              onBlur={handleBlur}
             >
               <option>Offer type (Offer or Event)</option>
               <option value={"business_event"}>Business Event</option>
@@ -216,6 +245,8 @@ const Step1 = ({
               name="title"
               className="common-input"
               onChange={handleChange}
+              value={values?.title}
+              onBlur={handleBlur}
             />
             <span className="font-semibold pl-1 text-sm text-red-600">
               <ErrorMessage name="title" />
@@ -226,6 +257,8 @@ const Step1 = ({
               placeholder="Description"
               className="common-textarea"
               rows={3}
+              value={values?.description}
+              onBlur={handleBlur}
               name="description"
               onChange={handleChange}
             />
@@ -239,6 +272,8 @@ const Step1 = ({
               placeholder="Category"
               name="category"
               onChange={handleChange}
+              onBlur={handleBlur}
+              value={values?.category}
             >
               <option>Category</option>
               {categories?.map((category, index) => {
@@ -270,7 +305,7 @@ const Step1 = ({
               // defaultValue={[
               //   keywords?.[2], keywords?.[3]
               // ]}
-              value={formik.values.keywords}
+              value={values.keywords}
               isOptionEqualToValue={(option, value) => {
                 return option?._id === value?._id;
               }}
