@@ -5,6 +5,7 @@ import BusinessDetailEdit from "../../page/businessDetailEdit";
 const Layout = React.lazy(() => import("./../../common/layout"));
 const BuisnessDetails = React.lazy(() => import("../../page/buisnessdetails"));
 const Content = React.lazy(() => import("../../page/content"));
+const ViewEvent = React.lazy(() => import("../../page/viewEvent"));
 const Imagegallery = React.lazy(() => import("../../page/imagegallery"));
 const Buisnessuser = React.lazy(() => import("../../page/buisnessuser"));
 const Login = React.lazy(() => import("../../page/login"));
@@ -48,7 +49,7 @@ export const routeslist = [
       },
       {
         path: "content/:id",
-        element: <Content />,
+        element: <ViewEvent />,
       },
       {
         path: "image-gallery",

@@ -1,8 +1,13 @@
 import React from "react";
 import { socialMediaPost } from "../../contentmanagement/sidepanal";
-import { DeleteOutline, EditOutlined } from "@mui/icons-material";
+import {
+  DeleteOutline,
+  EditOutlined,
+} from "@mui/icons-material";
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import Image from "../image";
 import Text from "../../common/Text";
+import { Link } from "react-router-dom";
 
 const CardView = ({ data, setEventId, deleteEvent }) => {
   return (
@@ -16,8 +21,20 @@ const CardView = ({ data, setEventId, deleteEvent }) => {
                   {items.status}
                 </div>
                 <div className="flex gap-2">
-                  <EditOutlined onClick={() => setEventId(items._id) } className="p-1 rounded-full cursor-pointer !text-white bg-black" />
-                  <DeleteOutline onClick={() => deleteEvent(items._id) } className="cursor-pointer p-1 rounded-full !text-white bg-black" />
+                  <Link to={`/dashboard/content/${items._id}`}>
+                    <RemoveRedEyeIcon
+                      // onClick={() => setEventId(items._id)}
+                      className="p-1 rounded-full cursor-pointer !text-white bg-black"
+                    />
+                  </Link>
+                  <EditOutlined
+                    onClick={() => setEventId(items._id)}
+                    className="p-1 rounded-full cursor-pointer !text-white bg-black"
+                  />
+                  <DeleteOutline
+                    onClick={() => deleteEvent(items._id)}
+                    className="cursor-pointer p-1 rounded-full !text-white bg-black"
+                  />
                 </div>
               </div>
               <div className="flex h-full items-center justify-center w-full bg-cover">
