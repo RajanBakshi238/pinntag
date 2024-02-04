@@ -77,6 +77,7 @@ const AddTimeWidget = ({
           </>
         ) : (
           <>
+          {console.log(dates, ">>>>>>>>>>>> dates 123")}
             {dates?.[Object.keys(dates)[0]]?.map((dateObj, index) => {
               return (
                 <div

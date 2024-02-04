@@ -55,6 +55,7 @@ const CreateContent = ({
   useEffect(() => {
     setId(eventId);
     if(eventId){
+      setCurrentStep(2)
       fetchEventData(eventId)
     }
 
@@ -90,6 +91,7 @@ const CreateContent = ({
             setId={setId}
             fetchAllEvents={fetchAllEvents}
             eventData={eventData}
+            id={id}
             fetchEventData={fetchEventData}
           />
         ) : currentStep === 2 ? (

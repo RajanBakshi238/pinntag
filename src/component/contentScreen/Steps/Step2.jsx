@@ -13,7 +13,15 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import SecondaryButton from "../../../common/FormElements/Button/SecondaryButton";
 import PrimaryButton from "../../../common/FormElements/Button/PrimaryButton";
 
-const Step2 = ({ handleStep, handleClose, id, currentStep, fetchAllEvents }) => {
+const Step2 = ({
+  handleStep,
+  handleClose,
+  id,
+  currentStep,
+  fetchAllEvents,
+  fetchEventData,
+  eventData,
+}) => {
   const [values, setValues] = useState([new DateObject()]);
   const [range, setRange] = useState(false);
   const [multipleTime, setMultipleTime] = useState(false);
@@ -25,7 +33,7 @@ const Step2 = ({ handleStep, handleClose, id, currentStep, fetchAllEvents }) => 
 
   useEffect(() => {
     let obj = {};
-    values.forEach((rawDate) => {
+    values?.forEach((rawDate) => {
       if (obj[rawDate.format()]) {
       } else {
         obj[rawDate.format()] = [
@@ -39,6 +47,21 @@ const Step2 = ({ handleStep, handleClose, id, currentStep, fetchAllEvents }) => 
 
     setDates(obj);
   }, [values]);
+
+  useEffect(() => {
+    if (eventData?.schedule?.length) {
+      // setValues();
+      let eventDateObj = {};
+      eventData?.schedule?.forEach((eventDate) => {
+         eventDateObj = {
+          ...eventDateObj,
+          [eventDate?.date]: eventDate?.durations,
+        };
+      });
+
+      setDates(eventDateObj);
+    }
+  }, [eventData]);
 
   const handleAddInterval = (date) => {
     if (multipleTime) {
@@ -91,6 +114,7 @@ const Step2 = ({ handleStep, handleClose, id, currentStep, fetchAllEvents }) => 
       enqueueSnackbar(res.data.message ?? "", {
         variant: "success",
       });
+      fetchEventData(id);
       fetchAllEvents();
       handleStep(INC);
     } else {
@@ -104,7 +128,7 @@ const Step2 = ({ handleStep, handleClose, id, currentStep, fetchAllEvents }) => 
         }
       );
     }
-    
+
     setLoading(false);
   };
 
@@ -170,16 +194,17 @@ const Step2 = ({ handleStep, handleClose, id, currentStep, fetchAllEvents }) => 
           )}
         </div>
       </div>
-      <div className="flex justify-between items-center mt-auto">
+      <div className="flex justify-between items-center mt-auto pb-3">
         <div>
           {currentStep === 1 ? (
             <SecondaryButton onClick={() => handleClose()}>
               <>Cancel</>
             </SecondaryButton>
           ) : (
-            <SecondaryButton onClick={() => handleStep(DEC)}>
-              <>Back</>
-            </SecondaryButton>
+            <></>
+            // <SecondaryButton onClick={() => handleStep(DEC)}>
+            //   <>Back</>
+            // </SecondaryButton>
           )}
         </div>
         <div>

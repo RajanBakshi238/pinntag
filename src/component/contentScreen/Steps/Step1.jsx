@@ -43,8 +43,8 @@ const Step1 = ({
         title: eventData.title,
         description: eventData.description,
         category: eventData.category,
-        keywords: eventData.keywords.map(({ _id: storedId }) => {
-          return keywords.find(({ _id }) => storedId === _id);
+        keywords: eventData.keywords.map((event) => {
+          return keywords.find(({ _id }) => event === _id);
         }),
         images: eventData?.images,
         imageUrls: eventData?.images?.map(({ url }) => url),
