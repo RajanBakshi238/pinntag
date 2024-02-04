@@ -50,8 +50,6 @@ const CreateContent = ({
     }
   }
 
-
-
   useEffect(() => {
     setId(eventId);
     if(eventId){

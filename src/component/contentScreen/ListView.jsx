@@ -3,7 +3,7 @@ import Image from "../image";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-const ListView = ({ handleOpen, data }) => {
+const ListView = ({ setEventId, data, deleteEvent }) => {
   return (
     <>
       <div class="flex flex-col mx-12">
@@ -59,12 +59,15 @@ const ListView = ({ handleOpen, data }) => {
                           </td>
                           <td class="whitespace-nowrap  px-6 py-2">
                             <EditIcon
-                              onClick={handleOpen}
-                              className="cursor-pointer text-white rounded-2xl bg-black "
+                              onClick={() => setEventId(item._id)}
+                              className="cursor-pointer text-white rounded-2xl bg-black cursor-pointer "
                             />
                           </td>
                           <td class="whitespace-nowrap  px-6 py-2">
-                            <DeleteIcon className="text-white rounded-2xl bg-black " />
+                            <DeleteIcon
+                              onClick={() => deleteEvent(item._id)}
+                              className="text-white rounded-2xl bg-black cursor-pointer"
+                            />
                           </td>
                         </tr>
                       );
