@@ -29,7 +29,7 @@ const Step4 = ({
     //   "Participation cost is required"
     // ),
     participationCost: Yup.number()
-      .typeError("Participation cost is number.") 
+      .typeError("Participation cost is number.")
       .positive("Must be a positive value")
       .required("Participation cost is required."),
     bookingUrl: Yup.string().required("Booking URL is required"),
@@ -67,7 +67,15 @@ const Step4 = ({
     if (eventData) {
       setValues({
         ...initData,
-        ...eventData,
+        ageGroupsAllowed: eventData?.ageGroupsAllowed?.map(({_id}) => _id),
+        targetGenders: eventData?.targetGenders,
+        promotionCode: eventData?.promotionCode,
+        isFree: eventData?.isFree,
+        participationCost: eventData?.participationCost,
+        bookingUrl: eventData?.bookingUrl,
+        notifyFollowers: eventData?.notifyFollowers,
+        RSVP: eventData?.RSVP,
+        termsAndConditions: eventData?.termsAndConditions,
       });
     }
   }, [eventData]);

@@ -24,16 +24,28 @@ L.Icon.Default.mergeOptions({
   shadowUrl: markerShadow,
 });
 
-const Step3 = ({ handleStep, handleClose, id, currentStep, fetchAllEvents }) => {
+const Step3 = ({ handleStep, handleClose, id, currentStep, fetchAllEvents, eventData,fetchEventData }) => {
   const [locations, setLocations] = useState();
   const [address, setAddress] = useState([]);
   const [locationIds, setLocationsId] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    if(eventData && locations){
+      let locBool = []
+      console.log(locations, ">>>>>>>>>>>>> 123456", eventData)
+      locations.forEach((loc) => {
+        const bool = eventData?.locations?.find(({_id, businessLocationId}) => businessLocationId ===loc._id)
+        console.log(bool, ">>>>>>>>122334244444444444 ")
+        locBool.push(!!bool)
+      })
+      setLocationsId(locBool)
+    }
+  }, [eventData, locations])
+
   const getLocations = async () => {
     const res = await getData("/business-profile/locations");
     if (res.data) {
-      console.log(res.data);
       setLocations(res.data.locations);
       const locIds = [true];
       const promise = res.data.locations.map((loc) => {
@@ -62,7 +74,7 @@ const Step3 = ({ handleStep, handleClose, id, currentStep, fetchAllEvents }) => 
       const fullAddress =
         results.length > 0 ? results[0].label : "Unknown Address";
       // setAddress(fullAddress);
-      console.log("Full Address:", fullAddress);
+      // console.log("Full Address:", fullAddress);
       return fullAddress;
     } catch (err) {
       console.log(err, "error");
@@ -115,9 +127,9 @@ const Step3 = ({ handleStep, handleClose, id, currentStep, fetchAllEvents }) => 
         variant: "success",
       });
       fetchAllEvents()
+      fetchEventData(id)
       handleStep(INC);
     } else {
-      console.log(res, ">>>>>>");
       enqueueSnackbar(
         res.error?.message
           ? formatErrorMessage(res.error?.message)
@@ -131,7 +143,6 @@ const Step3 = ({ handleStep, handleClose, id, currentStep, fetchAllEvents }) => 
     setLoading(false);
   };
 
-  console.log(locationIds, "orignal");
 
   return (
     <>
@@ -182,7 +193,7 @@ const Step3 = ({ handleStep, handleClose, id, currentStep, fetchAllEvents }) => 
         Add Interval
       </FullButton> */}
       </div>
-      <div className="flex justify-between items-center mt-auto">
+      <div className="flex justify-between items-center mt-auto py-3">
         <div>
           {currentStep === 1 ? (
             <SecondaryButton onClick={() => handleClose()}>

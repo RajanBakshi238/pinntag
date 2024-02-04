@@ -182,6 +182,14 @@ const ViewEvent = () => {
                 {data?.uniqueCode}
               </h3>
             </div>
+            <div className="mb-2 flex justify-between">
+              <h1 className="text-[#222] font-semibold text-base">
+                Category :
+              </h1>
+              <h3 className="text-[#666] capitalize text-sm">
+                {data?.category?.name}
+              </h3>
+            </div>
 
             <div className="mb-2 flex justify-between">
               <h1 className="text-[#222] font-semibold text-base">

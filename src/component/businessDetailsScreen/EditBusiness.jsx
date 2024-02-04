@@ -11,11 +11,15 @@ import { Add } from "@mui/icons-material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import SecondaryButton from "../../common/FormElements/Button/SecondaryButton";
 import { useNavigate, useParams } from "react-router-dom";
-import { getDataTemp, postData } from "../../utils/api";
+import { deleteData, getDataTemp, postData } from "../../utils/api";
 import FacebookLoginButton from "./SocialAuth/FacebookLoginButton";
 import { enqueueSnackbar } from "notistack";
 import { formatErrorMessage } from "../../utils/formatErrorMessage";
 import * as Yup from "yup";
+import swal from "@sweetalert/with-react";
+
+const PHONE_REGX =
+  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
 const EditBusiness = () => {
   const [loading, setLoading] = useState(false);
@@ -49,6 +53,39 @@ const EditBusiness = () => {
       },
     ],
   };
+
+  const handleDeleteLocation = async (id, arrayHelpers, index) => {
+    swal({
+      // title: "Are you sure?",
+      title: "Are you sure that you want to delete this location?",
+      icon: "warning",
+      buttons: [true, "Delete"],
+
+      dangerMode: true,
+    }).then(async (willDelete) => {
+      if (willDelete) {
+        const res = await deleteData(`business-profile/delete/location/${id}`);
+        if (res.data) {
+          arrayHelpers.remove(index);
+          enqueueSnackbar(res.data.message ?? "", {
+            variant: "success",
+          });
+
+          // fetchAllBusinessDetails();
+        } else {
+          enqueueSnackbar(
+            res.error?.message
+              ? formatErrorMessage(res.error?.message)
+              : "Something went wrong",
+            {
+              variant: "error",
+            }
+          );
+        }
+      }
+    });
+  };
+
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -86,8 +123,12 @@ const EditBusiness = () => {
         state: Yup.string().required("State is required."),
         zip: Yup.string().required("Zip is required."),
         website: Yup.string().required("Website is required."),
-        email: Yup.string().required("email is required."),
-        phone: Yup.string().required("phone is required."),
+        email: Yup.string()
+          .email("Invalid Email")
+          .required("email is required."),
+        phone: Yup.string()
+          .matches(PHONE_REGX, "Phone number is not valid")
+          .required("Mobile Number is required."),
       })
     ),
   });
@@ -425,7 +466,13 @@ const EditBusiness = () => {
                               <div>
                                 <DeleteOutlineIcon
                                   className="cursor-pointer"
-                                  onClick={() => arrayHelpers.remove(index)}
+                                  onClick={() => {
+                                    handleDeleteLocation(
+                                      location._id,
+                                      arrayHelpers,
+                                      index
+                                    );
+                                  }}
                                 />
                               </div>
                             </div>
