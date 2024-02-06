@@ -138,7 +138,11 @@ const EditBusiness = () => {
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       setLoading(true);
-      const res = await postData("business-profile/update", values);
+      const res = await postData("business-profile/update", {
+        ...values,
+        latitude: 28.7041,
+        longitude: 77.1025,
+      });
       if (res.data) {
         enqueueSnackbar(res.data.message ?? "", {
           variant: "success",

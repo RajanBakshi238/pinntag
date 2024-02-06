@@ -7,18 +7,17 @@ const FacebookLoginButton = ({ onLogin }) => {
     if (response.accessToken) {
       //   onLogin(response);
 
-      console.log(response, ">>>>>>>>>>");
     }
   };
 
   return (
     <FacebookLogin
-      appId="1411791479125595"
+      appId="403498615515373"
       autoLoad={false}
       fields="name,email,picture,accounts" // Include 'accounts' to get information about user's Pages
       callback={responseFacebook}
       render={(renderProps) => (
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={renderProps.onClick}>Connect with facebook</button>
+        <button type="button" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={renderProps.onClick}>Connect with facebook</button>
       )}
     />
   );
