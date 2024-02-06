@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { ErrorMessage, Form, FormikProvider, useFormik } from "formik";
+import {
+  ErrorMessage,
+  FieldArray,
+  Form,
+  FormikProvider,
+  useFormik,
+} from "formik";
 import Autocomplete from "@mui/material/Autocomplete";
+import RemoveCircleOutlineOutlinedIcon from "@mui/icons-material/RemoveCircleOutlineOutlined";
+import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 
 import { getData, postData } from "../../../utils/api";
 import HighlightOffOutlinedIcon from "@mui/icons-material/HighlightOffOutlined";
@@ -22,7 +30,7 @@ const Step1 = ({
   eventData,
 }) => {
   const [categories, setCategories] = useState();
-  const [keywords, setkeywords] = useState([]);
+  // const [keywords, setkeywords] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const initState = {
@@ -32,7 +40,7 @@ const Step1 = ({
     imageUrls: [],
     description: "",
     category: "",
-    keywords: [],
+    keywords: [""],
   };
 
   useEffect(() => {
@@ -43,14 +51,14 @@ const Step1 = ({
         title: eventData.title,
         description: eventData.description,
         category: eventData.category,
-        keywords: eventData.keywords.map((event) => {
-          return keywords.find(({ _id }) => event === _id);
-        }),
+        // keywords: eventData.keywords.map((event) => {
+        //   return keywords.find(({ _id }) => event === _id);
+        // }),
         images: eventData?.images,
         imageUrls: eventData?.images?.map(({ url }) => url),
       });
     }
-  }, [eventData, keywords]);
+  }, [eventData]);
 
   const getCategories = async () => {
     const res = await getData("categories");
@@ -61,19 +69,19 @@ const Step1 = ({
     }
   };
 
-  const getKeywords = async () => {
-    const res = await getData("keywords");
-    if (res.data) {
-      setkeywords(res.data.keywords);
-      // formik.setFieldValue("keywords", [res.data.keywords[0]])
-    } else {
-      console.error("Something went error", res);
-    }
-  };
+  // const getKeywords = async () => {
+  //   const res = await getData("keywords");
+  //   if (res.data) {
+  //     setkeywords(res.data.keywords);
+  //     // formik.setFieldValue("keywords", [res.data.keywords[0]])
+  //   } else {
+  //     console.error("Something went error", res);
+  //   }
+  // };
 
   useEffect(() => {
     getCategories();
-    getKeywords();
+    // getKeywords();
   }, []);
 
   const validationSchema = Yup.object().shape({
@@ -84,7 +92,9 @@ const Step1 = ({
     images: Yup.array()
       .min(1, "Minimum 1 image is required.")
       .max(5, "Maximum 5 images allowed."),
-    keywords: Yup.array().min(1, "Minimum 1 keyword is required."),
+    keywords: Yup.array()
+      .of(Yup.string().required("Should be valid string"))
+      .min(1, "Minimum 1 keyword is required."),
   });
 
   const formik = useFormik({
@@ -105,14 +115,7 @@ const Step1 = ({
             // values.keywords.forEach((key, index) => {
             //   formData.append(`keywords`, key._id);
             // });
-            formData.append(
-              "keywords",
-              JSON.stringify(
-                values.keywords.map(({ _id }) => {
-                  return _id;
-                })
-              )
-            );
+            formData.append("keywords", JSON.stringify(values.keywords));
           } else {
             formData.append([key], values[key]);
           }
@@ -165,8 +168,6 @@ const Step1 = ({
       ...values?.imageUrls?.slice(index + 1),
     ]);
   };
-
-  console.log(values, "11223334435454545455445454545");
 
   return (
     <>
@@ -294,48 +295,59 @@ const Step1 = ({
           className="common-input"
         />
       </div> */}
-          <div className="mb-3">
-            <Autocomplete
-              multiple
-              limitTags={2}
-              size="small"
-              id="multiple-limit-tags"
-              options={keywords}
-              getOptionLabel={(option) => option?.name}
-              // defaultValue={[
-              //   keywords?.[2], keywords?.[3]
-              // ]}
-              value={values.keywords}
-              isOptionEqualToValue={(option, value) => {
-                return option?._id === value?._id;
-              }}
-              onChange={(e, value) => {
-                formik.setFieldValue("keywords", value);
-              }}
-              sx={{
-                outline: "none",
-                "& :hover": {
-                  outline: "none",
-                },
-              }}
-              renderInput={(params) => (
-                <TextField
-                  sx={{
-                    width: "100% !important",
-                    border: "2px solid #00000095",
-                    borderRadius: "5px",
-                  }}
-                  name="keywords"
-                  onBlur={handleBlur}
-                  {...params}
-                  placeholder="Keywords: For example, #Cocktails"
-                />
-              )}
-            />
-            <span className="font-semibold pl-1 text-sm text-red-600">
-              <ErrorMessage name="keywords" />
-            </span>
-          </div>
+          <FieldArray
+            name="keywords"
+            render={(arrayHelpers) => (
+              <div className="">
+                <div className="mb-2 flex gap-3 text-[#333]">
+                  <h1 className="text-base font-semibold">Keywords</h1>
+                  <span>
+                    <AddCircleOutlineOutlinedIcon
+                      onClick={() => arrayHelpers.push("")}
+                      className="!text-base cursor-pointer hover:text-[#555]"
+                    />
+                  </span>
+                </div>
+                <div className="">
+                  {values.keywords && values.keywords.length > 0 ? (
+                    <>
+                      {values.keywords.map((keyword, index) => {
+                        return (
+                          <div className="mb-3">
+                            <div
+                              key={index}
+                              className=" flex gap-3 items-center"
+                            >
+                              <input
+                                name={`keywords.${index}`}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                placeholder="Keywords: For example, #Cocktails"
+                                className="common-input"
+                                value={keyword}
+                              />
+                              <span>
+                                <RemoveCircleOutlineOutlinedIcon
+                                  onClick={() => arrayHelpers.remove(index)}
+                                  className="!text-base cursor-pointer hover:text-[#555]"
+                                />
+                              </span>
+                            </div>
+                            <span className="font-semibold text-sm text-red-600 mb-2">
+                              <ErrorMessage name={`keywords.${index}`} />
+                            </span>
+                          </div>
+                        );
+                      })}
+                    </>
+                  ) : null}
+                </div>
+                <span className="font-semibold text-sm text-red-600">
+                  <ErrorMessage name="keywords" />
+                </span>
+              </div>
+            )}
+          />
 
           <div className="flex justify-between items-center mt-auto pb-3">
             <div>
@@ -368,3 +380,43 @@ const Step1 = ({
 };
 
 export default Step1;
+
+// FOR FUTURE REFRENCE :
+
+// <Autocomplete
+//   multiple
+//   limitTags={2}
+//   size="small"
+//   id="multiple-limit-tags"
+//   options={keywords}
+//   getOptionLabel={(option) => option?.name}
+//   // defaultValue={[
+//   //   keywords?.[2], keywords?.[3]
+//   // ]}
+//   value={values.keywords}
+//   isOptionEqualToValue={(option, value) => {
+//     return option?._id === value?._id;
+//   }}
+//   onChange={(e, value) => {
+//     formik.setFieldValue("keywords", value);
+//   }}
+//   sx={{
+//     outline: "none",
+//     "& :hover": {
+//       outline: "none",
+//     },
+//   }}
+//   renderInput={(params) => (
+//     <TextField
+//       sx={{
+//         width: "100% !important",
+//         border: "2px solid #00000095",
+//         borderRadius: "5px",
+//       }}
+//       name="keywords"
+//       onBlur={handleBlur}
+//       {...params}
+//       placeholder="Keywords: For example, #Cocktails"
+//     />
+//   )}
+// />;
