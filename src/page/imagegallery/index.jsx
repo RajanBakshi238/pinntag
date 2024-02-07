@@ -8,10 +8,10 @@ import { formatErrorMessage } from "../../utils/formatErrorMessage";
 
 const Imagegallery = () => {
   const [data, setData] = useState();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const fetchImage = async () => {
-    setLoading(true);
+    // setLoading(true);
     const res = await getData("business-profile/gallery/data");
 
     if (res.data) {
@@ -58,7 +58,7 @@ const Imagegallery = () => {
   return (
     <div>
       <ImageGalleryHeader fetchImage={fetchImage} />
-      <ImageGalleryGrid deleteImage={deleteImage} data={data} />
+      <ImageGalleryGrid deleteImage={deleteImage} loading={loading} data={data} />
     </div>
   );
 };

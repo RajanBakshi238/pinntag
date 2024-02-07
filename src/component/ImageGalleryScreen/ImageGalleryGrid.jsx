@@ -1,8 +1,12 @@
 import React from "react";
 import Image from "../image";
 import DeleteOutline from "@mui/icons-material/DeleteOutline";
+import ContentLoader from "../../common/Loader/contentLoader";
 
-const ImageGalleryGrid = ({ deleteImage, data }) => {
+const ImageGalleryGrid = ({ deleteImage, data, loading }) => {
+  if (loading) {
+    return <ContentLoader />;
+  }
   return (
     <div className="mx-12">
       {data ? (

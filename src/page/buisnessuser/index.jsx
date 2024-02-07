@@ -31,7 +31,7 @@ const Buisnessuser = () => {
   return (
     <div>
       <BusinessHeader handleOpen={handleOpen} />
-      <BusinessTable handleOpen={handleOpen} data={data} fetchAllBusinessDetails={fetchAllBusinessDetails} />
+      <BusinessTable handleOpen={handleOpen} data={data} fetchAllBusinessDetails={fetchAllBusinessDetails} loading={loading} />
       <AddBusiness open={open} handleClose={handleClose} fetchAllBusinessDetails={fetchAllBusinessDetails}/>
     </div>
   );

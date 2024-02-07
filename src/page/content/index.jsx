@@ -14,8 +14,10 @@ import { deleteData, getData, getDataTemp } from "../../utils/api";
 import swal from "@sweetalert/with-react";
 import { enqueueSnackbar } from "notistack";
 import { formatErrorMessage } from "../../utils/formatErrorMessage";
+import ContentLoader from "../../common/Loader/contentLoader";
 
 const Content = () => {
+  const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [cardView, SetCardView] = useState(true);
 
@@ -23,12 +25,14 @@ const Content = () => {
   const [eventId, setEventId] = useState("");
 
   const fetchAllEvents = async () => {
+    setLoading(true);
     const res = await getData("event/created");
     if (res.data) {
       setData(res.data?.events);
     } else {
       console.log(res, "Error while fetching business profiles");
     }
+    setLoading(false);
   };
 
   const deleteEvent = async (id) => {
@@ -82,11 +86,28 @@ const Content = () => {
         toggleCardView={toggleCardView}
         cardView={cardView}
       />
-      {cardView ? (
-        <CardView data={data} setEventId={setEventId} deleteEvent={deleteEvent} />
+      {!loading ? (
+        <>
+          {cardView ? (
+            <CardView
+              // loading={loading}
+              data={data}
+              setEventId={setEventId}
+              deleteEvent={deleteEvent}
+            />
+          ) : (
+            <ListView
+              loading={loading}
+              data={data}
+              setEventId={setEventId}
+              deleteEvent={deleteEvent}
+            />
+          )}
+        </>
       ) : (
-        <ListView data={data} setEventId={setEventId} deleteEvent={deleteEvent}/>
+        <ContentLoader />
       )}
+
       <CreateContent
         open={open}
         handleClose={handleClose}

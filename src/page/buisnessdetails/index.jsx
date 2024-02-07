@@ -5,16 +5,17 @@ import { getDataTemp } from "../../utils/api";
 
 const BuisnessDetails = () => {
   const [data, setData] = useState();
+  const [loading, setLoading] = useState(false);
 
   const fetchAllBusinessProfiles = async () => {
+    setLoading(true);
     const res = await getDataTemp("business-profile/all");
-    if(res.data){
-      setData(res.data?.businessProfiles)
-      
-    }else{
+    if (res.data) {
+      setData(res.data?.businessProfiles);
+    } else {
       console.log(res, "Error while fetching business profiles");
     }
-
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -28,7 +29,7 @@ const BuisnessDetails = () => {
           My Businesses
         </Text>
       </div>
-      <BusinessDetailTable data={data} />
+      <BusinessDetailTable data={data} loader={loading} />
     </div>
   );
 };

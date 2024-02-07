@@ -6,8 +6,9 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { deleteData } from "../../utils/api";
 import { enqueueSnackbar } from "notistack";
 import { formatErrorMessage } from "../../utils/formatErrorMessage";
+import ContentLoader from "../../common/Loader/contentLoader";
 
-const BusinessTable = ({ data, fetchAllBusinessDetails }) => {
+const BusinessTable = ({ data, fetchAllBusinessDetails, loading }) => {
   const handleDeleteUser = async (id) => {
     swal({
       // title: "Are you sure?",
@@ -38,10 +39,14 @@ const BusinessTable = ({ data, fetchAllBusinessDetails }) => {
     });
   };
 
+  if (loading) {
+    return <ContentLoader />;
+  }
+
   return (
     <>
       <div class="flex flex-col mx-12">
-        {data ? (
+        {data?.length > 0 ? (
           <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
               <div class="overflow-hidden">
