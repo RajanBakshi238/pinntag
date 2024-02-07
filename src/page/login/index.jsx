@@ -38,14 +38,17 @@ const Login = () => {
         deviceType: "web",
       });
       setUser(response.data);
-      localStorage.setItem(PINNTAG_USER, JSON.stringify(response.data));
+      localStorage.setItem(
+        PINNTAG_USER,
+        JSON.stringify({ ...response.data, me: response?.data?.token })
+      );
       enqueueSnackbar("Login successfully", { variant: "success" });
       axiosTempInstance.defaults.headers.common[
         "Authorization"
-      ] = `Bearer ${response?.data?.tokens[0]?.userToken}`;
-      axiosInstance.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${response?.data?.tokens[0]?.businessToken}`;
+      ] = `Bearer ${response?.data?.token}`;
+      // axiosInstance.defaults.headers.common[
+      //   "Authorization"
+      // ] = `Bearer ${response?.data?.tokens[0]?.businessToken}`;
       navigate("/dashboard/business-details");
     } catch (err) {
       console.log(err, "...... err");
@@ -86,9 +89,12 @@ const Login = () => {
                 placeholder="Password"
                 onChange={handleChange}
               />
-              <span onClick={() => {
-                setShowPassword((prev) => !prev )
-              }} className="absolute top-[50%] right-[10px] translate-y-[-50%] cursor-pointer">
+              <span
+                onClick={() => {
+                  setShowPassword((prev) => !prev);
+                }}
+                className="absolute top-[50%] right-[10px] translate-y-[-50%] cursor-pointer"
+              >
                 {showPassword ? <VisibilityOffIcon /> : <RemoveRedEyeIcon />}
               </span>
             </div>

@@ -5,16 +5,18 @@ import classNames from "classnames";
 import { CloseRounded, MenuRounded } from "@mui/icons-material";
 import { useAuthentication } from "../../context/authContext";
 import { clearStorage } from "../../utils/localStorage";
+import { MODULE } from "../../config/routes/RoleProtectedRoute";
 
 const Sidepanal = () => {
   const location = useLocation();
   const [isPanalOpen, setIsPanalOpen] = useState(false);
   const navigate = useNavigate();
 
-  const { user, setUser } = useAuthentication();
+  const { user, setUser, businessUser, setBusinessUser } = useAuthentication();
 
   const handleLogout = () => {
-    setUser(null)
+    setUser(null);
+    setBusinessUser(null);
     clearStorage();
     navigate("/login");
   };
@@ -36,21 +38,41 @@ const Sidepanal = () => {
         {user && (
           <>
             {sidepanalLinks.map((items) => {
-              return (
-                <Link onClick={() => setIsPanalOpen(false)} to={items.Link}>
-                  <div
-                    className={classNames(
-                      isPanalOpen ? "mob:block" : "mob:hidden",
-                      location.pathname === items.Link
-                        ? "bg-black text-white"
-                        : "hover:bg-opacity-10 hover:bg-black",
-                      "w-full transition-[display] duration-500 ease-in-out  cursor-pointer  active:shadow-none shadow-lg rounded-lg py-2 font-semibold text-center border-2 border-secondary text-[20px]"
-                    )}
-                  >
-                    {items.Title}
-                  </div>
-                </Link>
-              );
+              if (businessUser && items.module === MODULE.BUSINESS) {
+                return (
+                  <Link onClick={() => setIsPanalOpen(false)} to={items.Link}>
+                    <div
+                      className={classNames(
+                        isPanalOpen ? "mob:block" : "mob:hidden",
+                        location.pathname === items.Link
+                          ? "bg-black text-white"
+                          : "hover:bg-opacity-10 hover:bg-black",
+                        "w-full transition-[display] duration-500 ease-in-out  cursor-pointer  active:shadow-none shadow-lg rounded-lg py-2 font-semibold text-center border-2 border-secondary text-[20px]"
+                      )}
+                    >
+                      {items.Title}
+                    </div>
+                  </Link>
+                );
+              } else if (items.module === MODULE.USER && !businessUser) {
+                return (
+                  <Link onClick={() => setIsPanalOpen(false)} to={items.Link}>
+                    <div
+                      className={classNames(
+                        isPanalOpen ? "mob:block" : "mob:hidden",
+                        location.pathname === items.Link
+                          ? "bg-black text-white"
+                          : "hover:bg-opacity-10 hover:bg-black",
+                        "w-full transition-[display] duration-500 ease-in-out  cursor-pointer  active:shadow-none shadow-lg rounded-lg py-2 font-semibold text-center border-2 border-secondary text-[20px]"
+                      )}
+                    >
+                      {items.Title}
+                    </div>
+                  </Link>
+                );
+              }else{
+                return <></>
+              }
             })}
 
             <div

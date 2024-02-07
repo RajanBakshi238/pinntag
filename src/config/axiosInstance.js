@@ -1,5 +1,5 @@
 import axios from "axios";
-import { clearStorage, getItem, getToken } from "../utils/localStorage";
+import { clearStorage, getBusinessProfile, getItem, getToken } from "../utils/localStorage";
 import { PINNTAG_USER } from "./routes/RoleProtectedRoute";
 
 const API_URL = process.env.REACT_API_URL ?? "http://74.208.62.59:8080/v1";
@@ -12,10 +12,10 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = getItem(PINNTAG_USER)?.token;
-    const {userToken, businessToken} = getToken() ?? {};
+    const businessProfile = getBusinessProfile() ?? {};
 
-    if (businessToken) {
-      config.headers.Authorization = `Bearer ${businessToken}`;
+    if (businessProfile) {
+      config.headers.Authorization = `Bearer ${businessProfile?.token}`;
     }
     return config;
   },
@@ -49,7 +49,7 @@ const axiosTempInstance = axios.create({
 axiosTempInstance.interceptors.request.use(
   (config) => {
     const token = getItem(PINNTAG_USER)?.token;
-    const {userToken, businessToken} = getToken() ?? {};
+    const userToken = getToken() ?? 'INVALID_TOKEN';
 
     if (userToken) {
       config.headers.Authorization = `Bearer ${userToken}`;

@@ -17,13 +17,17 @@ import { enqueueSnackbar } from "notistack";
 import { formatErrorMessage } from "../../utils/formatErrorMessage";
 import * as Yup from "yup";
 import swal from "@sweetalert/with-react";
+import { useAuthentication } from "../../context/authContext";
 
 const PHONE_REGX =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
 const EditBusiness = () => {
   const [loading, setLoading] = useState(false);
-
+  const {
+    businessUser: { businessProfile },
+    fetchUserDetails,
+  } = useAuthentication();
   const initState = {
     name: "",
     businessType: "Business",
@@ -53,6 +57,7 @@ const EditBusiness = () => {
       },
     ],
   };
+  // console.log(businessUser, ">>>>>>>>>>> businessUser")
 
   const handleDeleteLocation = async (id, arrayHelpers, index) => {
     swal({
@@ -86,16 +91,8 @@ const EditBusiness = () => {
     });
   };
 
-  const navigate = useNavigate();
-  const { id } = useParams();
-
-  const [data, setData] = useState();
-
-  const fetchBusinessDetail = async () => {
-    const resposne = await getDataTemp(`business-profile/${id}`);
-    if (resposne.data) {
-      const businessProfile = resposne.data?.businessProfile;
-      setData(businessProfile);
+  useEffect(() => {
+    if (businessProfile) {
       formik.setValues({
         ...initState,
         name: businessProfile?.name,
@@ -103,14 +100,36 @@ const EditBusiness = () => {
         image: businessProfile?.image,
         locations: businessProfile?.locations,
       });
-    } else {
-      console.log(resposne.error, "Error while fetching business details");
     }
-  };
+  }, [businessProfile]);
 
-  useEffect(() => {
-    fetchBusinessDetail();
-  }, []);
+  const navigate = useNavigate();
+  const { id } = useParams();
+
+  // const [data, setData] = useState();
+
+  // const fetchBusinessDetail = async () => {
+  //   const resposne = await getDataTemp(
+  //     `business-profile/${businessUser?.businessProfile?._id}`
+  //   );
+  //   if (resposne.data) {
+  //     const businessProfile = resposne.data?.businessProfile;
+  //     setData(businessProfile);
+  //     formik.setValues({
+  //       ...initState,
+  //       name: businessProfile?.name,
+  //       bio: businessProfile?.bio,
+  //       image: businessProfile?.image,
+  //       locations: businessProfile?.locations,
+  //     });
+  //   } else {
+  //     console.log(resposne.error, "Error while fetching business details");
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   fetchBusinessDetail();
+  // }, []);
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("Name is required."),
@@ -190,7 +209,8 @@ const EditBusiness = () => {
             }
           );
         }
-        fetchBusinessDetail();
+        fetchUserDetails();
+        // fetchBusinessDetail();
         setLoading(false);
       } else {
         enqueueSnackbar("Only images allowed", {

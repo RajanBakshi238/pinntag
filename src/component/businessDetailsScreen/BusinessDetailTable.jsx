@@ -1,11 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import Image from "../image";
 import { useNavigate } from "react-router-dom";
 import { businessStatus } from "../../utils/constants/statuses";
+import PrimaryButton from "../../common/FormElements/Button/PrimaryButton";
+import { getDataTemp } from "../../utils/api";
+import { enqueueSnackbar } from "notistack";
+import { formatErrorMessage } from "../../utils/formatErrorMessage";
+import { useAuthentication } from "../../context/authContext";
+import { PINNTAG_BUSINESS_PROFILE } from "../../config/routes/RoleProtectedRoute";
 
 const BusinessDetailTable = ({ data }) => {
   const navigate = useNavigate();
+  const { businessUser, setBusinessUser } = useAuthentication();
+  const [loading, setLoading] = useState(false);
+
+  const selectBusinessHandler = async (id) => {
+    setLoading(true);
+    const res = await getDataTemp(`business-profile/switch/${id}`);
+    if (res.data) {
+      setBusinessUser(res.data);
+      localStorage.setItem(
+        PINNTAG_BUSINESS_PROFILE,
+        JSON.stringify(res.data)
+      );
+      console.log(res.data, ">>>>>>>>>>>>>>>>");
+    } else {
+      enqueueSnackbar(
+        res.error?.message
+          ? formatErrorMessage(res.error?.message)
+          : "Something went wrong",
+        {
+          variant: "error",
+        }
+      );
+    }
+    setLoading(false);
+  };
 
   return (
     <>
@@ -39,7 +70,7 @@ const BusinessDetailTable = ({ data }) => {
                       LOCATIONS
                     </th>
                     <th scope="col" class=" px-6 py-2 text-white">
-                      EDIT
+                      Action
                     </th>
                   </tr>
                 </thead>
@@ -77,14 +108,22 @@ const BusinessDetailTable = ({ data }) => {
                             {business.locations?.length}
                           </td>
                           <td class="whitespace-nowrap  px-6 py-2">
-                            <EditIcon
+                            <PrimaryButton
+                              loading={loading}
+                              onClick={() =>
+                                selectBusinessHandler(business._id)
+                              }
+                            >
+                              Select Business
+                            </PrimaryButton>
+                            {/* <EditIcon
                               onClick={() =>
                                 navigate(
                                   `/dashboard/edit-business-details/${business._id}`
                                 )
                               }
                               className="cursor-pointer text-white rounded-2xl bg-black "
-                            />
+                            /> */}
                           </td>
                         </tr>
                       </>

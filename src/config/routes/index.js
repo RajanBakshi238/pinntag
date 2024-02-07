@@ -33,12 +33,18 @@ export const routeslist = [
   },
   {
     path: "/dashboard",
-    element: <RoleProtectedRoute element={<Layout />} />,
+    element: <RoleProtectedRoute element={<Layout />} module="user" />,
     children: [
       {
         path: "business-details",
         element: <BuisnessDetails />,
       },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: <RoleProtectedRoute element={<Layout />} module="business" />,
+    children: [
       {
         path: "edit-business-details/:id",
         element: <BusinessDetailEdit />,
