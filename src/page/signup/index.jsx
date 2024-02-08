@@ -10,6 +10,7 @@ import { enqueueSnackbar } from "notistack";
 import { postData } from "../../utils/api";
 import { formatErrorMessage } from "../../utils/formatErrorMessage";
 import { Link, useNavigate } from "react-router-dom";
+import classNames from "classnames";
 
 const SignUp = () => {
   const [loading, setLoading] = useState(false);
@@ -156,7 +157,10 @@ const SignUp = () => {
   return (
     <>
       <div className="flex justify-center items-center w-full">
-        <div className="xl:w-2/5 lg:w-1/2 md:w-1/2 sm:w-2/3 p-4 bg-[#ededed] rounded-lg mt-5">
+        <div className={classNames(["xl:w-2/5 lg:w-1/2 md:w-1/2 sm:w-2/3 p-4 bg-[#ededed] rounded-lg", {
+          "mt-36": !!verfiyOtp,
+          "mt-5": !verfiyOtp
+        }])}>
           <h1 className="text-black text-center text-2xl font-bold mb-4">
             {verfiyOtp ? "Verify Otp" : "Sign up"}
           </h1>
