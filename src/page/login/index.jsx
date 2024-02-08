@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { useSnackbar } from "notistack";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import PrimaryButton from "../../common/FormElements/Button/PrimaryButton";
 import { axiosInstance, axiosTempInstance } from "../../config/axiosInstance";
@@ -114,6 +114,16 @@ const Login = () => {
               >
                 Sign in
               </PrimaryButton>
+            </div>
+            <div className="mt-3">
+              <h1
+                className="text-sm cursor-pointer font-semibold text-center"
+              >
+                Not have an account ?{" "}
+                <Link to="/signup">
+                  <span className="text-[#45818E]">Sign up</span>
+                </Link>
+              </h1>
             </div>
           </div>
         </div>

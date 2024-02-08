@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import GuestRoute from "./GuestRoute";
 import BusinessDetailEdit from "../../page/businessDetailEdit";
+import SignUp from "../../page/signup";
 const Layout = React.lazy(() => import("./../../common/layout"));
 const BuisnessDetails = React.lazy(() => import("../../page/buisnessdetails"));
 const Content = React.lazy(() => import("../../page/content"));
@@ -29,6 +30,11 @@ export const routeslist = [
         path: "login",
         element: <Login />,
       },
+      {
+        path: "signup",
+        element: <SignUp />,
+      },
+
     ],
   },
   {
