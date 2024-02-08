@@ -36,7 +36,7 @@ const EditBusiness = () => {
     businessImage: "",
     // imageBlob: "",
     // imageUrl: "",
-    image: "",
+    profilePhoto: "",
     // businessSocialMedia: [
     //   {
     //     app: "",
@@ -97,7 +97,7 @@ const EditBusiness = () => {
         ...initState,
         name: businessProfile?.name,
         bio: businessProfile?.bio,
-        image: businessProfile?.image,
+        profilePhoto: businessProfile?.profilePhoto,
         locations: businessProfile?.locations,
       });
     }
@@ -191,7 +191,7 @@ const EditBusiness = () => {
         setLoading(true);
 
         const formData = new FormData();
-        formData.append("image", file);
+        formData.append("profilePhoto", file);
 
         const res = await postData("business-profile/update/photo", formData);
 
@@ -235,8 +235,8 @@ const EditBusiness = () => {
                   <img
                     className="w-36 h-36 rounded-full border-4 border-[#e8e51a]"
                     src={
-                      formik.values.image
-                        ? formik.values.image
+                      formik.values.profilePhoto
+                        ? formik.values.profilePhoto
                         : "https://via.placeholder.com/150"
                     }
                     alt=""

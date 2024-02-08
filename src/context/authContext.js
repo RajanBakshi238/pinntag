@@ -39,9 +39,9 @@ export const AuthProvider = ({ children }) => {
     if (res.data) {
       setUser(res.data);
     } else if (res.error) {
-      enqueueSnackbar(res.error?.message ?? "Something went wrong", {
-        variant: "error",
-      });
+      // enqueueSnackbar(res.error?.message ?? "Something went wrong", {
+      //   variant: "error",
+      // });
     }
     setLoading(false);
   };
