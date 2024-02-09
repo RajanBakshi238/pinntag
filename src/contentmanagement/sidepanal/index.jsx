@@ -3,7 +3,7 @@ import { MODULE } from "../../config/routes/RoleProtectedRoute";
 export const sidepanalLinks = [
   {
     Title: "Business Profile",
-    Link: "/dashboard/edit-business-details/65c2922bfdf9400e94c94312",
+    Link: "/dashboard/edit-business-details",
     module: MODULE.BUSINESS,
   },
   {

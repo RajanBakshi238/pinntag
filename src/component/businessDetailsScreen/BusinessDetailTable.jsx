@@ -14,6 +14,7 @@ import ContentLoader from "../../common/Loader/contentLoader";
 const BusinessDetailTable = ({ data, loader }) => {
   const { businessUser, setBusinessUser } = useAuthentication();
   const [loading, setLoading] = useState(false);
+  const [businessId, setBusinessId] = useState(false);
 
   if (loader) {
     return <ContentLoader />;
@@ -22,6 +23,7 @@ const BusinessDetailTable = ({ data, loader }) => {
   // const navigate = useNavigate();
 
   const selectBusinessHandler = async (id) => {
+    setBusinessId(id)
     setLoading(true);
     const res = await getDataTemp(`business-profile/switch/${id}`);
     if (res.data) {
@@ -113,7 +115,7 @@ const BusinessDetailTable = ({ data, loader }) => {
                               </td>
                               <td class="whitespace-nowrap  px-6 py-2">
                                 <PrimaryButton
-                                  loading={loading}
+                                  loading={loading && businessId === business._id}
                                   onClick={() =>
                                     selectBusinessHandler(business._id)
                                   }

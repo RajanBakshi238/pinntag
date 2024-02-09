@@ -12,6 +12,7 @@ const FacebookLoginButton = ({ accessToken, setAccessToken }) => {
   };
 
   const handleLogout = () => {
+    debugger
     setFbCredential(null);
     setAccessToken("");
     console.log(window.FB);

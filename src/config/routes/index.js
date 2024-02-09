@@ -52,7 +52,7 @@ export const routeslist = [
     element: <RoleProtectedRoute element={<Layout />} module="business" />,
     children: [
       {
-        path: "edit-business-details/:id",
+        path: "edit-business-details",
         element: <BusinessDetailEdit />,
       },
       {
