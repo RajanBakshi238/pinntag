@@ -214,10 +214,10 @@ const Step2 = ({
               <>Cancel</>
             </SecondaryButton>
           ) : (
-            <></>
-            // <SecondaryButton onClick={() => handleStep(DEC)}>
-            //   <>Back</>
-            // </SecondaryButton>
+            // <></>
+            <SecondaryButton onClick={() => handleStep(DEC)}>
+              <>Back</>
+            </SecondaryButton>
           )}
         </div>
         <div>
