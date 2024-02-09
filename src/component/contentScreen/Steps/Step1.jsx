@@ -56,7 +56,10 @@ const Step1 = ({
         // keywords: eventData.keywords.map((event) => {
         //   return keywords.find(({ _id }) => event === _id);
         // }),
-        keywords: typeof eventData.keywords === 'string' ?  JSON.parse(eventData.keywords) : eventData.keywords,
+        keywords:
+          typeof eventData.keywords === "string"
+            ? JSON.parse(eventData.keywords)
+            : eventData.keywords,
         images: eventData?.images,
         imageUrls: eventData?.images?.map(({ url }) => url),
       });
@@ -104,10 +107,12 @@ const Step1 = ({
     initialValues: initState,
     validationSchema,
     onSubmit: async (values) => {
-      
       if (id) {
-        const copyValue = {...values, keywords: JSON.stringify(values?.keywords)}
-        delete copyValue?.images
+        const copyValue = {
+          ...values,
+          // keywords: JSON.stringify(values?.keywords),
+        };
+        delete copyValue?.images;
         const res = await postData(`event/update/${id}`, {
           ...copyValue,
         });
