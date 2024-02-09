@@ -10,7 +10,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import RemoveCircleOutlineOutlinedIcon from "@mui/icons-material/RemoveCircleOutlineOutlined";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 
-import { getData, postData } from "../../../utils/api";
+import { deleteData, getData, postData } from "../../../utils/api";
 import HighlightOffOutlinedIcon from "@mui/icons-material/HighlightOffOutlined";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { enqueueSnackbar } from "notistack";
@@ -28,6 +28,8 @@ const Step1 = ({
   setId,
   fetchAllEvents,
   eventData,
+  fetchEventData,
+  id,
 }) => {
   const [categories, setCategories] = useState();
   // const [keywords, setkeywords] = useState([]);
@@ -50,10 +52,11 @@ const Step1 = ({
         type: eventData.type,
         title: eventData.title,
         description: eventData.description,
-        category: eventData.category,
+        category: eventData.category._id,
         // keywords: eventData.keywords.map((event) => {
         //   return keywords.find(({ _id }) => event === _id);
         // }),
+        keywords: typeof eventData.keywords === 'string' ?  JSON.parse(eventData.keywords) : eventData.keywords,
         images: eventData?.images,
         imageUrls: eventData?.images?.map(({ url }) => url),
       });
@@ -101,47 +104,73 @@ const Step1 = ({
     initialValues: initState,
     validationSchema,
     onSubmit: async (values) => {
-      console.log(values, ">>>>>>>> values 123");
-      setLoading(true);
-      let formData = new FormData();
-      for (let key in values) {
-        if (key == "imageUrls") {
+      
+      if (id) {
+        const copyValue = {...values, keywords: JSON.stringify(values?.keywords)}
+        delete copyValue?.images
+        const res = await postData(`event/update/${id}`, {
+          ...copyValue,
+        });
+
+        if (res.data) {
+          enqueueSnackbar(res.data.message ?? "", {
+            variant: "success",
+          });
+          fetchEventData(id);
+          fetchAllEvents();
+          handleStep(INC);
         } else {
-          if (key == "images") {
-            values.images.forEach((image, index) => {
-              formData.append(`images`, image);
-            });
-          } else if (key === "keywords") {
-            // values.keywords.forEach((key, index) => {
-            //   formData.append(`keywords`, key._id);
-            // });
-            formData.append("keywords", JSON.stringify(values.keywords));
+          console.log(res, ">>>>>>");
+          enqueueSnackbar(
+            res.error?.message
+              ? formatErrorMessage(res.error?.message)
+              : "Something went wrong",
+            {
+              variant: "error",
+            }
+          );
+        }
+      } else {
+        setLoading(true);
+        let formData = new FormData();
+        for (let key in values) {
+          if (key == "imageUrls") {
           } else {
-            formData.append([key], values[key]);
+            if (key == "images") {
+              values.images.forEach((image, index) => {
+                formData.append(`images`, image);
+              });
+            } else if (key === "keywords") {
+              // values.keywords.forEach((key, index) => {
+              //   formData.append(`keywords`, key._id);
+              // });
+              formData.append("keywords", JSON.stringify(values.keywords));
+            } else {
+              formData.append([key], values[key]);
+            }
           }
         }
-      }
-      const res = await postData("event", formData);
+        const res = await postData("event", formData);
 
-      if (res.data) {
-        setId(res.data.event?._id);
-        enqueueSnackbar(res.data.message ?? "", {
-          variant: "success",
-        });
-        fetchAllEvents();
-        handleStep(INC);
-      } else {
-        console.log(res, ">>>>>>");
-        enqueueSnackbar(
-          res.error?.message
-            ? formatErrorMessage(res.error?.message)
-            : "Something went wrong",
-          {
-            variant: "error",
-          }
-        );
+        if (res.data) {
+          setId(res.data.event?._id);
+          enqueueSnackbar(res.data.message ?? "", {
+            variant: "success",
+          });
+          fetchAllEvents();
+          handleStep(INC);
+        } else {
+          console.log(res, ">>>>>>");
+          enqueueSnackbar(
+            res.error?.message
+              ? formatErrorMessage(res.error?.message)
+              : "Something went wrong",
+            {
+              variant: "error",
+            }
+          );
+        }
       }
-
       setLoading(false);
     },
   });
@@ -156,9 +185,18 @@ const Step1 = ({
     const urls = Array.from(files).map((file) => URL.createObjectURL(file));
     console.log(urls, ">>>>>>> urls");
     formik.setFieldValue("imageUrls", [...values.imageUrls, ...urls]);
+    if (id) {
+      handleUpdateImage(Array.from(files));
+    }
   };
 
   const handleRemoveImage = (index) => {
+    if (id) {
+      //
+      if (values.images[index]?._id) {
+        handleDeleteImage(values.images[index]?._id);
+      }
+    }
     setFieldValue("images", [
       ...values?.images?.slice(0, index),
       ...values?.images?.slice(index + 1),
@@ -167,6 +205,52 @@ const Step1 = ({
       ...values?.imageUrls?.slice(0, index),
       ...values?.imageUrls?.slice(index + 1),
     ]);
+    // that means event first step is being getting edited.
+  };
+
+  const handleDeleteImage = async (id) => {
+    const res = await deleteData(`event/image/${id}`);
+    if (res.data) {
+      enqueueSnackbar(res.data.message ?? "", {
+        variant: "success",
+      });
+      fetchEventData();
+    } else {
+      enqueueSnackbar(
+        res.error?.message
+          ? formatErrorMessage(res.error?.message)
+          : "Something went wrong",
+        {
+          variant: "error",
+        }
+      );
+    }
+  };
+
+  const handleUpdateImage = async (files) => {
+    const formData = new FormData();
+    files.forEach((image, index) => {
+      formData.append(`images`, image);
+    });
+    const res = await postData(`event/images/add/${id}`, formData);
+    if (res.data) {
+      // setId(res.data.event?._id);
+      enqueueSnackbar(res.data.message ?? "", {
+        variant: "success",
+      });
+      fetchEventData();
+      // handleStep(INC);
+    } else {
+      console.log(res, ">>>>>>");
+      enqueueSnackbar(
+        res.error?.message
+          ? formatErrorMessage(res.error?.message)
+          : "Something went wrong",
+        {
+          variant: "error",
+        }
+      );
+    }
   };
 
   return (

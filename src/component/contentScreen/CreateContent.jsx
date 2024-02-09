@@ -53,7 +53,7 @@ const CreateContent = ({
   useEffect(() => {
     setId(eventId);
     if(eventId){
-      setCurrentStep(2)
+      // setCurrentStep(2)
       fetchEventData(eventId)
     }
 
