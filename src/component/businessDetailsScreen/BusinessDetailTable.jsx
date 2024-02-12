@@ -88,7 +88,7 @@ const BusinessDetailTable = ({ data, loader }) => {
                               <td class="whitespace-nowrap flex justify-center  px-2 py-2">
                                 <Image
                                   src={
-                                    business?.image ??
+                                    business?.profilePhoto ??
                                     "https://www.photoshopessentials.com/newsite/wp-content/uploads/2018/08/resize-images-print-photoshop-f.jpg"
                                   }
                                   className={"w-7 h-7 rounded-3xl"}
