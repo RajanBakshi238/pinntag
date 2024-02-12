@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 
-const FacebookLoginButton = ({ accessToken, setAccessToken }) => {
+const FacebookLoginButton = ({ accessToken, setAccessToken, isConnected }) => {
   const [fbCredential, setFbCredential] = useState();
 
   const responseFacebook = (response) => {

@@ -47,6 +47,8 @@ const Step1 = ({
 
   useEffect(() => {
     if (eventData) {
+      // console.log( ">>>>>>> event data keywords ", eventData.keywords, ">>> type", typeof eventData.keywords)
+
       setValues({
         ...initState,
         type: eventData.type,
@@ -56,10 +58,10 @@ const Step1 = ({
         // keywords: eventData.keywords.map((event) => {
         //   return keywords.find(({ _id }) => event === _id);
         // }),
-        keywords:
+        keywords: 
           typeof eventData.keywords === "string"
             ? JSON.parse(eventData.keywords)
-            : eventData.keywords,
+            :  eventData.keywords,
         images: eventData?.images,
         imageUrls: eventData?.images?.map(({ url }) => url),
       });

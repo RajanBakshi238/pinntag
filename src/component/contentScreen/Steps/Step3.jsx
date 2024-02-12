@@ -16,6 +16,8 @@ import PrimaryButton from "../../../common/FormElements/Button/PrimaryButton";
 import { DEC, INC } from "../CreateContent";
 import { enqueueSnackbar } from "notistack";
 import { formatErrorMessage } from "../../../utils/formatErrorMessage";
+import PrimaryModal from "../../../common/Modal/PrimaryModal";
+import AddLocationModal from "./AddLocationModal";
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -24,24 +26,36 @@ L.Icon.Default.mergeOptions({
   shadowUrl: markerShadow,
 });
 
-const Step3 = ({ handleStep, handleClose, id, currentStep, fetchAllEvents, eventData,fetchEventData }) => {
+const Step3 = ({
+  handleStep,
+  handleClose,
+  id,
+  currentStep,
+  fetchAllEvents,
+  eventData,
+  fetchEventData,
+}) => {
   const [locations, setLocations] = useState();
   const [address, setAddress] = useState([]);
   const [locationIds, setLocationsId] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const [secondaryModal, setSecondaryModal] = useState(false);
+
   useEffect(() => {
-    if(eventData && locations){
-      let locBool = []
-      console.log(locations, ">>>>>>>>>>>>> 123456", eventData)
+    if (eventData && locations) {
+      let locBool = [];
+      console.log(locations, ">>>>>>>>>>>>> 123456", eventData);
       locations.forEach((loc) => {
-        const bool = eventData?.locations?.find(({_id, businessLocationId}) => businessLocationId ===loc._id)
-        console.log(bool, ">>>>>>>>122334244444444444 ")
-        locBool.push(!!bool)
-      })
-      setLocationsId(locBool)
+        const bool = eventData?.locations?.find(
+          ({ _id, businessLocationId }) => businessLocationId === loc._id
+        );
+        console.log(bool, ">>>>>>>>122334244444444444 ");
+        locBool.push(!!bool);
+      });
+      setLocationsId(locBool);
     }
-  }, [eventData, locations])
+  }, [eventData, locations]);
 
   const getLocations = async () => {
     const res = await getData("/business-profile/locations");
@@ -56,7 +70,6 @@ const Step3 = ({ handleStep, handleClose, id, currentStep, fetchAllEvents, event
 
       const address = await Promise.all(promise);
       setAddress(address);
-      
     } else {
       console.error("Something went error", res);
     }
@@ -126,8 +139,8 @@ const Step3 = ({ handleStep, handleClose, id, currentStep, fetchAllEvents, event
       enqueueSnackbar(res.data.message ?? "", {
         variant: "success",
       });
-      fetchAllEvents()
-      fetchEventData(id)
+      fetchAllEvents();
+      fetchEventData(id);
       handleStep(INC);
     } else {
       enqueueSnackbar(
@@ -142,7 +155,6 @@ const Step3 = ({ handleStep, handleClose, id, currentStep, fetchAllEvents, event
 
     setLoading(false);
   };
-
 
   return (
     <>
@@ -188,10 +200,10 @@ const Step3 = ({ handleStep, handleClose, id, currentStep, fetchAllEvents, event
           );
         })}
 
-        {/* <FullButton inputClass={"!text-[#45818E] bg-[#56b6cb61]"}>
-        <Add className="!text-[#45818E] mr-3" />
-        Add Interval
-      </FullButton> */}
+        <FullButton inputClass={"!text-[#45818E] bg-[#56b6cb61]"} onClick={() => setSecondaryModal(true)}>
+          <Add className="!text-[#45818E] mr-3" />
+          Add Location
+        </FullButton>
       </div>
       <div className="flex justify-between items-center mt-auto py-3">
         <div>
@@ -219,6 +231,13 @@ const Step3 = ({ handleStep, handleClose, id, currentStep, fetchAllEvents, event
           </PrimaryButton>
         </div>
       </div>
+      <AddLocationModal
+        open={secondaryModal}
+        getLocations={getLocations}
+        handleClose={() => {
+          setSecondaryModal(false);
+        }}
+      />
     </>
   );
 };
