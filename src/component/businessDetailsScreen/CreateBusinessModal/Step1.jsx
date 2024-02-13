@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ImageIcon from "@mui/icons-material/Image";
 import SecondaryButton from "../../../common/FormElements/Button/SecondaryButton";
 import { DEC } from "../../../utils/constants/commonConstants";
@@ -6,12 +6,46 @@ import PrimaryButton from "../../../common/FormElements/Button/PrimaryButton";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 const Step1 = ({ handleStep, handleClose }) => {
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+  };
+
   return (
     <div>
       <h1 className="mb-3 text-lg font-semibold text-center">
         Add Business | Details
       </h1>
       <div className="">
+        <div className="mb-3">
+          <h1 className="text-base font-semibold mb-1">Subscription type</h1>
+          <label className="themeSwitcherThree relative inline-flex cursor-pointer select-none items-center">
+            <input
+              type="checkbox"
+              checked={isChecked}
+              onChange={handleCheckboxChange}
+              className="sr-only"
+            />
+
+            <div className="shadow-card flex h-[39px] w-auto items-center border border-black justify-center rounded-md bg-white">
+              <span
+                className={`flex h-[36px] w-20 items-center justify-center rounded ${
+                  !isChecked ? "bg-primary text-white" : "text-body-color"
+                }`}
+              >
+                Yearly
+              </span>
+              <span
+                className={`flex h-[36px] w-20 items-center justify-center rounded ${
+                  isChecked ? "bg-primary text-white" : "text-body-color"
+                }`}
+              >
+                Monthly
+              </span>
+            </div>
+          </label>
+        </div>
         <div className="mb-3">
           <select className="secondary-select w-full" name="type">
             <option>Type [Business / Non-Profit]</option>
