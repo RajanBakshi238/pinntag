@@ -2,8 +2,8 @@ import axios from "axios";
 import { clearStorage, getBusinessProfile, getItem, getToken } from "../utils/localStorage";
 import { PINNTAG_USER } from "./routes/RoleProtectedRoute";
 
-const API_URL = process.env.REACT_API_URL ?? "http://74.208.62.59:8080/v1";
-
+const API_URL = process.env.REACT_API_URL ?? "https://api.pinntag.com/v1";
+//http://74.208.62.59:8080/v1 
 const axiosInstance = axios.create({
   baseURL: API_URL,
 });
