@@ -3,6 +3,7 @@ import PrimaryModal from "../../../common/Modal/PrimaryModal";
 import Step1 from "./Step1";
 import { INC, DEC } from "./../../../utils/constants/commonConstants";
 import Step2 from "./Step2";
+import Step3 from "./Step3";
 
 const CreateBusinessModal = ({ open, handleClose }) => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -36,6 +37,10 @@ const CreateBusinessModal = ({ open, handleClose }) => {
         ) : currentStep === 2 ? (
           <>
             <Step2 handleStep={handleStep} handleClose={handleCloseModal} />
+          </>
+        ) : currentStep === 3 ? (
+          <>
+            <Step3 handleStep={handleStep} handleClose={handleCloseModal} />
           </>
         ) : (
           <></>
