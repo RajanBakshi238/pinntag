@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ImageIcon from "@mui/icons-material/Image";
 import SecondaryButton from "../../../common/FormElements/Button/SecondaryButton";
-import { DEC } from "../../../utils/constants/commonConstants";
+import { DEC, INC } from "../../../utils/constants/commonConstants";
 import PrimaryButton from "../../../common/FormElements/Button/PrimaryButton";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
@@ -106,6 +106,7 @@ const Step1 = ({ handleStep, handleClose }) => {
           <PrimaryButton
             // loading={loading}
             inputClass={"min-w-[100px]"}
+            onClick={() => handleStep(INC)}
             // onClick={formik.handleSubmit}
           >
             <span>Next</span>

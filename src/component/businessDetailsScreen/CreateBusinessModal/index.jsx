@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import PrimaryModal from "../../../common/Modal/PrimaryModal";
 import Step1 from "./Step1";
 import { INC, DEC } from "./../../../utils/constants/commonConstants";
+import Step2 from "./Step2";
 
 const CreateBusinessModal = ({ open, handleClose }) => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -32,6 +33,10 @@ const CreateBusinessModal = ({ open, handleClose }) => {
           <>
             <Step1 handleStep={handleStep} handleClose={handleCloseModal} />
           </>
+        ) : currentStep === 2 ? (
+          <>
+            <Step2 handleStep={handleStep} handleClose={handleCloseModal} />
+          </>
         ) : (
           <></>
         )}
@@ -41,8 +46,5 @@ const CreateBusinessModal = ({ open, handleClose }) => {
 };
 
 export default CreateBusinessModal;
-
-
-
 
 //tailgrids.com
