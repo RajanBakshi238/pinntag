@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import PhoneInput from "react-phone-input-2";
 
 import PrimaryModalHeader from "../../../common/UiElements/PrimaryModalHeader";
 import PrimaryButton from "../../../common/FormElements/Button/PrimaryButton";
@@ -8,7 +9,10 @@ import SecondaryButton from "../../../common/FormElements/Button/SecondaryButton
 import { INC, DEC } from "../../../utils/constants/commonConstants";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
+import "react-phone-input-2/lib/material.css";
+
 const Step2 = ({ handleStep, handleClose }) => {
+    const [phone, setPhone] = useState("")
   return (
     <div>
       <PrimaryModalHeader>
@@ -150,7 +154,7 @@ const Step2 = ({ handleStep, handleClose }) => {
                         <ErrorMessage name={`locations[${index}].email`} />
                       </span> */}
               </div>
-              <div className="">
+              <div className="mb-2">
                 <input
                   // value={location.phone}
                   placeholder="Telephone number"
@@ -162,6 +166,15 @@ const Step2 = ({ handleStep, handleClose }) => {
                 {/* <span className="font-semibold pl-1 text-sm text-red-600">
                         <ErrorMessage name={`locations[${index}].phone`} />
                       </span> */}
+              </div>
+              <div className="">
+                <PhoneInput
+                  country={"us"}
+                  value={phone}
+                  inputClass="!w-full"
+                //   containerClass="common-input !border"
+                  onChange={(phone) => setPhone( phone )}
+                />
               </div>
             </div>
             <div>

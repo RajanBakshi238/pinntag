@@ -46,3 +46,12 @@ input[type=number]::-webkit-outer-spin-button {
     }
   }
 }
+
+
+
+
+
+
+.special-label{
+  display: none !important;
+}
