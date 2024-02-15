@@ -1,21 +1,44 @@
 import React, { useEffect, useState } from "react";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
+import { postData } from "../../../utils/api";
+import { enqueueSnackbar } from "notistack";
+import { formatErrorMessage } from "../../../utils/formatErrorMessage";
 
-const FacebookLoginButton = ({ accessToken, setAccessToken, isConnected }) => {
+const FacebookLoginButton = ({ fetchUserDetails, isConnected }) => {
   const [fbCredential, setFbCredential] = useState();
 
-  const responseFacebook = (response) => {
+  const responseFacebook = async (response) => {
     if (response.accessToken) {
-      setAccessToken(response.accessToken);
+      // setAccessToken(response.accessToken);
       setFbCredential(response);
+      const res = await postData("business-profile/connect/facebook", {
+        accessToken: response.accessToken,
+      });
+
+      if (res.data) {
+        enqueueSnackbar(res.data.message ?? "", {
+          variant: "success",
+        });
+      } else {
+        enqueueSnackbar(
+          res.error?.message
+            ? formatErrorMessage(res.error?.message)
+            : "Something went wrong",
+          {
+            variant: "error",
+          }
+        );
+      }
+
+      fetchUserDetails();
     }
   };
 
   const handleLogout = () => {
-    debugger
+    debugger;
     setFbCredential(null);
-    setAccessToken("");
-    console.log(window.FB);
+    // setAccessToken("");
+    // console.log(window.FB);
     if (window.FB) {
       window.FB.logout(function (response) {
         // user is now logged out
@@ -24,17 +47,36 @@ const FacebookLoginButton = ({ accessToken, setAccessToken, isConnected }) => {
     }
   };
 
+  const handleDisconnect = async () => {
+    const res = await postData("business-profile/disconnect/facebook", {});
+    if (res.data) {
+      handleLogout();
+      enqueueSnackbar(res.data.message ?? "", {
+        variant: "success",
+      });
+    } else {
+      enqueueSnackbar(
+        res.error?.message
+          ? formatErrorMessage(res.error?.message)
+          : "Something went wrong",
+        {
+          variant: "error",
+        }
+      );
+    }
+  };
+
   useEffect(() => {
     if (window.FB) {
       window.FB.getLoginStatus(function (response) {
-        console.log(response, ">>>>>> response")
+        console.log(response, ">>>>>> response");
         setFbCredential(response?.authResponse);
       });
     }
   }, []);
   return (
     <>
-      {fbCredential && accessToken ? (
+      {isConnected ? (
         <>
           <button
             type="button"

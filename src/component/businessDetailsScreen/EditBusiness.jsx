@@ -171,7 +171,7 @@ const EditBusiness = () => {
         // fetchAllBusinessDetails();
         // handleClose();
         // resetForm();
-        fetchUserDetails()
+        fetchUserDetails();
       } else {
         enqueueSnackbar(
           res.error?.message
@@ -332,10 +332,11 @@ const EditBusiness = () => {
                 <div className="mt-3 py-3 px-2 bg-[#0000000d] rounded-md">
                   <FacebookLoginButton
                     isConnected={businessProfile}
-                    setAccessToken={(accessToken) => {
-                      formik.setFieldValue("accessToken", accessToken);
-                    }}
-                    accessToken={formik.values.accessToken}
+                    fetchUserDetails={fetchUserDetails}
+                    // setAccessToken={(accessToken) => {
+                    //   formik.setFieldValue("accessToken", accessToken);
+                    // }}
+                    // accessToken={formik.values.accessToken}
                   />
                 </div>
               </div>
