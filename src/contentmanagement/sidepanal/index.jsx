@@ -7,6 +7,11 @@ export const sidepanalLinks = [
     module: MODULE.BUSINESS,
   },
   {
+    Title: "User Details / Security",
+    Link: "/dashboard/edit-user",
+    module: MODULE.USER,
+  },
+  {
     Title: "My Businesses",
     Link: "/dashboard/business-details",
     module: MODULE.USER,

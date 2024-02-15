@@ -32,8 +32,6 @@ const EditBusiness = () => {
     name: "",
     businessType: "Business",
     bio: "",
-    accessToken:
-      "EAAFuZBtelKO0BOyrZCdiXKK8AemSUlIEHGhb8yp5P0w8WYoQLFtJxApuEvZAIiubJfbZBn8atSb9hI5VfHYNOAA65C7gyN0WNXUXsZBa3XZBHruH2cn2y9EA2eJukyvC7xvQXmsnWZCkZAXUAtvsc7XhVr0imKE2a77ZC1ZAFglgf0XXsy1cbV4psUvZBZAXB4e6LZAjvsbm6feqDK4Br3z6QUQZDZD",
     // businessCategory: "",
     businessImage: "",
     // imageBlob: "",
@@ -331,7 +329,7 @@ const EditBusiness = () => {
                 </div>
                 <div className="mt-3 py-3 px-2 bg-[#0000000d] rounded-md">
                   <FacebookLoginButton
-                    isConnected={businessProfile}
+                    isConnected={businessProfile?.isFacebookConnected}
                     fetchUserDetails={fetchUserDetails}
                     // setAccessToken={(accessToken) => {
                     //   formik.setFieldValue("accessToken", accessToken);

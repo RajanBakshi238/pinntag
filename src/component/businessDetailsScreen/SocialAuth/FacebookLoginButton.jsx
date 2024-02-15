@@ -49,6 +49,8 @@ const FacebookLoginButton = ({ fetchUserDetails, isConnected }) => {
 
   const handleDisconnect = async () => {
     const res = await postData("business-profile/disconnect/facebook", {});
+    fetchUserDetails();
+
     if (res.data) {
       handleLogout();
       enqueueSnackbar(res.data.message ?? "", {
@@ -81,9 +83,10 @@ const FacebookLoginButton = ({ fetchUserDetails, isConnected }) => {
           <button
             type="button"
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            onClick={handleLogout}
+            // onClick={handleLogout}
+            onClick={handleDisconnect}
           >
-            Connected
+            Disconnect from facebook
           </button>
         </>
       ) : (
@@ -92,6 +95,7 @@ const FacebookLoginButton = ({ fetchUserDetails, isConnected }) => {
           autoLoad={false}
           fields="name,email,picture,accounts" // Include 'accounts' to get information about user's Pages
           callback={responseFacebook}
+          
           render={(renderProps) => (
             <button
               type="button"

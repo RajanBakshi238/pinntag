@@ -10,6 +10,7 @@ const ViewEvent = React.lazy(() => import("../../page/viewEvent"));
 const Imagegallery = React.lazy(() => import("../../page/imagegallery"));
 const Buisnessuser = React.lazy(() => import("../../page/buisnessuser"));
 const Login = React.lazy(() => import("../../page/login"));
+const EditUserDetails = React.lazy(() => import("../../page/editUserDetails"));
 const RoleProtectedRoute = React.lazy(() => import("./RoleProtectedRoute"));
 
 export const PATHS = {
@@ -45,6 +46,10 @@ export const routeslist = [
         path: "business-details",
         element: <BuisnessDetails />,
       },
+      {
+        path: "edit-user",
+        element: <EditUserDetails />
+      }
     ],
   },
   {
