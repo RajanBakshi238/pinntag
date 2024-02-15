@@ -1,9 +1,9 @@
 import React from "react";
 import SecondaryButton from "../../../common/FormElements/Button/SecondaryButton";
-import { DEC, INC } from "../../../utils/constants/commonConstants";
+import { DEC } from "../../../utils/constants/commonConstants";
 import PrimaryButton from "../../../common/FormElements/Button/PrimaryButton";
 
-const Step5 = ({
+const Step6 = ({
   handleStep,
   handleClose,
   id,
@@ -24,7 +24,7 @@ const Step5 = ({
             </SecondaryButton>
           ) : (
             <SecondaryButton onClick={() => handleStep(DEC)}>
-              <>Back</>
+              <>Skip</>
             </SecondaryButton>
           )}
         </div>
@@ -34,11 +34,10 @@ const Step5 = ({
             // loading={loading}
             inputClass={"min-w-[100px]"}
             onClick={() => {
-                handleStep(INC)
               //   formik.handleSubmit();
             }}
           >
-            <span>Submit</span>
+            <span>Publish</span>
             {/* <ChevronRightIcon className="!text-white" /> */}
           </PrimaryButton>
         </div>
@@ -47,4 +46,4 @@ const Step5 = ({
   );
 };
 
-export default Step5;
+export default Step6;

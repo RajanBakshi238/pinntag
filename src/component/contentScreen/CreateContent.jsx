@@ -14,6 +14,7 @@ import Step4 from "./Steps/Step4";
 import "./content.css";
 import { getData } from "../../utils/api";
 import Step5 from "./Steps/Step5";
+import Step6 from "./Steps/Step6";
 
 export const INC = "inc";
 export const DEC = "dec";
@@ -31,7 +32,7 @@ const CreateContent = ({
   const [eventData, setEventData] = useState();
   // 65bbd57c9cef5b960094aa95
   const handleStep = (type) => {
-    if (currentStep === 5 && type === INC) {
+    if (currentStep === 6 && type === INC) {
       return;
     }
     if (type === INC) {
@@ -77,12 +78,20 @@ const CreateContent = ({
       <div className="flex flex-col h-full">
         <div className="pb-4">
           <h1 className="text-center font-medium text-xl">
-            {currentStep === 5 ? "Preview" : "Create Content"}
+            {currentStep === 5
+              ? "Preview"
+              : currentStep === 6
+              ? "Post to Social Media"
+              : "Create Content"}
           </h1>
         </div>
-        <div className="mb-3">
-          <StepWizard step={currentStep - 1} />
-        </div>
+        {currentStep === 6 ? (
+          <></>
+        ) : (
+          <div className="mb-3">
+            <StepWizard step={currentStep - 1} />
+          </div>
+        )}
 
         {currentStep === 1 ? (
           <Step1
@@ -128,6 +137,18 @@ const CreateContent = ({
         ) : currentStep === 5 ? (
           <>
             <Step5
+              handleStep={handleStep}
+              handleClose={handleCloseModel}
+              currentStep={currentStep}
+              id={id}
+              fetchAllEvents={fetchAllEvents}
+              eventData={eventData}
+              fetchEventData={fetchEventData}
+            />
+          </>
+        ) : currentStep === 6 ? (
+          <>
+            <Step6
               handleStep={handleStep}
               handleClose={handleCloseModel}
               currentStep={currentStep}
