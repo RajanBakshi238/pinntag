@@ -35,7 +35,7 @@ const FacebookLoginButton = ({ fetchUserDetails, isConnected }) => {
   };
 
   const handleLogout = () => {
-    debugger;
+    // debugger;
     setFbCredential(null);
     // setAccessToken("");
     // console.log(window.FB);
@@ -95,7 +95,6 @@ const FacebookLoginButton = ({ fetchUserDetails, isConnected }) => {
           autoLoad={false}
           fields="name,email,picture,accounts" // Include 'accounts' to get information about user's Pages
           callback={responseFacebook}
-          
           render={(renderProps) => (
             <button
               type="button"

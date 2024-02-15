@@ -13,6 +13,7 @@ import Step4 from "./Steps/Step4";
 
 import "./content.css";
 import { getData } from "../../utils/api";
+import Step5 from "./Steps/Step5";
 
 export const INC = "inc";
 export const DEC = "dec";
@@ -27,10 +28,10 @@ const CreateContent = ({
   const [currentStep, setCurrentStep] = useState(1);
   // id is used to track making of current new event and eventId is used to tract the edit event
   const [id, setId] = useState("");
-  const [eventData, setEventData] = useState()
+  const [eventData, setEventData] = useState();
   // 65bbd57c9cef5b960094aa95
   const handleStep = (type) => {
-    if (currentStep === 4 && type === INC) {
+    if (currentStep === 5 && type === INC) {
       return;
     }
     if (type === INC) {
@@ -48,15 +49,14 @@ const CreateContent = ({
     } else {
       console.log(resposne.error, "Error while fetching business details");
     }
-  }
+  };
 
   useEffect(() => {
     setId(eventId);
-    if(eventId){
+    if (eventId) {
       // setCurrentStep(2)
-      fetchEventData(eventId)
+      fetchEventData(eventId);
     }
-
   }, [eventId]);
 
   const handleCloseModel = () => {
@@ -64,7 +64,7 @@ const CreateContent = ({
     setId();
     setEventId();
     setEventData();
-    setCurrentStep(1)
+    setCurrentStep(1);
   };
 
   console.log(eventId, ">>>>>> eventId");
@@ -76,7 +76,9 @@ const CreateContent = ({
     >
       <div className="flex flex-col h-full">
         <div className="pb-4">
-          <h1 className="text-center font-medium text-xl">Create Content</h1>
+          <h1 className="text-center font-medium text-xl">
+            {currentStep === 5 ? "Preview" : "Create Content"}
+          </h1>
         </div>
         <div className="mb-3">
           <StepWizard step={currentStep - 1} />
@@ -123,6 +125,18 @@ const CreateContent = ({
             eventData={eventData}
             fetchEventData={fetchEventData}
           />
+        ) : currentStep === 5 ? (
+          <>
+            <Step5
+              handleStep={handleStep}
+              handleClose={handleCloseModel}
+              currentStep={currentStep}
+              id={id}
+              fetchAllEvents={fetchAllEvents}
+              eventData={eventData}
+              fetchEventData={fetchEventData}
+            />
+          </>
         ) : (
           <></>
         )}

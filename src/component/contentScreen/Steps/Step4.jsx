@@ -67,7 +67,7 @@ const Step4 = ({
     if (eventData) {
       setValues({
         ...initData,
-        ageGroupsAllowed: eventData?.ageGroupsAllowed?.map(({_id}) => _id),
+        ageGroupsAllowed: eventData?.ageGroupsAllowed?.map(({ _id }) => _id),
         targetGenders: eventData?.targetGenders,
         promotionCode: eventData?.promotionCode,
         isFree: eventData?.isFree,
@@ -92,12 +92,35 @@ const Step4 = ({
       });
 
       if (res.data) {
+
+        handleStep(INC)
         enqueueSnackbar(res.data.message ?? "", {
           variant: "success",
         });
         fetchAllEvents();
+
+        const socialPost = await postData(`event/social/post`, {
+          eventId: res.data.event._id,
+          facebook: true
+        });
+        if (socialPost.data) {
+          enqueueSnackbar(res.data.message ?? "", {
+            variant: "success",
+          });
+          fetchAllEvents();
+        } else {
+          enqueueSnackbar(
+            res.error?.message
+              ? formatErrorMessage(res.error?.message)
+              : "Something went wrong",
+            {
+              variant: "error",
+            }
+          );
+        }
+
         // handleStep(INC);
-        handleClose();
+        // handleClose();
       } else {
         console.log(res, ">>>>>>");
         enqueueSnackbar(
@@ -383,8 +406,8 @@ const Step4 = ({
                 formik.handleSubmit();
               }}
             >
-              <span>Submit</span>
-              {/* <ChevronRightIcon className="!text-white" /> */}
+              <span>Next</span>
+              <ChevronRightIcon className="!text-white" />
             </PrimaryButton>
           </div>
         </div>
