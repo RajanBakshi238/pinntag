@@ -4,10 +4,21 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/material.css";
 import SecondaryButton from "../../common/FormElements/Button/SecondaryButton";
 import FullButton from "../../common/FormElements/Button/FullButton";
+import { useAuthentication } from "../../context/authContext";
+import { useFormik } from "formik";
 
 const EditUserForm = () => {
   const [phone, setPhone] = useState("");
-
+  const {user} = useAuthentication()
+  
+  const formik = useFormik({
+    initialValues: {
+      firstName: "",
+      lastName: "",
+      
+    }
+  })
+  
   return (
     <div className="">
       <div className="mx-12 my-4">

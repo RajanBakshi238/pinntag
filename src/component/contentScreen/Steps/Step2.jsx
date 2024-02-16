@@ -32,11 +32,12 @@ const Step2 = ({
   console.log(dates, ">>>>>>>>>>>>>> dates123456", values);
 
   useEffect(() => {
-    let obj = {};
+    // let obj = {};
+    let obj = dates?? {};
     console.log(values, "Values  runned 12345");
     values?.forEach((rawDate) => {
       console.log(rawDate.format(), ">>>>> formatted valuess");
-      if (obj[rawDate.format()]) {
+      if (obj[new Date(rawDate.format()).toISOString()]) {
       } else {
         obj[rawDate.format()] = [
           {
@@ -58,17 +59,22 @@ const Step2 = ({
       eventData?.schedule?.forEach((eventDate) => {
         eventDateObj = {
           ...eventDateObj,
-          [eventDate?.date]: eventDate?.durations,
+          [eventDate?.date]: eventDate?.durations?.map((time) => ({
+            startTime: getTimeFromISOString(time.startTime),
+            endTime: getTimeFromISOString(time.endTime),
+          })),
         };
         const date = new DateObject({
           date: eventDate?.date,
-          format: "DD-MM-YYYY",
+          format: "YYYY-MM-DD",
         });
         dateValues.push(date);
       });
+
+      console.log(eventDateObj, "1234567899876543456789p98765432345678909876543234567890")
       setDates(eventDateObj);
       setValues(dateValues);
-      setMultipleTime(eventData?.specifyForEachDay)
+      setMultipleTime(eventData?.specifyForEachDay);
     }
   }, [eventData]);
 
@@ -113,7 +119,10 @@ const Step2 = ({
     const data = Object.keys(dates).map((date) => {
       return {
         date,
-        durations: dates[date],
+        durations: dates[date]?.map((time) => ({
+          startTime: getDateWithTime(date, time.startTime),
+          endTime: getDateWithTime(date, time.endTime),
+        })),
       };
     });
 
@@ -168,7 +177,7 @@ const Step2 = ({
               monthYearSeparator=" "
               onChange={handleChange}
               // format="ddd, D MMMM, YYYY"
-              format="DD-MM-YYYY"
+              format="YYYY-MM-DD"
             />
           </div>
 
@@ -239,3 +248,43 @@ const Step2 = ({
 };
 
 export default Step2;
+
+// utils functions for time
+
+const getDateWithTime = (dateString, timeString) => {
+  // Concatenate date and time strings
+  if(dateString.include('T')){
+    const [datePart] = dateString.split("T");
+
+    // Concatenate the date part with the new time
+    const newISOString = datePart + "T" + timeString + ":00";
+
+    return newISOString;
+  }
+  const combinedString = dateString + "T" + timeString + ":00";
+
+  // Create a new Date object from the combined string
+  const combinedDateTime = new Date(combinedString);
+
+  // Get ISO string representation
+  const isoString = combinedDateTime.toISOString();
+  console.log(combinedDateTime, isoString, "?????????????????????????")
+
+  return isoString;
+  // console.log(isoString);
+};
+
+const getTimeFromISOString = (isoString) => {
+  // Create a new Date object from the ISO string
+  const dateTime = new Date(isoString);
+
+  // Get hours and minutes from the Date object
+  const hours = dateTime.getUTCHours().toString().padStart(2, "0");
+  const minutes = dateTime.getUTCMinutes().toString().padStart(2, "0");
+
+  // Concatenate hours and minutes
+  const time = hours + ":" + minutes;
+
+  console.log(isoString, dateTime, time, ">>>>>>>KKKKKKKKKKKKKKKKKKKKKK")
+  return time;
+};
