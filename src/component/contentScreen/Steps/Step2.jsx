@@ -253,7 +253,7 @@ export default Step2;
 
 const getDateWithTime = (dateString, timeString) => {
   // Concatenate date and time strings
-  if(dateString.include('T')){
+  if(dateString.includes('T')){
     const [datePart] = dateString.split("T");
 
     // Concatenate the date part with the new time
