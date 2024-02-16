@@ -93,32 +93,13 @@ const Step4 = ({
 
       if (res.data) {
 
-        handleStep(INC)
         enqueueSnackbar(res.data.message ?? "", {
           variant: "success",
         });
         fetchAllEvents();
+        handleStep(INC)
 
-        const socialPost = await postData(`event/social/post`, {
-          eventId: res.data.event._id,
-          facebook: true
-        });
-        if (socialPost.data) {
-          enqueueSnackbar(res.data.message ?? "", {
-            variant: "success",
-          });
-          fetchAllEvents();
-        } else {
-          enqueueSnackbar(
-            res.error?.message
-              ? formatErrorMessage(res.error?.message)
-              : "Something went wrong",
-            {
-              variant: "error",
-            }
-          );
-        }
-
+        
         // handleStep(INC);
         // handleClose();
       } else {

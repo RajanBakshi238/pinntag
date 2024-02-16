@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import SecondaryButton from "../../../common/FormElements/Button/SecondaryButton";
 import { DEC } from "../../../utils/constants/commonConstants";
 import PrimaryButton from "../../../common/FormElements/Button/PrimaryButton";
 import CheckBox from "../../../common/FormElements/CheckBox/CheckBox";
+import { postData } from "../../../utils/api";
+import { enqueueSnackbar } from "notistack";
+import { formatErrorMessage } from "../../../utils/formatErrorMessage";
 
 const Step6 = ({
   handleStep,
@@ -12,6 +15,42 @@ const Step6 = ({
   fetchAllEvents,
   eventData,
 }) => {
+  const [postBoolean, setPostBoolean] = useState({
+    facebook: false,
+    twitter: false,
+    instagram: false,
+  });
+  const handlePublishPost = async () => {
+    const res = await postData(`event/social/post`, {
+      eventId: id,
+      ...postBoolean,
+    });
+    if (res.data) {
+      enqueueSnackbar(res.data.message ?? "", {
+        variant: "success",
+      });
+      handleClose();
+    } else {
+      enqueueSnackbar(
+        res.error?.message
+          ? formatErrorMessage(res.error?.message)
+          : "Something went wrong",
+        {
+          variant: "error",
+        }
+      );
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, checked } = e.target;
+    // console.log(e, ">>>>>>>>", e.target.checked)
+    setPostBoolean((prev) => ({
+      ...prev,
+      [name]: checked,
+    }));
+  };
+
   return (
     <div className="flex flex-col h-full">
       <div>
@@ -27,48 +66,32 @@ const Step6 = ({
 
         <div className="mt-4">
           <div className="mb-3">
-            <CheckBox label="Facebook" name="facebook" />
+            <CheckBox
+              label="Facebook"
+              name="facebook"
+              onChange={handleChange}
+            />
+          </div>
+          <div className="mb-3">
+            <CheckBox label="X" name="twitter" />
           </div>
           <div className="mb-3">
             <CheckBox label="Instagram" name="instagram" />
-          </div>
-          <div className="mb-3">
-            <CheckBox label="LinkedIn" name="linkedin" />
-          </div>
-          <div className="mb-3">
-            <CheckBox
-              label="Snapchat"
-              name="snapchat"
-            />
-          </div>
-          <div className="mb-3">
-            <CheckBox
-              label="X"
-              name="twitter"
-            />
           </div>
         </div>
       </div>
       <div className="flex justify-between items-center mt-auto pb-3">
         <div>
-          {currentStep === 1 ? (
-            <SecondaryButton onClick={() => handleClose()}>
-              <>Cancel</>
-            </SecondaryButton>
-          ) : (
-            <SecondaryButton onClick={() => handleStep(DEC)}>
-              <>Skip</>
-            </SecondaryButton>
-          )}
+          <SecondaryButton onClick={() => handleStep(DEC)}>
+            <>Back</>
+          </SecondaryButton>
         </div>
         <div>
           {/* handleStep(INC) */}
           <PrimaryButton
             // loading={loading}
             inputClass={"min-w-[100px]"}
-            onClick={() => {
-              //   formik.handleSubmit();
-            }}
+            onClick={handlePublishPost}
           >
             <span>Publish</span>
             {/* <ChevronRightIcon className="!text-white" /> */}
