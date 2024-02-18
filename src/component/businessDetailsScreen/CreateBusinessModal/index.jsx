@@ -47,6 +47,8 @@ const CreateBusinessModal = ({ open, handleClose }) => {
           phone: "",
         },
       ],
+      businessImage: "",
+      profilePhoto: ""
     },
     onSubmit: async (values) => {},
   });
