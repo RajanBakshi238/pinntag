@@ -32,7 +32,7 @@ const CreateContent = ({
   const [eventData, setEventData] = useState();
   // 65bbd57c9cef5b960094aa95
   const handleStep = (type) => {
-    if (currentStep === 6 && type === INC) {
+    if (currentStep === 5 && type === INC) {
       return;
     }
     if (type === INC) {
@@ -78,9 +78,9 @@ const CreateContent = ({
       <div className="flex flex-col h-full">
         <div className="pb-4">
           <h1 className="text-center font-medium text-xl">
-            {currentStep === 5
+            {currentStep === 8 //5
               ? "Preview"
-              : currentStep === 6
+              : currentStep === 5 //6
               ? "Post to Social Media"
               : "Create Content"}
           </h1>
@@ -136,7 +136,7 @@ const CreateContent = ({
           />
         ) : currentStep === 5 ? (
           <>
-            <Step5
+            <Step6   // step5
               handleStep={handleStep}
               handleClose={handleCloseModel}
               currentStep={currentStep}

@@ -42,9 +42,15 @@ const CreateBusinessModal = ({
       type: "",
       subscriptionType: false,
       email: "",
+      phone: "",
       website: "",
+      openingHours: [],
+      postCode: 201301,
+      countryCode: "",
+      addressLine1: "lorem ipsum",
       locations: [
         {
+          postCode: 201301,
           address1: "",
           address2: "",
           city: "",

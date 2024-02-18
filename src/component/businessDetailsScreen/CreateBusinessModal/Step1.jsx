@@ -8,6 +8,7 @@ import { DEC, INC } from "../../../utils/constants/commonConstants";
 import PrimaryButton from "../../../common/FormElements/Button/PrimaryButton";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import HighlightOffOutlinedIcon from "@mui/icons-material/HighlightOffOutlined";
+import PhoneInput from "react-phone-input-2";
 
 const Step1 = ({ handleStep, handleClose }) => {
   const [isChecked, setIsChecked] = useState(false);
@@ -30,9 +31,9 @@ const Step1 = ({ handleStep, handleClose }) => {
   };
 
   const handleRemoveImage = () => {
-    setFieldValue("businessImage", "")
-    setFieldValue("profilePhoto", "")
-  }
+    setFieldValue("businessImage", "");
+    setFieldValue("profilePhoto", "");
+  };
 
   return (
     <div>
@@ -151,6 +152,22 @@ const Step1 = ({ handleStep, handleClose }) => {
             name="website"
             value={values.website}
             className="common-input"
+          />
+        </div>
+        <div className="">
+          <PhoneInput
+            country={"us"}
+            value={values.countryCode + "" + values.phone}
+            inputClass="!w-full"
+            //   containerClass="common-input !border"
+            onChange={(value, data) => {
+              setFieldValue("countryCode", `${data.dialCode}`);
+              setFieldValue(
+                "phone",
+                value.slice(data.dialCode.length) * 1
+              );
+            }}
+            onBlur={handleBlur}
           />
         </div>
         <div className="mb-3">

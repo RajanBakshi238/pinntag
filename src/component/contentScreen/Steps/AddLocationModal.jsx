@@ -90,7 +90,7 @@ const AddLocationModal = ({ open, handleClose, getLocations }) => {
       open={open}
       handleClose={handleCloseModal}
       // modalClass="w-[380px] sm:w-[500px] md:w-1/2 lg:w-2/5 xl:w-1/3"
-      modalClass="w-[300px] md:w-[400px] h-[500px]"
+      modalClass="w-[300px] md:w-[400px] !h-[500px]"
     >
       <h1 className="text-center font-semibold text-lg mb-2">
         Select Location
