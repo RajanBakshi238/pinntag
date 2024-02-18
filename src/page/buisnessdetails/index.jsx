@@ -53,6 +53,7 @@ const BuisnessDetails = () => {
         <BusinessDetailTable data={data} loader={loading} />
       </div>
       <CreateBusinessModal
+      fetchAllBusinessProfiles={fetchAllBusinessProfiles}
         open={openModal}
         handleClose={handleCloseBusinessModal}
       />

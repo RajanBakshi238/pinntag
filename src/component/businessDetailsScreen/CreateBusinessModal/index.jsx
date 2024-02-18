@@ -6,13 +6,21 @@ import Step2 from "./Step2";
 import Step3 from "./Step3";
 import Step4 from "./Step4";
 import { FormikProvider, useFormik } from "formik";
+import { postDatatemp } from "../../../utils/api";
+import { enqueueSnackbar } from "notistack";
+import { formatErrorMessage } from "../../../utils/formatErrorMessage";
 
-const CreateBusinessModal = ({ open, handleClose }) => {
+const CreateBusinessModal = ({
+  open,
+  handleClose,
+  fetchAllBusinessProfiles,
+}) => {
   const [currentStep, setCurrentStep] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   const handleCloseModal = () => {
     formik.resetForm();
-    setCurrentStep(1)
+    setCurrentStep(1);
     handleClose();
   };
 
@@ -48,9 +56,50 @@ const CreateBusinessModal = ({ open, handleClose }) => {
         },
       ],
       businessImage: "",
-      profilePhoto: ""
+      profilePhoto: "",
     },
-    onSubmit: async (values) => {},
+    onSubmit: async (values) => {
+      setLoading(true);
+      const formData = new FormData();
+      formData.append("photo", values.businessImage);
+
+      const photoRes = await postDatatemp("auth/upload/photo", formData);
+      if (photoRes.data) {
+        enqueueSnackbar(photoRes.data.message ?? "", {
+          variant: "success",
+        });
+        const res = await postDatatemp("business-profile/create", {
+          ...values,
+          profilePhoto: photoRes.data?.url,
+        });
+        if (res.data) {
+          enqueueSnackbar(photoRes.data.message ?? "", {
+            variant: "success",
+          });
+          fetchAllBusinessProfiles();
+          handleCloseModal();
+        } else {
+          enqueueSnackbar(
+            res.error?.message
+              ? formatErrorMessage(res.error?.message)
+              : "Something went wrong",
+            {
+              variant: "error",
+            }
+          );
+        }
+      } else {
+        enqueueSnackbar(
+          photoRes.error?.message
+            ? formatErrorMessage(photoRes.error?.message)
+            : "Something went wrong",
+          {
+            variant: "error",
+          }
+        );
+      }
+      setLoading(false);
+    },
   });
 
   console.log(formik.values, "????? formik Values");
@@ -69,7 +118,11 @@ const CreateBusinessModal = ({ open, handleClose }) => {
             </>
           ) : currentStep === 2 ? (
             <>
-              <Step2 handleStep={handleStep} handleClose={handleCloseModal} />
+              <Step2
+                handleStep={handleStep}
+                loading={loading}
+                handleClose={handleCloseModal}
+              />
             </>
           ) : currentStep === 3 ? (
             <>

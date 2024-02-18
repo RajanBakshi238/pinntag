@@ -13,10 +13,10 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import "react-phone-input-2/lib/material.css";
 import { useFormikContext } from "formik";
 
-const Step2 = ({ handleStep, handleClose }) => {
+const Step2 = ({ handleStep, handleClose, loading }) => {
   const [phone, setPhone] = useState("");
 
-  const { values, handleChange, handleBlur, setFieldValue } =
+  const { values, handleChange, handleBlur, setFieldValue, handleSubmit } =
     useFormikContext();
 
   return (
@@ -218,12 +218,15 @@ const Step2 = ({ handleStep, handleClose }) => {
         <div>
           {/* handleStep(INC) */}
           <PrimaryButton
-            // loading={loading}
+            loading={loading}
             inputClass={"min-w-[100px]"}
-            onClick={() => handleStep(INC)}
-            // onClick={formik.handleSubmit}
+            onClick={() => {
+              handleSubmit()
+              // handleStep(INC)
+            
+            }}
           >
-            <span>Next</span>
+            <span>Submit</span>
             <ChevronRightIcon className="!text-white" />
           </PrimaryButton>
         </div>
