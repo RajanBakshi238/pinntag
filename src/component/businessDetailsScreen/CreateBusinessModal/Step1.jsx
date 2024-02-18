@@ -17,7 +17,7 @@ const Step1 = ({ handleStep, handleClose }) => {
     setIsChecked(!isChecked);
   };
 
-  const { values, handleChange, handleBlur, setFieldValue } =
+  const { values, handleChange, handleBlur, setFieldValue, setTouched, touched } =
     useFormikContext();
 
   const handleImageUpload = (event) => {
@@ -225,7 +225,18 @@ const Step1 = ({ handleStep, handleClose }) => {
           <PrimaryButton
             // loading={loading}
             inputClass={"min-w-[100px]"}
-            onClick={() => handleStep(INC)}
+            onClick={() => {
+              setTouched({
+                ...touched,
+                name: true,
+                bio: true,
+                businessImage: true,
+                email: true,
+                website: true,
+                phone: true
+              });
+              handleStep(INC);
+            }}
             // onClick={formik.handleSubmit}
           >
             <span>Next</span>
