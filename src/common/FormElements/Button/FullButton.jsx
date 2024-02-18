@@ -13,7 +13,7 @@ const FullButton = ({ children, onClick, inputClass, loading }) => {
         },
       ])}
     >
-      {loading ? <CircularProgress className="!w-5 !h-5 !text-white" /> : children }
+      {loading ? <CircularProgress className="!w-5 !h-5 !text-[#45818E]" /> : children }
 
     </div>
   );

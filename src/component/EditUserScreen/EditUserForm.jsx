@@ -8,7 +8,7 @@ import SecondaryButton from "../../common/FormElements/Button/SecondaryButton";
 import FullButton from "../../common/FormElements/Button/FullButton";
 import { useAuthentication } from "../../context/authContext";
 import { FormikProvider, useFormik } from "formik";
-import { patchDataTemp } from "../../utils/api";
+import { patchDataTemp, postDatatemp } from "../../utils/api";
 import { enqueueSnackbar } from "notistack";
 import { formatErrorMessage } from "../../utils/formatErrorMessage";
 
@@ -49,7 +49,31 @@ const EditUserForm = () => {
       countryCode: "91",
       phone: "9466",
     },
-    onSubmit: async () => {},
+    onSubmit: async (values) => {
+      setLoading((prev) => ({
+        ...prev,
+        userForm: true,
+      }));
+      const res = await postDatatemp("user/update/profile", values);
+      if (res.data) {
+        enqueueSnackbar(res.data.message ?? "", {
+          variant: "success",
+        });
+      } else {
+        enqueueSnackbar(
+          res.error?.message
+            ? formatErrorMessage(res.error?.message)
+            : "Something went wrong",
+          {
+            variant: "error",
+          }
+        );
+      }
+      setLoading((prev) => ({
+        ...prev,
+        userForm: false,
+      }));
+    },
   });
 
   const {
@@ -273,6 +297,7 @@ const EditUserForm = () => {
             </div>
             <div className="mt-5">
               <FullButton
+                loading={loading.userForm}
                 inputClass={"bg-white text-[#45818E] border-2 border-[#45818E]"}
                 onClick={formik.handleSubmit}
               >
