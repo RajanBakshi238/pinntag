@@ -154,7 +154,7 @@ const Step2 = ({
   };
 
   return (
-    <>
+    <div className="flex flex-col">
       <div>
         <div className="custom-calendar">
           <div className="mt-3 flex justify-between">
@@ -243,7 +243,7 @@ const Step2 = ({
           </PrimaryButton>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

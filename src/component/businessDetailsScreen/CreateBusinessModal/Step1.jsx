@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ImageIcon from "@mui/icons-material/Image";
 
-import { useFormikContext } from "formik";
+import { ErrorMessage, useFormikContext } from "formik";
 
 import SecondaryButton from "../../../common/FormElements/Button/SecondaryButton";
 import { DEC, INC } from "../../../utils/constants/commonConstants";
@@ -122,6 +122,9 @@ const Step1 = ({ handleStep, handleClose }) => {
             onChange={handleImageUpload}
             onBlur={handleBlur}
           />
+          <span className="font-semibold pl-1 text-sm text-red-600">
+            <ErrorMessage name="businessImage" />
+          </span>
         </div>
         <div className="mb-3">
           <input
@@ -132,6 +135,9 @@ const Step1 = ({ handleStep, handleClose }) => {
             value={values.name}
             className="common-input"
           />
+          <span className="font-semibold pl-1 text-sm text-red-600">
+            <ErrorMessage name="name" />
+          </span>
         </div>
         <div className="mb-3">
           <input
@@ -143,6 +149,9 @@ const Step1 = ({ handleStep, handleClose }) => {
             value={values.email}
             className="common-input"
           />
+          <span className="font-semibold pl-1 text-sm text-red-600">
+            <ErrorMessage name="email" />
+          </span>
         </div>
         <div className="mb-3">
           <input
@@ -153,22 +162,26 @@ const Step1 = ({ handleStep, handleClose }) => {
             value={values.website}
             className="common-input"
           />
+          <span className="font-semibold pl-1 text-sm text-red-600">
+            <ErrorMessage name="website" />
+          </span>
         </div>
-        <div className="">
+        <div className="mb-3">
           <PhoneInput
             country={"us"}
             value={values.countryCode + "" + values.phone}
             inputClass="!w-full"
+            name="phone"
             //   containerClass="common-input !border"
             onChange={(value, data) => {
               setFieldValue("countryCode", `${data.dialCode}`);
-              setFieldValue(
-                "phone",
-                value.slice(data.dialCode.length) * 1
-              );
+              setFieldValue("phone", value.slice(data.dialCode.length) * 1);
             }}
             onBlur={handleBlur}
           />
+          <span className="font-semibold pl-1 text-sm text-red-600">
+            <ErrorMessage name="phone" />
+          </span>
         </div>
         <div className="mb-3">
           <textarea
@@ -183,6 +196,9 @@ const Step1 = ({ handleStep, handleClose }) => {
             name="bio"
             // onChange={handleChange}
           />
+          <span className="font-semibold pl-1 text-sm text-red-600">
+            <ErrorMessage name="bio" />
+          </span>
         </div>
         {/* <div className="mb-3">
           <select className="secondary-select w-full" name="type">

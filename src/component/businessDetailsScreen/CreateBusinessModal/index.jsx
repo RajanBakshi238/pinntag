@@ -9,6 +9,9 @@ import { FormikProvider, useFormik } from "formik";
 import { postDatatemp } from "../../../utils/api";
 import { enqueueSnackbar } from "notistack";
 import { formatErrorMessage } from "../../../utils/formatErrorMessage";
+import * as Yup from "yup";
+const PHONE_REGX =
+  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
 const CreateBusinessModal = ({
   open,
@@ -35,6 +38,32 @@ const CreateBusinessModal = ({
     }
   };
 
+  const validationSchema = Yup.object().shape({
+    name: Yup.string().required("Name is required."),
+    bio: Yup.string().required("Bio is required."),
+    phone: Yup.string()
+      .matches(PHONE_REGX, "Phone number is not valid")
+      .required("Mobile Number is required."),
+    email: Yup.string().email("Invalid Email").required("email is required."),
+    website: Yup.string().required("Website is required."),
+    businessImage: Yup.string().required("Business image is required."),
+    locations: Yup.array().of(
+      Yup.object().shape({
+        address1: Yup.string().required("Address is required."),
+        // address2: Yup.string().required("Bio is required."),
+        city: Yup.string().required("City is required."),
+        state: Yup.string().required("State is required."),
+        zip: Yup.string().required("Zip is required."),
+        website: Yup.string().required("Website is required."),
+        email: Yup.string()
+          .email("Invalid Email")
+          .required("email is required."),
+        // phone: Yup.string()
+        //   .matches(PHONE_REGX, "Phone number is not valid")
+        //   .required("Mobile Number is required."),
+      })
+    ),
+  });
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -64,6 +93,7 @@ const CreateBusinessModal = ({
       businessImage: "",
       profilePhoto: "",
     },
+    validationSchema,
     onSubmit: async (values) => {
       setLoading(true);
       const formData = new FormData();
@@ -114,10 +144,10 @@ const CreateBusinessModal = ({
     <PrimaryModal
       open={open}
       handleClose={handleCloseModal}
-      modalClass="w-[380px] sm:w-[500px] md:w-1/2 lg:w-2/5 xl:w-1/3 h-auto"
+      modalClass="w-[380px] sm:w-[500px] md:w-1/2 lg:w-2/5 xl:w-1/3"
     >
       <FormikProvider value={formik}>
-        <div className="flex flex-col h-full">
+        <div className=" h-full">
           {currentStep === 1 ? (
             <>
               <Step1 handleStep={handleStep} handleClose={handleCloseModal} />

@@ -20,7 +20,7 @@ const Step2 = ({ handleStep, handleClose, loading }) => {
     useFormikContext();
 
   return (
-    <div>
+    <div className="flex flex-col h-full">
       <PrimaryModalHeader>
         <>Add Business | Locations</>
       </PrimaryModalHeader>
@@ -203,9 +203,9 @@ const Step2 = ({ handleStep, handleClose, loading }) => {
       {/* ); */}
       {/* })} */}
 
-      <div className="flex justify-between items-center mt-3">
+      <div className="flex justify-between items-center mt-auto">
         <div>
-          {true ? (
+          {false ? (
             <SecondaryButton onClick={() => handleClose()}>
               <>Cancel</>
             </SecondaryButton>
