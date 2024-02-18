@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import PhoneInput from "react-phone-input-2";
-import { FieldArray } from "formik";
+import { ErrorMessage, FieldArray } from "formik";
 
 import PrimaryModalHeader from "../../../common/UiElements/PrimaryModalHeader";
 import PrimaryButton from "../../../common/FormElements/Button/PrimaryButton";
@@ -14,10 +14,24 @@ import "react-phone-input-2/lib/material.css";
 import { useFormikContext } from "formik";
 
 const Step2 = ({ handleStep, handleClose, loading }) => {
-  const [phone, setPhone] = useState("");
 
-  const { values, handleChange, handleBlur, setFieldValue, handleSubmit } =
+  const { values, handleChange, handleBlur, setFieldValue, handleSubmit, errors } =
     useFormikContext();
+
+  const handleCheckError = () => {
+    let check = false;
+    const keys = ["bio", "businessImage", "email", "name", "phone", "website"]
+    keys.forEach((key) => {
+      if(Object.keys(errors).includes(key) && !check){
+        check = true
+        handleStep(DEC)
+      }
+    })
+    // if(Object.keys(errors).includes())
+  }
+  useEffect(() => {
+    // handleCheckError()
+  }, [errors] )
 
   return (
     <div className="flex flex-col h-full">
@@ -78,9 +92,9 @@ const Step2 = ({ handleStep, handleClose, loading }) => {
                           onChange={handleChange}
                           onBlur={handleBlur}
                         />
-                        {/* <span className="font-semibold pl-1 text-sm text-red-600">
-                        <ErrorMessage name={`locations[${index}].address1`} />
-                      </span> */}
+                        <span className="font-semibold pl-1 text-sm text-red-600">
+                          <ErrorMessage name={`locations[${index}].address1`} />
+                        </span>
                       </div>
                       <div className="mb-2">
                         <input
@@ -91,9 +105,9 @@ const Step2 = ({ handleStep, handleClose, loading }) => {
                           onChange={handleChange}
                           onBlur={handleBlur}
                         />
-                        {/* <span className="font-semibold pl-1 text-sm text-red-600">
-                        <ErrorMessage name={`locations[${index}].address2`} />
-                      </span> */}
+                        <span className="font-semibold pl-1 text-sm text-red-600">
+                          <ErrorMessage name={`locations[${index}].address2`} />
+                        </span>
                       </div>
                       <div className="mb-2 flex gap-2">
                         <div className="w-2/4">
@@ -105,9 +119,9 @@ const Step2 = ({ handleStep, handleClose, loading }) => {
                             onChange={handleChange}
                             onBlur={handleBlur}
                           />
-                          {/* <span className="font-semibold pl-1 text-sm text-red-600">
-                          <ErrorMessage name={`locations[${index}].city`} />
-                        </span> */}
+                          <span className="font-semibold pl-1 text-sm text-red-600">
+                            <ErrorMessage name={`locations[${index}].city`} />
+                          </span>
                         </div>
                         <div className="w-1/4">
                           <input
@@ -118,9 +132,9 @@ const Step2 = ({ handleStep, handleClose, loading }) => {
                             onChange={handleChange}
                             onBlur={handleBlur}
                           />
-                          {/* <span className="font-semibold pl-1 text-sm text-red-600">
-                          <ErrorMessage name={`locations[${index}].state`} />
-                        </span> */}
+                          <span className="font-semibold pl-1 text-sm text-red-600">
+                            <ErrorMessage name={`locations[${index}].state`} />
+                          </span>
                         </div>
                         <div className="w-1/4">
                           <input
@@ -131,9 +145,9 @@ const Step2 = ({ handleStep, handleClose, loading }) => {
                             onChange={handleChange}
                             onBlur={handleBlur}
                           />
-                          {/* <span className="font-semibold pl-1 text-sm text-red-600">
-                          <ErrorMessage name={`locations[${index}].zip`} />
-                        </span> */}
+                          <span className="font-semibold pl-1 text-sm text-red-600">
+                            <ErrorMessage name={`locations[${index}].zip`} />
+                          </span>
                         </div>
                       </div>
                       <div className="mb-2">
@@ -145,9 +159,9 @@ const Step2 = ({ handleStep, handleClose, loading }) => {
                           onChange={handleChange}
                           onBlur={handleBlur}
                         />
-                        {/* <span className="font-semibold pl-1 text-sm text-red-600">
-                        <ErrorMessage name={`locations[${index}].website`} />
-                      </span> */}
+                        <span className="font-semibold pl-1 text-sm text-red-600">
+                          <ErrorMessage name={`locations[${index}].website`} />
+                        </span>
                       </div>
                       <div className="mb-2">
                         <input
@@ -158,9 +172,9 @@ const Step2 = ({ handleStep, handleClose, loading }) => {
                           onChange={handleChange}
                           onBlur={handleBlur}
                         />
-                        {/* <span className="font-semibold pl-1 text-sm text-red-600">
-                        <ErrorMessage name={`locations[${index}].email`} />
-                      </span> */}
+                        <span className="font-semibold pl-1 text-sm text-red-600">
+                          <ErrorMessage name={`locations[${index}].email`} />
+                        </span>
                       </div>
 
                       <div className="">
@@ -221,9 +235,9 @@ const Step2 = ({ handleStep, handleClose, loading }) => {
             loading={loading}
             inputClass={"min-w-[100px]"}
             onClick={() => {
-              handleSubmit()
+              handleSubmit();
+              handleCheckError()
               // handleStep(INC)
-            
             }}
           >
             <span>Submit</span>

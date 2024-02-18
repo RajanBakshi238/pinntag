@@ -31,6 +31,9 @@ const CreateBusinessModal = ({
     if (currentStep === 2 && type === INC) {
       return;
     }
+    // if(currentStep === 1 && type === DEC){
+    //   return 
+    // }
     if (type === INC) {
       setCurrentStep((prev) => prev + 1);
     } else if (type === DEC) {
@@ -138,7 +141,7 @@ const CreateBusinessModal = ({
     },
   });
 
-  console.log(formik.values, "????? formik Values");
+  console.log(formik, "????? formik Values");
 
   return (
     <PrimaryModal
