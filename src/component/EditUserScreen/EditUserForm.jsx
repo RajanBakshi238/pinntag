@@ -224,7 +224,8 @@ const EditUserForm = () => {
                 name="phone"
                 // containerClass="common-input !border"
                 onChange={(value, data, event, formattedValue) => {
-                  // set
+                  // console.log(formattedValue, ">>>>", data)
+
                   setFieldValue("phone", value.slice(data.dialCode.length));
                   setFieldValue("countryCode", data.dialCode);
                 }}

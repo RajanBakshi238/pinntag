@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import ImageIcon from "@mui/icons-material/Image";
+
+import { useFormikContext } from "formik";
+
 import SecondaryButton from "../../../common/FormElements/Button/SecondaryButton";
 import { DEC, INC } from "../../../utils/constants/commonConstants";
 import PrimaryButton from "../../../common/FormElements/Button/PrimaryButton";
@@ -12,6 +15,8 @@ const Step1 = ({ handleStep, handleClose }) => {
     setIsChecked(!isChecked);
   };
 
+  const { values, handleChange, handleBlur, setFieldValue } = useFormikContext();
+
   return (
     <div>
       <h1 className="mb-3 text-lg font-semibold text-center">
@@ -23,22 +28,23 @@ const Step1 = ({ handleStep, handleClose }) => {
           <label className="themeSwitcherThree relative inline-flex cursor-pointer select-none items-center">
             <input
               type="checkbox"
-              checked={isChecked}
-              onChange={handleCheckboxChange}
+              name="subscriptionType"
+              checked={values.subscriptionType}
+              onChange={(e) => setFieldValue("subscriptionType",e.target.checked)}
               className="sr-only"
             />
 
             <div className="shadow-card flex h-[39px] w-auto items-center border border-black justify-center rounded-md bg-white">
               <span
                 className={`flex h-[36px] w-20 items-center justify-center rounded ${
-                  !isChecked ? "bg-primary text-white" : "text-body-color"
+                  !values.subscriptionType ? "bg-primary text-white" : "text-body-color"
                 }`}
               >
                 Yearly
               </span>
               <span
                 className={`flex h-[36px] w-20 items-center justify-center rounded ${
-                  isChecked ? "bg-primary text-white" : "text-body-color"
+                  values.subscriptionType ? "bg-primary text-white" : "text-body-color"
                 }`}
               >
                 Monthly
@@ -47,7 +53,13 @@ const Step1 = ({ handleStep, handleClose }) => {
           </label>
         </div>
         <div className="mb-3">
-          <select className="secondary-select w-full" name="type">
+          <select
+            className="secondary-select w-full"
+            name="type"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.type}
+          >
             <option>Type [Business / Non-Profit]</option>
             <option value={"business_event"}>Business</option>
             <option value={"social_event"}>Non-Profit</option>
@@ -65,29 +77,56 @@ const Step1 = ({ handleStep, handleClose }) => {
         </div>
         <div className="mb-3">
           <input
+            onChange={handleChange}
+            onBlur={handleBlur}
             placeholder="Business Name"
-            name="title"
+            name="name"
+            value={values.name}
+            className="common-input"
+          />
+        </div>
+        <div className="mb-3">
+          <input
+            onChange={handleChange}
+            onBlur={handleBlur}
+            type="email"
+            placeholder="Email"
+            name="email"
+            value={values.email}
+            className="common-input"
+          />
+        </div>
+        <div className="mb-3">
+          <input
+            onChange={handleChange}
+            onBlur={handleBlur}
+            placeholder="Website"
+            name="website"
+            value={values.website}
             className="common-input"
           />
         </div>
         <div className="mb-3">
           <textarea
+            onChange={handleChange}
+            onBlur={handleBlur}
             placeholder="Description"
             className="common-textarea"
             rows={3}
+            value={values?.bio}
             // value={values?.description}
             // onBlur={handleBlur}
-            name="description"
+            name="bio"
             // onChange={handleChange}
           />
         </div>
-        <div className="mb-3">
+        {/* <div className="mb-3">
           <select className="secondary-select w-full" name="type">
             <option>Category</option>
             <option value={"business_event"}>Category 1</option>
             <option value={"social_event"}>Category 2</option>
           </select>
-        </div>
+        </div> */}
       </div>
       <div className="flex justify-between items-center mt-auto pb-3">
         <div>
