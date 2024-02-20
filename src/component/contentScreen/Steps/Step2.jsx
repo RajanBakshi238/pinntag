@@ -33,7 +33,7 @@ const Step2 = ({
 
   useEffect(() => {
     // let obj = {};
-    let obj = dates?? {};
+    let obj = dates ?? {};
     console.log(values, "Values  runned 12345");
     values?.forEach((rawDate) => {
       console.log(rawDate.format(), ">>>>> formatted valuess");
@@ -71,7 +71,10 @@ const Step2 = ({
         dateValues.push(date);
       });
 
-      console.log(eventDateObj, "1234567899876543456789p98765432345678909876543234567890")
+      console.log(
+        eventDateObj,
+        "1234567899876543456789p98765432345678909876543234567890"
+      );
       setDates(eventDateObj);
       setValues(dateValues);
       setMultipleTime(eventData?.specifyForEachDay);
@@ -103,8 +106,10 @@ const Step2 = ({
       // change on every date and interval
       let obj = { ...dates };
       for (const key in obj) {
+        debugger
         obj[key][index][timekey] = value;
       }
+
       setDates(obj);
     }
   };
@@ -253,7 +258,7 @@ export default Step2;
 
 const getDateWithTime = (dateString, timeString) => {
   // Concatenate date and time strings
-  if(dateString.includes('T')){
+  if (dateString.includes("T")) {
     const [datePart] = dateString.split("T");
 
     // Concatenate the date part with the new time
@@ -268,7 +273,7 @@ const getDateWithTime = (dateString, timeString) => {
 
   // Get ISO string representation
   const isoString = combinedDateTime.toISOString();
-  console.log(combinedDateTime, isoString, "?????????????????????????")
+  console.log(combinedDateTime, isoString, "?????????????????????????");
 
   return isoString;
   // console.log(isoString);
@@ -283,8 +288,25 @@ const getTimeFromISOString = (isoString) => {
   const minutes = dateTime.getUTCMinutes().toString().padStart(2, "0");
 
   // Concatenate hours and minutes
-  const time = hours + ":" + minutes;
+  const testTime = hours + ":" + minutes;
+  // console.log(testTime, "..... testTime")
 
-  console.log(isoString, dateTime, time, ">>>>>>>KKKKKKKKKKKKKKKKKKKKKK")
-  return time;
+  // console.log(isoString, dateTime, time, ">>>>>>>KKKKKKKKKKKKKKKKKKKKKK")
+  // return time;
+  // const time = dateTime.toLocaleTimeString([], {
+  //   hour: "2-digit",
+  //   minute: "2-digit",
+  //   hour12: false,
+  // });
+  return testTime;
 };
+
+// const getTimeFromISOString = (isoString) => {
+//   // Create a new Date object from the ISO string
+//    const dateTime = new Date(isoString);
+//    // Get local time hours and minutes from the Date object in 24-hour format
+//    const time = dateTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', hour12: false});
+//     console.log(isoString, dateTime, time, ">>>>>>>KKKKKKKKKKKKKKKKKKKKKK")
+//     return time;
+//   }
+//     // Example usage: const isoString = "2024-02-20T12:30:00Z"; const localTime = getTimeFromISOString(isoString); console.log(localTime); // Output will be the local time in 24-hour format (HH:MM)

@@ -61,9 +61,9 @@ const Sidepanal = () => {
                       className={classNames(
                         isPanalOpen ? "mob:block" : "mob:hidden",
                         location.pathname === items.Link
-                          ? "bg-black text-white"
-                          : "hover:bg-opacity-10 hover:bg-black",
-                        "w-full transition-[display] duration-500 ease-in-out  cursor-pointer  active:shadow-none shadow-lg rounded-lg py-2 font-semibold text-center border-2 border-secondary text-[20px]"
+                          ? " font-bold"
+                          : "",
+                        "text-black"
                       )}
                     >
                       {items.Title}
