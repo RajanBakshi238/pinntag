@@ -3,7 +3,12 @@ import { Link } from "react-router-dom";
 import GuestRoute from "./GuestRoute";
 import BusinessDetailEdit from "../../page/businessDetailEdit";
 import SignUp from "../../page/signup";
-import PaymentHistory from "../../page/payment/PaymentHistory";
+const PaymentHistory = React.lazy(() =>
+  import("../../page/payment/PaymentHistory")
+);
+const PaymentMethod = React.lazy(() =>
+  import("../../page/paymentMethod/PaymentMethod")
+);
 const Layout = React.lazy(() => import("./../../common/layout"));
 const BuisnessDetails = React.lazy(() => import("../../page/buisnessdetails"));
 const Content = React.lazy(() => import("../../page/content"));
@@ -52,7 +57,11 @@ export const routeslist = [
       },
       {
         path: "payment-history",
-        element: <PaymentHistory/>,
+        element: <PaymentHistory />,
+      },
+      {
+        path: "payment-method",
+        element: <PaymentMethod />,
       },
     ],
   },

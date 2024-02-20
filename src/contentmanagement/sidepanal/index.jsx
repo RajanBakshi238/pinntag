@@ -22,6 +22,11 @@ export const sidepanalLinks = [
     module: MODULE.USER,
   },
   {
+    Title: "Payment Method",
+    Link: "/dashboard/payment-method",
+    module: MODULE.USER,
+  },
+  {
     Title: "Content",
     Link: "/dashboard/content",
     module: MODULE.BUSINESS,
