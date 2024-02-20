@@ -63,7 +63,7 @@ const Step3 = ({ handleStep, handleClose }) => {
       </div>
       <div className="flex justify-between items-center mt-3">
         <div>
-          {true ? (
+          {false ? (
             <SecondaryButton onClick={() => handleClose()}>
               <>Cancel</>
             </SecondaryButton>

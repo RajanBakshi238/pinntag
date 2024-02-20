@@ -28,11 +28,11 @@ const CreateBusinessModal = ({
   };
 
   const handleStep = (type) => {
-    if (currentStep === 2 && type === INC) {
+    if (currentStep === 4 && type === INC) {
       return;
     }
     // if(currentStep === 1 && type === DEC){
-    //   return 
+    //   return
     // }
     if (type === INC) {
       setCurrentStep((prev) => prev + 1);
@@ -98,6 +98,7 @@ const CreateBusinessModal = ({
     },
     validationSchema,
     onSubmit: async (values) => {
+
       setLoading(true);
       const formData = new FormData();
       formData.append("photo", values.businessImage);
@@ -116,7 +117,9 @@ const CreateBusinessModal = ({
             variant: "success",
           });
           fetchAllBusinessProfiles();
-          handleCloseModal();
+          handleStep(INC);
+
+          // handleCloseModal();
         } else {
           enqueueSnackbar(
             res.error?.message

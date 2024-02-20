@@ -9,7 +9,7 @@ import CreateBusinessModal from "../../component/businessDetailsScreen/CreateBus
 const BuisnessDetails = () => {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
-  const [openModal, setOpenModal] = useState(false)
+  const [openModal, setOpenModal] = useState(false);
 
   const fetchAllBusinessProfiles = async () => {
     setLoading(true);
@@ -27,25 +27,51 @@ const BuisnessDetails = () => {
   }, []);
 
   const handleOpenBusinessModal = () => {
-    setOpenModal(true)
-  }
+    setOpenModal(true);
+  };
 
   const handleCloseBusinessModal = () => {
-    setOpenModal(false)
-  }
-
+    setOpenModal(false);
+  };
 
   return (
     <>
       <div className="">
+        <div className="mx-12 my-4">
+          {/* @todo make below code into seprater component */}
+          <Text className="text-[24px] mob:text-[16px] font-bold mb-2">
+            Simple, Transparent Plans
+          </Text>
+
+          <div className="flex gap-5 h-fit">
+            <div className="text-black w-[180px] py-2 px-4 rounded-xl text-center border-2 border-black bg-primary">
+              <h1 className="text-lg font-bold ">Yearly</h1>
+              <p className="text-base">Recommended</p>
+
+              <h1 className="mt-4 font-bold text-xl text-[#666]">$ 360</h1>
+              <p className="text-[#666] font-semibold text-base leading-4 ">
+                Per business location
+              </p>
+            </div>
+            <div className="text-black flex flex-col items-center justify-center w-[180px] py-2 px-4 rounded-xl text-center border-2 border-black bg-[#c1c0c0] h-auto">
+              <h1 className="text-lg font-bold ">Monthly</h1>
+              <p className="text-base"></p>
+              <div className="mt-auto">
+                <h1 className="mt-4 font-bold text-xl text-[#666]">$ 39.99</h1>
+                <p className="text-[#666] font-semibold text-base leading-4">
+                  Per business location
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="mx-12 my-4 flex justify-between">
-          <Text className="text-[24px] mob:text-[16px] font-bold">
+          <Text className="mt-3 text-[24px] mob:text-[16px] font-bold">
             My Businesses
           </Text>
 
-          <PrimaryButton
-            onClick={handleOpenBusinessModal}
-          >
+          <PrimaryButton onClick={handleOpenBusinessModal}>
             <Add className="!text-white" />
             <span>Add</span>
           </PrimaryButton>
@@ -53,7 +79,7 @@ const BuisnessDetails = () => {
         <BusinessDetailTable data={data} loader={loading} />
       </div>
       <CreateBusinessModal
-      fetchAllBusinessProfiles={fetchAllBusinessProfiles}
+        fetchAllBusinessProfiles={fetchAllBusinessProfiles}
         open={openModal}
         handleClose={handleCloseBusinessModal}
       />

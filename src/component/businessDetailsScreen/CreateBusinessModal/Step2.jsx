@@ -38,22 +38,28 @@ const Step2 = ({ handleStep, handleClose, loading }) => {
       <PrimaryModalHeader>
         <>Add Business | Locations</>
       </PrimaryModalHeader>
-      {/* <div className="mb-3 flex gap-4 items-center">
+      <div className="mb-3 flex gap-4 items-center">
         <h1 className="text-base font-semibold">Number of locations</h1>
         <div>
           <select
             className="secondary-select w-16 !border !text-sm !p-[2px] "
             name="type"
+            disabled
+            onChange={() => {
+
+            }}
+            value={values.locations.length}
           >
-            <option>1</option>
-            <option value={"business_event"}>2</option>
-            <option value={"social_event"}>3</option>
+            <option value={1}>1</option>
+            <option value={2}>2</option>
+            <option value={3}>3</option>
+            <option value={values.locations.length}>{values.locations.length}</option>
           </select>
         </div>
         <h1 className="text-lg font-bold text-[#45818E]">
           $720 <span className="font-semibold text-base">/year</span>
         </h1>
-      </div> */}
+      </div>
       <div>
         <FieldArray
           name="locations"
@@ -236,7 +242,9 @@ const Step2 = ({ handleStep, handleClose, loading }) => {
             inputClass={"min-w-[100px]"}
             onClick={() => {
               handleSubmit();
-              handleCheckError()
+      handleStep(INC);
+
+              // handleCheckError()
               // handleStep(INC)
             }}
           >

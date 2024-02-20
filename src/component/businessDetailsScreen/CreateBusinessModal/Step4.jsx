@@ -58,7 +58,7 @@ const Step4 = ({ handleStep, handleClose }) => {
       </div>
       <div className="flex justify-between items-center mt-3">
         <div>
-          {true ? (
+          {false ? (
             <SecondaryButton onClick={() => handleClose()}>
               <>Cancel</>
             </SecondaryButton>
@@ -76,7 +76,7 @@ const Step4 = ({ handleStep, handleClose }) => {
             onClick={() => handleStep(INC)}
             // onClick={formik.handleSubmit}
           >
-            <span>Next</span>
+            <span>Save</span>
             <ChevronRightIcon className="!text-white" />
           </PrimaryButton>
         </div>
