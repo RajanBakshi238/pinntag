@@ -2,6 +2,8 @@ import React from "react";
 import Image from "../image";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { Link } from "react-router-dom";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 
 const ListView = ({ setEventId, data, deleteEvent }) => {
   return (
@@ -25,6 +27,9 @@ const ListView = ({ setEventId, data, deleteEvent }) => {
                       </th>
                       <th scope="col" class=" px-6 py-2 text-white">
                         STATUS
+                      </th>
+                      <th scope="col" class=" px-6 py-2 text-white">
+                        VIEW
                       </th>
                       <th scope="col" class=" px-6 py-2 text-white">
                         EDIT
@@ -56,6 +61,14 @@ const ListView = ({ setEventId, data, deleteEvent }) => {
                           </td>
                           <td class="whitespace-nowrap font-semibold px-6 py-2">
                             {item.status}
+                          </td>
+                          <td class="whitespace-nowrap font-semibold px-6 py-2">
+                            <Link to={`/dashboard/content/${item._id}`}>
+                              <RemoveRedEyeIcon
+                                // onClick={() => setEventId(items._id)}
+                                className="p-1 rounded-full cursor-pointer !text-white bg-black"
+                              />
+                            </Link>
                           </td>
                           <td class="whitespace-nowrap  px-6 py-2">
                             <EditIcon
