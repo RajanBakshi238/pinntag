@@ -51,8 +51,8 @@ const CardView = ({ data, setEventId, deleteEvent }) => {
                   {/* max-w-full w-[50%] object-contain */}
                 </div>
                 <div className="w-full p-2 bg-black">
-                  <Text className="font-bold text-white">
-                    {items.description}
+                  <Text className="font-bold text-white truncate">
+                    {items.title}
                   </Text>
                 </div>
               </div>
