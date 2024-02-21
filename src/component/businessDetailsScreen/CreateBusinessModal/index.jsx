@@ -15,6 +15,7 @@ const PHONE_REGX =
 
 const CreateBusinessModal = ({
   open,
+  subscriptionData,
   handleClose,
   fetchAllBusinessProfiles,
 }) => {
@@ -98,7 +99,6 @@ const CreateBusinessModal = ({
     },
     validationSchema,
     onSubmit: async (values) => {
-
       setLoading(true);
       const formData = new FormData();
       formData.append("photo", values.businessImage);
@@ -111,6 +111,7 @@ const CreateBusinessModal = ({
         const res = await postDatatemp("business-profile/create", {
           ...values,
           profilePhoto: photoRes.data?.url,
+          subscriptionType: values?.subscriptionType ? "monthly" : "yearly",
         });
         if (res.data) {
           enqueueSnackbar(photoRes.data.message ?? "", {
@@ -164,15 +165,24 @@ const CreateBusinessModal = ({
                 handleStep={handleStep}
                 loading={loading}
                 handleClose={handleCloseModal}
+                subscriptionData={subscriptionData}
               />
             </>
           ) : currentStep === 3 ? (
             <>
-              <Step3 handleStep={handleStep} handleClose={handleCloseModal} />
+              <Step3
+                handleStep={handleStep}
+                handleClose={handleCloseModal}
+                subscriptionData={subscriptionData}
+              />
             </>
           ) : currentStep === 4 ? (
             <>
-              <Step4 handleStep={handleStep} handleClose={handleCloseModal} />
+              <Step4
+                handleStep={handleStep}
+                handleClose={handleCloseModal}
+                subscriptionData={subscriptionData}
+              />
             </>
           ) : (
             <></>

@@ -6,8 +6,12 @@ import PrimaryModalHeader from "../../../common/UiElements/PrimaryModalHeader";
 import SecondaryButton from "../../../common/FormElements/Button/SecondaryButton";
 import { DEC, INC } from "../../../utils/constants/commonConstants";
 import PrimaryButton from "../../../common/FormElements/Button/PrimaryButton";
+import { useFormikContext } from "formik";
 
-const Step4 = ({ handleStep, handleClose }) => {
+const Step4 = ({ handleStep, handleClose, subscriptionData }) => {
+  
+  const {values} = useFormikContext() 
+  
   return (
     <div>
       <PrimaryModalHeader inputClass="!mb-2">
@@ -15,7 +19,7 @@ const Step4 = ({ handleStep, handleClose }) => {
       </PrimaryModalHeader>
       <p className="text-sm mb-3">
         Your credit card will be billed{" "}
-        <span className="font-bold">$720 every year </span> on the first day of
+        <span className="font-bold">${subscriptionData?.price * values?.locations?.length } every year </span> on the first day of
         the month. Note that you can cancel at any time and the pro-rated amount
         will be refunded to your account.
       </p>
@@ -73,7 +77,7 @@ const Step4 = ({ handleStep, handleClose }) => {
           <PrimaryButton
             // loading={loading}
             inputClass={"min-w-[100px]"}
-            onClick={() => handleStep(INC)}
+            onClick={() => handleClose()}
             // onClick={formik.handleSubmit}
           >
             <span>Save</span>

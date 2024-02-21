@@ -5,11 +5,16 @@ import { getDataTemp } from "../../utils/api";
 import PrimaryButton from "../../common/FormElements/Button/PrimaryButton";
 import { Add } from "@mui/icons-material";
 import CreateBusinessModal from "../../component/businessDetailsScreen/CreateBusinessModal";
+import classNames from "classnames";
 
 const BuisnessDetails = () => {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [subscriptionData, setSubscriptionData] = useState();
+  const [selectSub, setSelectSub] = useState(0);
+
+  console.log(subscriptionData, ">>>>> subscriptionData");
 
   const fetchAllBusinessProfiles = async () => {
     setLoading(true);
@@ -22,8 +27,20 @@ const BuisnessDetails = () => {
     setLoading(false);
   };
 
+  const fetchAllSubscriptionProduct = async () => {
+    setLoading(true);
+    const res = await getDataTemp("subscription/products");
+    if (res.data) {
+      setSubscriptionData(res.data);
+    } else {
+      console.log(res, "Error while fetching business profiles");
+    }
+    setLoading(false);
+  };
+
   useEffect(() => {
     fetchAllBusinessProfiles();
+    fetchAllSubscriptionProduct();
   }, []);
 
   const handleOpenBusinessModal = () => {
@@ -37,34 +54,45 @@ const BuisnessDetails = () => {
   return (
     <>
       <div className="">
-        <div className="mx-12 my-4">
-          {/* @todo make below code into seprater component */}
-          <Text className="text-[24px] mob:text-[16px] font-bold mb-2">
-            Simple, Transparent Plans
-          </Text>
+        {subscriptionData && (
+          <div className="mx-12 my-4">
+            {/* @todo make below code into seprater component */}
+            <Text className="text-[24px] mob:text-[16px] font-bold mb-2">
+              Simple, Transparent Plans
+            </Text>
 
-          <div className="flex gap-5 h-fit">
-            <div className="text-black w-[180px] py-2 px-4 rounded-xl text-center border-2 border-black bg-primary">
-              <h1 className="text-lg font-bold ">Yearly</h1>
-              <p className="text-base">Recommended</p>
-
-              <h1 className="mt-4 font-bold text-xl text-[#666]">$ 360</h1>
-              <p className="text-[#666] font-semibold text-base leading-4 ">
-                Per business location
-              </p>
-            </div>
-            <div className="text-black flex flex-col items-center justify-center w-[180px] py-2 px-4 rounded-xl text-center border-2 border-black bg-[#c1c0c0] h-auto">
-              <h1 className="text-lg font-bold ">Monthly</h1>
-              <p className="text-base"></p>
-              <div className="mt-auto">
-                <h1 className="mt-4 font-bold text-xl text-[#666]">$ 39.99</h1>
-                <p className="text-[#666] font-semibold text-base leading-4">
-                  Per business location
-                </p>
-              </div>
+            <div className="flex gap-5 h-fit">
+              {subscriptionData?.data?.map((data, index) => {
+                return (
+                  <div
+                    key={index}
+                    onClick={() => setSelectSub(index)}
+                    className={classNames([
+                      "text-black cursor-pointer flex flex-col items-center justify-center w-[180px] py-2 px-4 rounded-xl text-center border-2 border-black h-auto",
+                      {
+                        "bg-[#c1c0c0]": index !== selectSub,
+                        "bg-primary": index === selectSub,
+                      },
+                    ])}
+                  >
+                    <h1 className="text-lg font-bold capitalize ">
+                      {data?.durationType}
+                    </h1>
+                    <p className="text-base"></p>
+                    <div className="mt-auto flex items-center flex-1 flex-col gap-1">
+                      <h1 className="mt-4 font-bold text-xl text-[#666]">
+                        $ {data?.price}
+                      </h1>
+                      <p className="text-[#666] font-semibold text-base leading-4">
+                        {data?.description}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
-        </div>
+        )}
 
         <div className="mx-12 my-4 flex justify-between">
           <Text className="mt-3 text-[24px] mob:text-[16px] font-bold">
@@ -79,6 +107,7 @@ const BuisnessDetails = () => {
         <BusinessDetailTable data={data} loader={loading} />
       </div>
       <CreateBusinessModal
+        subscriptionData={subscriptionData?.data?.[selectSub]}
         fetchAllBusinessProfiles={fetchAllBusinessProfiles}
         open={openModal}
         handleClose={handleCloseBusinessModal}

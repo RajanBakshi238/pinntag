@@ -13,7 +13,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import "react-phone-input-2/lib/material.css";
 import { useFormikContext } from "formik";
 
-const Step2 = ({ handleStep, handleClose, loading }) => {
+const Step2 = ({ handleStep, handleClose, loading,subscriptionData }) => {
 
   const { values, handleChange, handleBlur, setFieldValue, handleSubmit, errors } =
     useFormikContext();
@@ -57,7 +57,8 @@ const Step2 = ({ handleStep, handleClose, loading }) => {
           </select>
         </div>
         <h1 className="text-lg font-bold text-[#45818E]">
-          $720 <span className="font-semibold text-base">/year</span>
+        {values.locations.length *  subscriptionData?.price}  <span className="font-semibold text-base">/{subscriptionData?.durationType
+        }</span>
         </h1>
       </div>
       <div>
@@ -242,7 +243,7 @@ const Step2 = ({ handleStep, handleClose, loading }) => {
             inputClass={"min-w-[100px]"}
             onClick={() => {
               handleSubmit();
-      handleStep(INC);
+      // handleStep(INC);
 
               // handleCheckError()
               // handleStep(INC)
