@@ -1,5 +1,4 @@
 import React from "react";
-import { socialMediaPost } from "../../contentmanagement/sidepanal";
 import { DeleteOutline, EditOutlined } from "@mui/icons-material";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import Image from "../image";

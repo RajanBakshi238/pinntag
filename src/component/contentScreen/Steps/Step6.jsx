@@ -20,15 +20,24 @@ const Step6 = ({
     twitter: false,
     instagram: false,
   });
+
+  const [saveTemplate, setSaveTemplate] = useState(false);
+
   const handlePublishPost = async () => {
-    const res = await postData(`event/social/post`, {
-      eventId: id,
-      ...postBoolean,
+    // const res = await postData(`event/social/post`, {
+    //   eventId: id,
+    //   ...postBoolean,
+    // }); // facebook api
+    const res = await postData("event/publish/toggle", {
+      id,
+      saveAsTemplate: saveTemplate,
     });
     if (res.data) {
+      fetchAllEvents();
       enqueueSnackbar(res.data.message ?? "", {
         variant: "success",
       });
+
       handleClose();
     } else {
       enqueueSnackbar(
@@ -86,8 +95,18 @@ const Step6 = ({
             <>Back</>
           </SecondaryButton>
         </div>
-        <div>
+        <div className="flex gap-3">
           {/* handleStep(INC) */}
+
+          <div>
+            <CheckBox
+              label="Save as template"
+              // name="facebook"
+              onChange={(e) => {
+                setSaveTemplate(e.target.checked);
+              }}
+            />
+          </div>
           <PrimaryButton
             // loading={loading}
             inputClass={"min-w-[100px]"}
