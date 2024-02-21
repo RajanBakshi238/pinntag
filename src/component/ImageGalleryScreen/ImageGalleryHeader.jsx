@@ -11,6 +11,10 @@ const ImageGalleryHeader = ({ fetchImage }) => {
 
   const handleSubmit = async (event) => {
     const file = event.target.files[0];
+    uploadFile(file);
+  };
+
+  const uploadFile = async (file) => {
     if (file) {
       if (file.type.startsWith("image/")) {
         setLoading(true);
@@ -45,6 +49,22 @@ const ImageGalleryHeader = ({ fetchImage }) => {
     }
   };
 
+  const handleDrop = (e) => {
+    e.preventDefault();
+    // setDragging(false);
+    const file = [...e.dataTransfer.files];
+    uploadFile(file[0]);
+  };
+
+  function handleDragEnter(e) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <div className="my-4 mx-12">
       <div className="flex justify-between items-center">
@@ -54,7 +74,12 @@ const ImageGalleryHeader = ({ fetchImage }) => {
           </Text>
         </div>
 
-        <div className="flex justify-between items-center gap-3">
+        <div
+          className="flex justify-between items-center gap-3"
+          onDrop={handleDrop}
+          onDragEnter={handleDragEnter}
+          onDragOver={handleDragOver}
+        >
           <div>
             <input
               id="businessImage"
