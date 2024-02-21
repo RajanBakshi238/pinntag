@@ -34,7 +34,7 @@ const Step1 = ({
   const [categories, setCategories] = useState();
   // const [keywords, setkeywords] = useState([]);
   const [loading, setLoading] = useState(false);
-
+  const [templates, setTemplates] = useState();
   const initState = {
     type: "",
     title: "",
@@ -58,10 +58,10 @@ const Step1 = ({
         // keywords: eventData.keywords.map((event) => {
         //   return keywords.find(({ _id }) => event === _id);
         // }),
-        keywords: 
+        keywords:
           typeof eventData.keywords === "string"
             ? JSON.parse(eventData.keywords)
-            :  eventData.keywords,
+            : eventData.keywords,
         images: eventData?.images,
         imageUrls: eventData?.images?.map(({ url }) => url),
       });
@@ -72,6 +72,15 @@ const Step1 = ({
     const res = await getData("categories");
     if (res.data) {
       setCategories(res.data.categories);
+    } else {
+      console.error("Something went error", res);
+    }
+  };
+
+  const getTemplates = async () => {
+    const res = await getData("event/templates");
+    if (res.data) {
+      setTemplates(res.data.events);
     } else {
       console.error("Something went error", res);
     }
@@ -89,6 +98,7 @@ const Step1 = ({
 
   useEffect(() => {
     getCategories();
+    getTemplates();
     // getKeywords();
   }, []);
 
@@ -265,14 +275,17 @@ const Step1 = ({
       <FormikProvider value={formik}>
         <Form>
           {/* <Form> */}
-          {/* <div className="mb-3">
-        <select className="secondary-select w-full" placeholder="Category">
-          <option>Create from Template</option>
-          <option>category1</option>
-          <option>category1</option>
-          <option>category1</option>
-        </select>
-      </div> */}
+          <div className="mb-3">
+            <select className="secondary-select w-full" placeholder="Category">
+              <option>Create from Template</option>
+              {templates?.map((template, index) => {
+                return <option value={template?._id}>{template?.title}</option>;
+              })}
+
+              {/* <option>category1</option>
+              <option>category1</option> */}
+            </select>
+          </div>
           <div className="mb-4">
             <select
               className="secondary-select w-full"
