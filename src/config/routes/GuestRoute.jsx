@@ -4,15 +4,17 @@ import { Navigate } from "react-router-dom";
 import PrimaryLoader from "../../common/Loader/PrimaryLoader";
 
 const GuestRoute = ({ element }) => {
-  const { user, isLoadingUser } = useAuthentication();
+  const { user, isLoadingUser, businessUser } = useAuthentication();
 
   if (isLoadingUser) {
     return <PrimaryLoader />;
   }
 
-  if (user) {
+  if (user && !businessUser) {
     return <Navigate to="/dashboard/business-details" />;
-  } else {
+  } else if(businessUser && user){
+    return <Navigate to="/dashboard/image-gallery" />
+  }else {
     return element;
   }
 };

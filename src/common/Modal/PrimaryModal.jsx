@@ -16,7 +16,7 @@ const PrimaryModal = ({ open, handleClose, children, modalClass }) => {
           modalClass,
         ])}
       >
-        <div className="py-2 pr-5 overflow-auto h-full">{children}</div>
+        <div className="py-2 pr-5 overflow-auto h-full image-vertical-scroll">{children}</div>
       </div>
     </Modal>
   );

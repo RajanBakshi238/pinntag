@@ -15,14 +15,13 @@ const BusinessHeader = ({handleOpen}) => {
           </div>
 
           <div className="flex justify-between items-center gap-3">
-            <div className="">
+            {/* <div className="">
               <div class="relative text-gray-600 focus-within:text-gray-400 border-2 rounded-md border-[#595959]">
                 <input
                   type="search"
                   name="q"
                   class="py-1 text-sm text-[#595959] bg-white rounded-md pl-2 focus:outline-none focus:bg-white focus:text-gray-900"
                   placeholder="Search"
-                  autocomplete="off"
                 />
                 <span class="absolute inset-y-0 right-2 flex items-center pl-2">
                   <button
@@ -46,7 +45,7 @@ const BusinessHeader = ({handleOpen}) => {
             </div>
             <div>
               <FilterAlt fontSize="large" className="text-[#595959]" />
-            </div>
+            </div> */}
             <div>
               {/* @tobe make it common button */}
               <div

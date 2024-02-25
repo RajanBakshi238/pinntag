@@ -62,7 +62,6 @@ const ContentHeader = ({ handleOpen, toggleCardView, cardView }) => {
                   name="q"
                   class="py-1 text-sm text-[#595959] bg-white rounded-md pl-2 focus:outline-none focus:bg-white focus:text-gray-900"
                   placeholder="Search"
-                  autocomplete="off"
                 />
                 <span class="absolute inset-y-0 right-2 flex items-center pl-2">
                   <button

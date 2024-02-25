@@ -1,4 +1,4 @@
-import { axiosInstance } from "../config/axiosInstance";
+import { axiosInstance, axiosTempInstance } from "../config/axiosInstance";
 
 export const getData = async (END_POINT) => {
   let response;
@@ -14,6 +14,36 @@ export const getData = async (END_POINT) => {
   };
 };
 
+export const getDataTemp = async (END_POINT) => {
+  let response;
+  try {
+    response = await axiosTempInstance.get(END_POINT);
+  } catch (err) {
+    response = err;
+  }
+
+  return {
+    data: response?.data,
+    error: response?.response?.data,
+  };
+};
+
+export const postDatatemp = async (END_POINT, body) => {
+  let response;
+  try {
+    response = await axiosTempInstance.post(END_POINT, body);
+  } catch (err) {
+    response = err;
+  }
+
+  // console.log(response, ">>>")
+
+  return {
+    data: response?.data,
+    error: response?.response?.data,
+  };
+};
+
 export const postData = async (END_POINT, body) => {
   let response;
   try {
@@ -22,7 +52,7 @@ export const postData = async (END_POINT, body) => {
     response = err;
   }
 
-  console.log(response, ">>>")
+  // console.log(response, ">>>")
 
   return {
     data: response?.data,
@@ -40,7 +70,35 @@ export const putData = async (END_POINT, body) => {
 
   return {
     data: response?.data,
-    error: response?.data?.error,
+    error: response?.response?.error,
+  };
+};
+
+export const putDataTemp = async (END_POINT, body) => {
+  let response;
+  try {
+    response = await axiosTempInstance.put(END_POINT, body);
+  } catch (err) {
+    response = err;
+  }
+
+  return {
+    data: response?.data,
+    error: response?.response?.error,
+  };
+};
+
+export const patchDataTemp = async (END_POINT, body) => {
+  let response;
+  try {
+    response = await axiosTempInstance.patch(END_POINT, body);
+  } catch (err) {
+    response = err;
+  }
+
+  return {
+    data: response?.data,
+    error: response?.response?.data,
   };
 };
 
@@ -51,11 +109,8 @@ export const deleteData = async (END_POINT) => {
   } catch (err) {
     response = err;
   }
-
   return {
     data: response?.data,
-    error: response?.data?.error,
+    error: response?.response?.error,
   };
 };
-
-

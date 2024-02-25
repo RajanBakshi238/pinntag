@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { getData } from "../utils/api";
+import { getData, getDataTemp } from "../utils/api";
 import { enqueueSnackbar } from "notistack";
+import { getBusinessProfile } from "../utils/localStorage";
 
 export const AuthContext = createContext();
 // export const AuthContext = createContext({
@@ -23,15 +24,24 @@ export const useAuthentication = () => {
 export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState();
+  const [businessUser, setBusinessUser] = useState();
 
   const fetchUserDetails = async () => {
-    const res = await getData("user/profile");
+    const res = await getDataTemp("user/profile");
+    const selectedBusinsess = getBusinessProfile();
+    const businessResponse = await getData(
+      `business-profile/${selectedBusinsess?.businessProfile?._id}?`
+    );
+    if (businessResponse?.data) {
+      setBusinessUser(businessResponse?.data);
+    }
+
     if (res.data) {
       setUser(res.data);
     } else if (res.error) {
-      enqueueSnackbar(res.error?.message ?? "Something went wrong", {
-        variant: "error",
-      });
+      // enqueueSnackbar(res.error?.message ?? "Something went wrong", {
+      //   variant: "error",
+      // });
     }
     setLoading(false);
   };
@@ -42,7 +52,14 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user: user, setUser: setUser, isLoadingUser: loading }}
+      value={{
+        user: user,
+        setUser: setUser,
+        isLoadingUser: loading,
+        businessUser,
+        setBusinessUser,
+        fetchUserDetails
+      }}
     >
       {children}
     </AuthContext.Provider>

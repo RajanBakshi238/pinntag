@@ -2,12 +2,21 @@ import React from "react";
 import { Link } from "react-router-dom";
 import GuestRoute from "./GuestRoute";
 import BusinessDetailEdit from "../../page/businessDetailEdit";
+import SignUp from "../../page/signup";
+const PaymentHistory = React.lazy(() =>
+  import("../../page/payment/PaymentHistory")
+);
+const PaymentMethod = React.lazy(() =>
+  import("../../page/paymentMethod/PaymentMethod")
+);
 const Layout = React.lazy(() => import("./../../common/layout"));
 const BuisnessDetails = React.lazy(() => import("../../page/buisnessdetails"));
 const Content = React.lazy(() => import("../../page/content"));
+const ViewEvent = React.lazy(() => import("../../page/viewEvent"));
 const Imagegallery = React.lazy(() => import("../../page/imagegallery"));
 const Buisnessuser = React.lazy(() => import("../../page/buisnessuser"));
 const Login = React.lazy(() => import("../../page/login"));
+const EditUserDetails = React.lazy(() => import("../../page/editUserDetails"));
 const RoleProtectedRoute = React.lazy(() => import("./RoleProtectedRoute"));
 
 export const PATHS = {
@@ -28,23 +37,49 @@ export const routeslist = [
         path: "login",
         element: <Login />,
       },
+      {
+        path: "signup",
+        element: <SignUp />,
+      },
     ],
   },
   {
     path: "/dashboard",
-    element: <RoleProtectedRoute element={<Layout />} />,
+    element: <RoleProtectedRoute element={<Layout />} module="user" />,
     children: [
       {
         path: "business-details",
         element: <BuisnessDetails />,
       },
       {
-        path: "edit-business-details/:id",
+        path: "edit-user",
+        element: <EditUserDetails />,
+      },
+      {
+        path: "payment-history",
+        element: <PaymentHistory />,
+      },
+      {
+        path: "payment-method",
+        element: <PaymentMethod />,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: <RoleProtectedRoute element={<Layout />} module="business" />,
+    children: [
+      {
+        path: "edit-business-details",
         element: <BusinessDetailEdit />,
       },
       {
         path: "content",
         element: <Content />,
+      },
+      {
+        path: "content/:id",
+        element: <ViewEvent />,
       },
       {
         path: "image-gallery",
